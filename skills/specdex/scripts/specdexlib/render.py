@@ -121,8 +121,8 @@ def status_text(s: dict) -> str:
     roles = ", ".join(f"{k} {v}" for k, v in sorted(s["roles"].items()))
     binding = s["binding"]
     lines = [
-        f"mode {s['mode']} · generation {s['generation']} · profile {s['profile']} ({binding['state']})",
-        f"overlay {s['overlay'] or 'none'}",
+        f"mode {s['mode']} · generation {s['generation']} · profile {s['profile']} ({binding['state']}; {s['profile_reason']})",
+        f"records {_records_source(s)} · legacy overlay {s['overlay'] or 'none'}",
         f"files {s['files']}: {roles}",
         f"verify {s['verify_ms']} ms · update {s['update_ms']} ms · reindexed {s['reindexed']} file(s)",
     ]
@@ -131,6 +131,13 @@ def status_text(s: dict) -> str:
     for d in s["diagnostics"]:
         lines.append(f"diagnostic {d['code']} ({d['severity']}): {d['n']}")
     return "\n".join(lines)
+
+
+def _records_source(s: dict) -> str:
+    """Where the specs of record come from: the records setting for the types it names, else the active
+    initiative's folder, else one document per type."""
+    default = s["current_scope"] or "by type"
+    return f"setting ({s['records_setting']} file(s)), other types {default}" if s["records_setting"] else default
 
 
 def grouped_locations(items: list[tuple[str, str]]) -> list[str]:

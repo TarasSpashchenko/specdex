@@ -7,6 +7,18 @@ id = "bmad-6.13.0-next"
 release = 1
 supports = "dated-v6 planning folders + preview ticket tree"
 
+# Profile selection when --profile is not given (see profile-bmad-v7.toml): the dated v6 planning folders.
+[detect]
+order = 2
+globs = [
+  "{planning_artifacts}/prds/prd-*/prd.md",
+  "{planning_artifacts}/briefs/brief-*/brief.md",
+  "{planning_artifacts}/ux-designs/ux-*/DESIGN.md",
+  "{planning_artifacts}/architecture/architecture-*/ARCHITECTURE-SPINE.md",
+  "{planning_artifacts}/*prd*/index.md",   # sharded: still v6, reported as unsupported-layout
+  "{output_folder}/specs/spec-*/SPEC.md",
+]
+
 # Installed files this profile was derived from. A missing or different file marks results "profile unverified".
 [binding]
 skill_roots = [".agents/skills", ".claude/skills"]
@@ -30,9 +42,14 @@ unsupported = [
 ]
 
 [config]
-files = ["_bmad/config.toml", "_bmad/custom/config.toml", "_bmad/custom/config.user.toml"]
 variables = { output_folder = "core.output_folder", planning_artifacts = "modules.bmm.planning_artifacts", implementation_artifacts = "modules.bmm.implementation_artifacts" }
 defaults = { output_folder = "{project-root}/_bmad-output", planning_artifacts = "{output_folder}/planning-artifacts", implementation_artifacts = "{output_folder}/implementation-artifacts" }
+
+# Default families per coverage view (the project's coverage setting overrides each view).
+[coverage]
+tickets = ["FR"]
+architecture = ["FR"]
+ux = ["UJ"]
 
 [scan]
 roots = ["{output_folder}"]
@@ -283,4 +300,4 @@ entry = '^- (?:\((?P<type>[\w-]+)(?: by (?P<who>[^)]+))?\) )?(?P<text>.*)$'
 [[validator]]
 name = "lint_spine"
 artifact = "architecture-spine"
-command = ["python3", "{skill_root}/bmad-architecture/scripts/lint_spine.py", "--workspace", "{workspace}"]
+command = ["{python}", "{skill_root}/bmad-architecture/scripts/lint_spine.py", "--workspace", "{workspace}"]

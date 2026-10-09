@@ -1,0 +1,40 @@
+# specdex project settings. Override them in {project-root}/_bmad/custom/specdex.toml (team, committed) or
+# specdex.user.toml (personal); use the bmad-customize skill to write them. Arrays of tables carry `id`, so a later
+# layer replaces an item with the same id and appends the rest. Every key is optional.
+[workflow]
+# Specs of record, deciding only the document types they name (other types follow the active initiative); paths may
+# use {output_folder} and {active_initiative} (an unset initiative drops its segment).
+records = []
+# ID families the project adds: id (the family name), pattern (with a named group "key"), key (int | alpha), owner
+# (artifact types, highest priority first), scope (project | document), kind (id | token | term).
+family = []
+# Where a family is defined: id, family, artifact, shape (heading | item-lead | row-key | yaml-tokens | item-lead-term), section.
+define = []
+# Sections that elaborate IDs defined elsewhere: id, families, artifact, section, shape (heading | row-key | row-any).
+elaborate = []
+# Positional child IDs (FR-n.k list items): id, family, container (after-marker | first-list), marker, source.
+positional = []
+# Text inside a record that is history, not a current requirement: id, artifact, section, label, rows, disposition_column.
+historical = []
+# Files the PRD overrides: id, path, by, except_sections.
+superseded = []
+# Roles for supporting files: id, glob, role (rationale | trail). A match outranks the profile's rationale and trail
+# defaults (memlogs and tickets keep theirs); the first matching rule wins, so put specific globs first.
+role = []
+# Declared copies of one document: id, paths (canonical first).
+replica = []
+# Provisionality markers: id, name, pattern.
+marker = []
+# Extra artifact rules, checked before the profile's: id, type, glob, kind, scope, main.
+artifact = []
+
+# ID aliases (old id = new id).
+[workflow.aliases]
+# Which ID families each coverage view counts (profile default: tickets and architecture FR, ux UJ).
+[workflow.coverage]
+# Words that name a document in "<doc> §n" references, e.g. "nfr catalog" = ["prd-addendum"].
+[workflow.doc_aliases]
+# Frontmatter `type` values that refine a path-based artifact type.
+[workflow.frontmatter_types]
+# Design-token options: bare_backtick (`colors.primary` without braces counts as a token reference).
+[workflow.tokens]

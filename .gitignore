@@ -5,3 +5,5 @@ __pycache__/
 .idea/
 # rebuildable eval index caches
 *.sqlite
+# local, unpublishable evaluation material (e.g. Barracuda gold sets and results)
+eval/local/

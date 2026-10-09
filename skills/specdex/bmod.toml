@@ -1,11 +1,16 @@
+# Both tables in one file: this folder is the specdex module and its one skill.
+
 [bmod]
 code = "specdex"
-version = "0.1.0"
-# file: until a remote exists; then github:<owner>/specdex/skills
+version = "0.2.0"
+# file: until the repository is published; then github:<owner>/specdex/skills
 update_source = "file:/home/taras_spashchenko/TS/ts/specdex/skills"
 skills = ["specdex"]
+required_skills = [{ skill = "bmad", version = "6.13.0", source = "github:bmad-code-org/BMAD-METHOD/skills" }]
+pre_install_message = ""
+post_install_message = """specdex is installed. Ask any question that depends on what the project's specs say or where; it answers read-only, with path:line citations.
+Project settings (extra ID families, records, historical sections) go in _bmad/custom/specdex.toml; the bmad-customize skill writes them."""
 
-# A one-skill module: this file is both the record and the skill. With [bmod]
-# present, BMad ignores [skill].bmod/.source, and no scripts are declared because
-# specdex runs from its skill folder rather than from _bmad/specdex/scripts/.
+# Empty on purpose: the record is in this file, so the module's one skill is this folder. No scripts are declared:
+# specdex runs from its skill folder, not from _bmad/specdex/scripts/.
 [skill]

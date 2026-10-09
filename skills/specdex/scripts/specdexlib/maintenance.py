@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
+import sys
 from collections import defaultdict
 from dataclasses import dataclass, field
 
@@ -143,13 +144,13 @@ def _run_validators(q: Queries, report: LintReport) -> list[Finding]:
         for path, info in q.files.items():
             if info["artifact"] != validator["artifact"] or info["role"] not in ("record", "ambiguous"):
                 continue
-            workspace = str((config.project_root / path).parent)
-            command = [part.replace("{skill_root}", str(script[1])).replace("{workspace}", workspace) for part in validator["command"]]
+            command = _validator_command(validator["command"], script[1], (config.project_root / path).parent)
             try:
                 done = subprocess.run(command, capture_output=True, text=True, timeout=VALIDATOR_TIMEOUT_S)
                 data = json.loads(done.stdout)
                 findings_field = data.get("findings", []) if isinstance(data, dict) else None
-                if (done.returncode != 0 or findings_field is None or data.get("ok") is False
+                # lint_spine reports "ok": false whenever it has findings; only ok:false without findings is a failure.
+                if (done.returncode != 0 or findings_field is None or data.get("error") or (data.get("ok") is False and not findings_field)
                         or not isinstance(findings_field, list) or not all(isinstance(item, dict) for item in findings_field)):
                     raise ValueError((data.get("error") if isinstance(data, dict) else None) or f"exit {done.returncode}, output {type(data).__name__}")
             except (OSError, subprocess.TimeoutExpired, ValueError) as error:  # JSONDecodeError is a ValueError
@@ -161,6 +162,18 @@ def _run_validators(q: Queries, report: LintReport) -> list[Finding]:
                 findings.append(Finding(f"{validator['name']}:{item.get('category')}", item.get("severity", "medium"), path,
                                         _line_of(item.get("location")), item.get("detail", ""), validator["name"]))
     return findings
+
+
+def _validator_command(template: list[str], skill_root, workspace) -> list[str]:
+    """The validator's command line. Python runs isolated (-I): the script's own folder, which is project files,
+    must not shadow the standard library modules it imports; the hash pin covers only the script itself."""
+    command = []
+    for part in template:
+        if part == "{python}":
+            command += [sys.executable, "-I"]
+        else:
+            command.append(part.replace("{skill_root}", str(skill_root)).replace("{workspace}", str(workspace)))
+    return command
 
 
 def _why_not_run(config, mode: str, script, skill_root) -> str | None:

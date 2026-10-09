@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import posixpath
 import shutil
 import sqlite3
 import statistics
@@ -28,20 +29,20 @@ from typing import Callable
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
-LAUNCHER = REPO / "skills" / "specdex" / "scripts" / "specdex.py"
-CORPUS = REPO / "eval" / "corpora" / "tamagai-2026-10-04"
-OVERLAY = HERE / "overlay.toml"
-RESULTS = HERE / "results" / "layer-b.json"
+sys.path.insert(0, str(HERE))
+import corpus_select  # noqa: E402
 
-PA = "_bmad-output/planning-artifacts"
-PRD_DIR = f"{PA}/prds/prd-tamagai-2026-09-29"
-PRD = f"{PRD_DIR}/prd.md"
-ADDENDUM = f"{PRD_DIR}/addendum.md"
-DESIGN = f"{PA}/ux-designs/ux-tamagai-2026-09-30/DESIGN.md"
-EXPERIENCE = f"{PA}/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md"
-SPINE_DIR = f"{PA}/architecture/architecture-tamagai-2026-10-03"
-SPINE = f"{SPINE_DIR}/ARCHITECTURE-SPINE.md"
-SHARED_EXPERIENCE = "_bmad-output/shared/EXPERIENCE.md"
+C = corpus_select.load()
+LAUNCHER = REPO / "skills" / "specdex" / "scripts" / "specdex.py"
+CORPUS = C.CORPUS
+OVERLAY = C.LAYER_B_OVERLAY
+CORPUS_SETTINGS = getattr(C, "CORPUS_SETTINGS", None)   # dropped from each copy: the overlay carries the settings
+RESULTS = C.RESULTS / "layer-b.json"
+
+PRD_DIR, PRD, ADDENDUM = C.PRD_DIR, C.PRD, C.ADDENDUM
+DESIGN, EXPERIENCE = C.DESIGN, C.EXPERIENCE
+SPINE_DIR, SPINE = C.SPINE_DIR, C.SPINE
+SHARED_EXPERIENCE = C.SHARED_EXPERIENCE
 
 WARM_CALLS = 30
 P95 = 0.95
@@ -76,6 +77,8 @@ class Workspace:
         home = base / name
         self.root = home / "project"
         shutil.copytree(CORPUS, self.root, symlinks=True)
+        if CORPUS_SETTINGS:
+            (self.root / CORPUS_SETTINGS).unlink(missing_ok=True)
         self.db = home / "index.sqlite"
         self.overlay = home / "overlay.toml" if overlay else None
         if self.overlay:
@@ -240,9 +243,7 @@ status: draft
 - **CAP-1** — {capability}
 - **CAP-2** — Reports progress; it depends on CAP-1.
 """
-SPEC_A = "_bmad-output/specs/spec-alpha/SPEC.md"
-SPEC_B = "_bmad-output/specs/spec-beta/SPEC.md"
-SPECS_README = "_bmad-output/specs/README.md"
+SPEC_A, SPEC_B, SPECS_README = C.SPEC_A, C.SPEC_B, C.SPECS_README
 
 
 def same_id_scopes(lab: Lab) -> Outcome:
@@ -263,8 +264,8 @@ def same_id_scopes(lab: Lab) -> Outcome:
                                       f"in-folder citations {inside}; README citation {outside}; lint flagged {len(flagged)}")
 
 
-EPIC_SPINE = f"{PA}/architecture/architecture-epic-pairing/ARCHITECTURE-SPINE.md"
-EPIC_TEXT = """---
+EPIC_SPINE = C.EPIC_SPINE
+EPIC_TEXT = f"""---
 name: 'Pairing epic'
 type: architecture-spine
 altitude: epic
@@ -279,8 +280,8 @@ companions: []
 
 | Inherited | From parent | Binds here |
 | --- | --- | --- |
-| AD-3 | architecture-tamagai-2026-10-03 | pairing screens |
-| AD-34 | architecture-tamagai-2026-10-03 | parent actions |
+| AD-3 | {C.SPINE_NAME} | pairing screens |
+| AD-34 | {C.SPINE_NAME} | parent actions |
 
 ## Invariants & Rules
 
@@ -321,7 +322,7 @@ def missing_companion(lab: Lab) -> Outcome:
     return Outcome(control, bool(found), found[0]["detail"] if found else "not flagged")
 
 
-INITIATIVE = "_bmad-output/initiative-tamagai-mvp"
+INITIATIVE_NAME, INITIATIVE = C.INITIATIVE_NAME, C.INITIATIVE
 EPIC_DIR = f"{INITIATIVE}/epic-parent-deletion"
 EPIC_TICKETS = f"{EPIC_DIR}/tickets.toml"
 STORY = f"{EPIC_DIR}/story-delete-everything.md"
@@ -340,7 +341,7 @@ title = "Show linking states"
 covers = ["E2"]
 """
 TICKET_TREE = {
-    f"{INITIATIVE}/initiative-tamagai-mvp.md": f"""---
+    f"{INITIATIVE}/{INITIATIVE_NAME}.md": f"""---
 type: initiative
 title: "Parents control and erase their family's data"
 parent: none
@@ -360,10 +361,10 @@ slug = "epic-parent-deletion"
 title = "Parents erase everything"
 covers = ["FR-68", "FR-71"]
 """,
-    f"{EPIC_DIR}/epic-parent-deletion.md": """---
+    f"{EPIC_DIR}/epic-parent-deletion.md": f"""---
 type: epic
 title: "Parents erase everything"
-parent: initiative-tamagai-mvp
+parent: {INITIATIVE_NAME}
 covers: [FR-68, FR-71]
 ---
 
@@ -376,7 +377,7 @@ covers: [FR-68, FR-71]
 
 ## References
 
-- parent — _bmad-output/initiative-tamagai-mvp/initiative-tamagai-mvp.md
+- parent — {INITIATIVE}/{INITIATIVE_NAME}.md
 """,
     EPIC_TICKETS: DELETE_ENTRY + LINKING_ENTRY,
     STORY: """---
@@ -474,7 +475,7 @@ def same_size_restored_time(lab: Lab) -> Outcome:
     return Outcome(control, detected, f"size and mtime unchanged; generation {generation} → {after['generation']}, reindexed {after['reindexed']}")
 
 
-SECOND_PRD_DIR = f"{PA}/prds/prd-tamagai-2026-10-05"
+SECOND_PRD = C.SECOND_PRD
 UNIQUE_TO_COPY = "\n#### FR-999: Export the family archive\n\nDefined only in the copied PRD folder.\n"
 
 
@@ -483,11 +484,13 @@ def ambiguous_current(lab: Lab) -> Outcome:
     ws = lab.workspace("ambiguous-current", overlay=False)
 
     def prd_ambiguity() -> list[dict]:
-        return [f for f in codes(ws.lint(), "ambiguous-current") if "prds/" in f["path"]]
+        return [f for f in codes(ws.lint(), "ambiguous-current") if PRD in f["path"]]
 
     control = ws.sdx("resolve", "FR-71")["status"] == "defined" and ws.sdx("resolve", "FR-999")["status"] != "defined" and not prd_ambiguity()
-    shutil.copytree(ws.path(PRD_DIR), ws.path(SECOND_PRD_DIR))
-    ws.append(f"{SECOND_PRD_DIR}/prd.md", UNIQUE_TO_COPY)
+    shutil.copytree(ws.path(PRD_DIR), ws.path(posixpath.dirname(SECOND_PRD)))
+    copied_main = ws.path(posixpath.join(posixpath.dirname(SECOND_PRD), posixpath.basename(PRD)))
+    copied_main.rename(ws.path(SECOND_PRD))  # a v7 main file takes its folder's name; a no-op rename in v6
+    ws.append(SECOND_PRD, UNIQUE_TO_COPY)
     shared, unique = ws.sdx("resolve", "FR-71")["status"], ws.sdx("resolve", "FR-999")["status"]
     flagged = prd_ambiguity()
     return Outcome(control, shared.startswith("ambiguous") and unique.startswith("ambiguous") and bool(flagged),
@@ -507,7 +510,7 @@ def lint_limitation_message(lab: Lab) -> Outcome:
 
 
 # -- identity ------------------------------------------------------------------------------------
-DESIGN_EXPORT = f"{PA}/exports/DESIGN.md"
+DESIGN_EXPORT = C.DESIGN_EXPORT
 
 
 def identical_documents(lab: Lab) -> Outcome:
@@ -594,7 +597,7 @@ def inserted_lines(lab: Lab) -> Outcome:
 def delete_and_rename(lab: Lab) -> Outcome:
     ws = lab.workspace("delete-rename")
     victim, mover = f"{SPINE_DIR}/CHANGE-REQUESTS.md", EXPERIENCE
-    renamed = f"{PA}/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE-renamed.md"
+    renamed = C.RENAMED_EXPERIENCE
     phrase_victim, phrase_mover = "Change requests from architecture", "Tamagai experience spec"
     control = victim in ws.search_paths(phrase_victim) and mover in ws.search_paths(phrase_mover)
     ws.path(victim).unlink()
@@ -628,8 +631,9 @@ def branch_change(lab: Lab) -> Outcome:
     ws.git("checkout", "-q", "-")
     back = PRD not in ws.search_paths("quokkaline")
     snapshot = subprocess.run(ws.command("--rev", "feature", "search", "quokkaline", "--scope", "all"), capture_output=True, text=True).stdout
-    return Outcome(control, on_feature and back and "prd.md" in snapshot,
-                   f"feature branch seen: {on_feature}; back on the first branch: {back}; --rev feature snapshot sees it: {'prd.md' in snapshot}")
+    sees = C.PRD_FILE_NAME in snapshot
+    return Outcome(control, on_feature and back and sees,
+                   f"feature branch seen: {on_feature}; back on the first branch: {back}; --rev feature snapshot sees it: {sees}")
 
 
 def two_readers(lab: Lab) -> Outcome:
@@ -721,8 +725,10 @@ def summarize(results: list[dict]) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--corpus-def", type=Path, default=corpus_select.DEFAULT, help="corpus definition module")
     parser.add_argument("--only", nargs="*", help="case ids to run")
     parser.add_argument("--no-latency", action="store_true")
+    parser.add_argument("--out", type=Path, help=f"report file (default: {RESULTS})")
     args = parser.parse_args()
     selected = [c for c in CASES if not args.only or c.id in args.only]
     with tempfile.TemporaryDirectory(prefix="specdex-layer-b-") as tmp:
@@ -735,7 +741,7 @@ def main() -> int:
     report = {"summary": summarize(results), "latency": timing, "cases": results}
     print(json.dumps({"summary": report["summary"], "latency": timing}, indent=1))
     if not args.only:
-        RESULTS.write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
+        (args.out or RESULTS).write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
     return 0 if all(r["passed"] for r in results) else 1
 
 

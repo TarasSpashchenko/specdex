@@ -6,14 +6,14 @@ import sys
 from pathlib import Path
 
 from . import __version__, render
-from .config import ConfigError, load
+from .config import Config, ConfigError, listing_matcher, load, read_project_config, select_profile, worktree_matcher
 from .index import open_index
 from .queries import NotFound, Queries, StaleIndex
-from .sources import SourceError
+from .sources import SourceError, run_git
 
 SKILL_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_PROFILE = SKILL_ROOT / "profiles" / "bmad-6.13.0-next.toml"
-DEFAULT_OVERLAY = Path("_bmad/custom/specdex-overlay.toml")
+PROFILES = sorted((SKILL_ROOT / "assets").glob("profile-*.toml"))
+LEGACY_OVERLAY = Path("_bmad/custom/specdex-overlay.toml")
 EXIT_OK, EXIT_FINDINGS, EXIT_USAGE, EXIT_CONFIG = 0, 1, 2, 3
 CHARS_PER_TOKEN = 4
 
@@ -28,12 +28,29 @@ def find_project_root(start: Path) -> Path:
     return start
 
 
+def load_config(project: Path, profile: Path | None = None, overlay: Path | None = None, revision: str | None = None) -> Config:
+    """The project's configuration: the given or layout-selected profile, BMad customization and any legacy overlay.
+    With a git revision, the profile is selected by that revision's layout (the project may have migrated since)."""
+    project_config = read_project_config(project)
+    if profile is not None:
+        reason = "--profile"
+    elif revision:
+        listing = run_git(project, "ls-tree", "-r", "-z", "--name-only", revision).decode("utf-8", "replace").split("\0")
+        profile, reason = select_profile(PROFILES, project_config, listing_matcher(listing), use_config_keys=False)
+        reason += f" at {revision}"
+    else:
+        profile, reason = select_profile(PROFILES, project_config, worktree_matcher(project))
+    legacy = overlay or (project / LEGACY_OVERLAY if (project / LEGACY_OVERLAY).is_file() else None)
+    return load(project, profile, legacy, skill_root=SKILL_ROOT, profile_reason=reason,
+                legacy_default_overlay=overlay is None and legacy is not None, project_config=project_config)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="specdex", description="Read-only search and checks for BMAD specifications.")
     parser.add_argument("--version", action="version", version=f"specdex {__version__}")
     parser.add_argument("--project", type=Path, help="project root (default: nearest folder with _bmad/)")
-    parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="BMAD profile TOML")
-    parser.add_argument("--overlay", type=Path, help=f"project overlay TOML (default: {DEFAULT_OVERLAY} if present)")
+    parser.add_argument("--profile", type=Path, help="BMAD profile TOML (default: chosen by the project's layout)")
+    parser.add_argument("--overlay", type=Path, help=f"legacy overlay TOML (default: {LEGACY_OVERLAY} if present; deprecated)")
     parser.add_argument("--rev", help="index this git revision (committed-snapshot mode) instead of the worktree")
     parser.add_argument("--db", type=Path, help="worktree index file; revision snapshots go next to it (default: under ~/.cache/specdex)")
     parser.add_argument("--json", action="store_true", help="JSON output")
@@ -69,10 +86,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     project = (args.project or find_project_root(Path.cwd())).resolve()
-    overlay = args.overlay or (project / DEFAULT_OVERLAY if (project / DEFAULT_OVERLAY).is_file() else None)
     try:
-        config = load(project, args.profile, overlay)
-    except (ConfigError, OSError) as error:
+        config = load_config(project, args.profile, args.overlay, args.rev)
+    except (ConfigError, OSError, SourceError) as error:
         print(f"specdex: configuration error: {error}", file=sys.stderr)
         return EXIT_CONFIG
     for attempt in range(2):

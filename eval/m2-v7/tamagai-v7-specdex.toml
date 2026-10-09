@@ -1,0 +1,265 @@
+# specdex settings for the tamagai-v7 corpus: the M1 overlay (eval/m1-tamagai/overlay.toml) as BMad customization.
+# v7 paths; no records list, because the active initiative (initiative-tamagai) decides the specs of record.
+[workflow]
+
+[[workflow.superseded]]
+id = "superseded-1"
+path = "_bmad-output/initiative-tamagai/brief-tamagai/brief-tamagai.md"
+by = "prd"
+
+[[workflow.superseded]]
+id = "superseded-2"
+path = "_bmad-output/initiative-tamagai/brief-tamagai/addendum.md"
+by = "prd"
+except_sections = ["1.2 Economics"]
+
+[[workflow.artifact]]
+id = "architecture-overview"
+type = "architecture-overview"
+glob = "{output_folder}/**/architecture-*/ARCHITECTURE-OVERVIEW.md"
+kind = "owner"
+
+[[workflow.role]]
+id = "role-1"
+glob = "**/discussion-*/outcome.md"
+role = "rationale"
+
+[[workflow.role]]
+id = "role-2"
+glob = "**/sme-review/resolutions.md"
+role = "rationale"
+
+[[workflow.role]]
+id = "role-3"
+glob = "**/research-*/research.md"
+role = "rationale"
+
+[[workflow.role]]
+id = "role-4"
+glob = "**/research-*/results.md"
+role = "rationale"
+
+[[workflow.role]]
+id = "role-5"
+glob = "**"
+role = "trail"
+
+[[workflow.family]]
+id = "NFR"
+pattern = 'NFR-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+
+[[workflow.family]]
+id = "CR"
+pattern = 'CR-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+
+[[workflow.family]]
+id = "OQ"
+pattern = 'OQ-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+
+[[workflow.family]]
+id = "CQ"
+pattern = 'CQ-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+
+[[workflow.family]]
+id = "A"
+pattern = 'A-(?P<key>\d+)'
+key = "int"
+owner = ["architecture-spine"]
+
+[[workflow.family]]
+id = "ACR"
+pattern = "ACR-(?P<key>[A-Z])"
+key = "alpha"
+owner = ["change-requests"]
+
+[[workflow.family]]
+id = "UX"
+pattern = "UX-(?P<key>[A-Z])"
+key = "alpha"
+owner = ["change-requests"]
+
+[[workflow.family]]
+id = "TERM"
+kind = "term"
+owner = ["prd"]
+
+[[workflow.define]]
+id = "NFR-prd-1"
+family = "NFR"
+artifact = "prd"
+shape = "heading"
+
+[[workflow.define]]
+id = "CR-prd-2"
+family = "CR"
+artifact = "prd"
+shape = "row-key"
+
+[[workflow.define]]
+id = "OQ-prd-3"
+family = "OQ"
+artifact = "prd"
+shape = "row-key"
+
+[[workflow.define]]
+id = "CQ-prd-4"
+family = "CQ"
+artifact = "prd"
+shape = "row-key"
+
+[[workflow.define]]
+id = "A-architecture-spine-5"
+family = "A"
+artifact = "architecture-spine"
+shape = "row-key"
+section = "Open Questions"
+
+[[workflow.define]]
+id = "ACR-change-requests-6"
+family = "ACR"
+artifact = "change-requests"
+shape = "row-key"
+
+[[workflow.define]]
+id = "UX-change-requests-7"
+family = "UX"
+artifact = "change-requests"
+shape = "row-key"
+
+[[workflow.define]]
+id = "TERM-prd-8"
+family = "TERM"
+artifact = "prd"
+shape = "item-lead-term"
+section = "3. Glossary"
+
+[[workflow.positional]]
+id = "FR"
+family = "FR"
+container = "after-marker"
+marker = "**Consequences (testable):**"
+source = "prd §0"
+
+[[workflow.positional]]
+id = "NFR"
+family = "NFR"
+container = "first-list"
+source = "prd §0"
+
+[[workflow.elaborate]]
+id = "elaborate-1"
+families = ["FR", "NFR"]
+artifact = "prd-addendum"
+section = "5. Traceability"
+shape = "row-any"
+
+[[workflow.elaborate]]
+id = "elaborate-2"
+families = ["NFR"]
+artifact = "ux-experience"
+section = "Accessibility Floor"
+shape = "heading"
+
+[[workflow.elaborate]]
+id = "elaborate-3"
+families = ["UJ"]
+artifact = "ux-experience"
+section = "Key Flows"
+shape = "heading"
+
+[[workflow.elaborate]]
+id = "elaborate-4"
+families = ["OQ"]
+artifact = "architecture-spine"
+section = "Open Questions"
+shape = "row-key"
+
+[[workflow.elaborate]]
+id = "elaborate-5"
+families = ["CQ"]
+artifact = "architecture-spine"
+section = "Counsel-dependent architecture"
+shape = "row-key"
+
+[[workflow.elaborate]]
+id = "elaborate-6"
+families = ["CQ"]
+artifact = "ux-experience"
+section = "Counsel-dependent design"
+shape = "row-key"
+
+[[workflow.elaborate]]
+id = "elaborate-7"
+families = ["ACR", "UX"]
+artifact = "ux-experience"
+section = "Architecture change requests"
+shape = "row-key"
+
+[[workflow.historical]]
+id = "historical-1"
+artifact = "prd-addendum"
+section = "1.9 Declined proposals"
+
+[[workflow.historical]]
+id = "historical-2"
+artifact = "prd-addendum"
+section = "6. What this PRD changes relative to the brief and the intent"
+
+[[workflow.historical]]
+id = "historical-3"
+artifact = "prd-addendum"
+section = "Appendix A"
+
+[[workflow.historical]]
+id = "historical-4"
+artifact = "ux-experience"
+section = "PRD change requests"
+
+[[workflow.historical]]
+id = "historical-5"
+artifact = "ux-experience"
+section = "Architecture change requests"
+
+[[workflow.historical]]
+id = "historical-6"
+artifact = "prd"
+label = "**Retired claims"
+
+[[workflow.historical]]
+id = "historical-7"
+artifact = "ux-experience"
+label = "**Retired claims"
+
+[[workflow.historical]]
+id = "historical-8"
+artifact = "change-requests"
+rows = true
+disposition_column = "Decision"
+
+[[workflow.marker]]
+id = "conditional"
+name = "conditional"
+pattern = '\[CONDITIONAL[^\]]*\]|Conditional change|\bconditional on\b'
+
+[workflow.frontmatter_types]
+change-requests = "change-requests"
+
+[workflow.doc_aliases]
+overview = ["architecture-overview"]
+change-requests = ["change-requests"]
+
+[workflow.tokens]
+bare_backtick = true
+
+[workflow.coverage]
+tickets = ["FR"]
+architecture = ["FR", "NFR"]
+ux = ["UJ"]

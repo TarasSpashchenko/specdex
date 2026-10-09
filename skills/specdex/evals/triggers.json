@@ -1,0 +1,18 @@
+[
+  {"query": "what does FR-12 say in our PRD?", "should_trigger": true},
+  {"query": "where is AD-3 cited across the specs?", "should_trigger": true},
+  {"query": "quote prd §4.2 for me with the line numbers", "should_trigger": true},
+  {"query": "which stories cover FR-7, and are there requirements no ticket covers?", "should_trigger": true},
+  {"query": "if I change UJ-2, what else in the spine and the UX docs is affected?", "should_trigger": true},
+  {"query": "check the specs for dangling references and duplicate IDs", "should_trigger": true},
+  {"query": "is offline mode a requirement anywhere in the PRD or the addendum?", "should_trigger": true},
+  {"query": "what changed in the requirements between yesterday's commit and now?", "should_trigger": true},
+  {"query": "find where the spec talks about rate limiting for the import", "should_trigger": true},
+  {"query": "is CAP-4 still defined in the current spec, or was it retired?", "should_trigger": true},
+  {"query": "rewrite FR-12 so it is testable", "should_trigger": false},
+  {"query": "create the architecture spine for this initiative", "should_trigger": false},
+  {"query": "break the epic into stories", "should_trigger": false},
+  {"query": "grep the backend code for the payment controller", "should_trigger": false},
+  {"query": "summarize this meeting transcript", "should_trigger": false},
+  {"query": "set up BMad in this repository", "should_trigger": false}
+]

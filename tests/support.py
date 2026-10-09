@@ -18,7 +18,7 @@ from specdexlib.index import Index, open_index  # noqa: E402
 from specdexlib.queries import Queries  # noqa: E402
 
 FIXTURE = TESTS_DIR / "fixtures" / "mini-project"
-PROFILE = REPO_ROOT / "skills" / "specdex" / "profiles" / "bmad-6.13.0-next.toml"
+PROFILE = REPO_ROOT / "skills" / "specdex" / "assets" / "profile-bmad-6.13.0-next.toml"
 OVERLAY = FIXTURE / "overlay.toml"
 
 PRD = "_bmad-output/planning-artifacts/prds/prd-demo-2026-01-01/prd.md"

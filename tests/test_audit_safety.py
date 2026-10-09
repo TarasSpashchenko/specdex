@@ -65,6 +65,21 @@ class ValidatorTest(support.ProjectTestCase):
         self.assertFalse(self.marker.exists(), "an unverified validator was executed")
         self.assertIn("validator-not-run", codes)
 
+    def test_validator_findings_reported_with_ok_false_are_findings(self):
+        output = '{"ok": false, "total_findings": 1, "findings": [{"category": "tbd", "severity": "high", "location": "line 3", "detail": "TBD left"}]}'
+        self.trust(self.install_validator(stdout=output))
+        codes = finding_codes(self.lint())
+        self.assertIn("lint_spine:tbd", codes)
+        self.assertNotIn("validator-failed", codes)
+
+    def test_validator_runs_isolated_from_modules_planted_beside_it(self):
+        planted = self.workspace / "planted-module-ran.txt"
+        script = self.create(f"{AGENTS_SKILLS}/{VALIDATOR_SCRIPT}", "import json\nprint(json.dumps({'findings': []}))\n")
+        self.create(f"{AGENTS_SKILLS}/bmad-architecture/scripts/json.py", f"open({str(planted)!r}, 'w').write('ran')\n")
+        self.trust(script)
+        self.assertNotIn("validator-failed", finding_codes(self.lint()))
+        self.assertFalse(planted.exists(), "a module beside the hash-pinned validator was executed")
+
     # A-01
     def test_unverified_validator_under_agents_skills_is_not_executed(self):
         self.assert_not_run(AGENTS_SKILLS)

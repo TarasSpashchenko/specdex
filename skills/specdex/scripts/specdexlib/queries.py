@@ -135,7 +135,7 @@ class Queries:
         if gaps:
             return "parse gaps in " + ", ".join(r["path"] for r in gaps)
         if "record" in roles and not any(f["role"] == "record" for f in self.files.values()):
-            return "no current record files were found; check the profile layout or the overlay's records"
+            return "no current record files were found; check the profile layout, the active initiative or the records setting"
         if self.conn.execute("SELECT 1 FROM gdiag WHERE code IN ('ambiguous-current','unsupported-layout','missing-record','source-skipped') LIMIT 1").fetchone():
             return "the current artifact set is ambiguous, partly unsupported or partly unreadable (see lint)"
         return None
@@ -152,6 +152,8 @@ class Queries:
         diags = [dict(r) for r in self.conn.execute("SELECT code, severity, COUNT(*) AS n FROM (SELECT code, severity FROM gdiag UNION ALL SELECT code, severity FROM fdiag) GROUP BY code, severity")]
         return {
             "mode": self.index.mode, "generation": self.index.generation, "profile": self.index.config.profile_id,
+            "profile_reason": self.index.config.profile_reason, "current_scope": self.index.config.current_scope,
+            "records_setting": len(self.index.config.records),
             "overlay": str(self.index.config.overlay_path) if self.index.config.overlay_path else None,
             "files": len(self.files), "roles": roles, "binding": self.binding(), "diagnostics": diags,
             "verify_ms": round(self.index.verify_ms, 1), "update_ms": round(self.index.update_ms, 1), "reindexed": self.index.changed,
@@ -237,7 +239,10 @@ class Queries:
 
     def _status_of(self, ident: str, resolution: Resolution) -> str:
         if resolution.definitions and all(h.role == "ambiguous" for h in resolution.definitions):
-            return "ambiguous: defined in one of several candidate current documents; choose the record in the overlay"
+            if self.index.config.current_scope:
+                return ("ambiguous: defined in one of several candidate documents inside the active initiative; "
+                        "choose one with the records setting")
+            return "ambiguous: defined in one of several candidate current documents; set the active initiative or the records setting"
         if len(resolution.definitions) == 1:
             return "defined"
         if len(resolution.definitions) > 1:

@@ -2,11 +2,27 @@
 
 specdex is a read-only search and maintenance engine for BMAD specifications: PRD and addendum, UX `DESIGN.md`/`EXPERIENCE.md`, the architecture spine, specs, and preview tickets. It indexes them by ID, section and wording, and returns exact units with `path:start-end` ranges and labels that say whether the text is current, historical or trail. Agents use it through the `specdex` skill instead of grepping and reading whole files.
 
-It ships as a one-skill BMAD module (`skills/specdex/`): `SKILL.md` (agent routing guide), `bmod.toml` (module record and skill in one file), `help/help.md` (what the `bmad` help skill routes from), `profiles/`, and a standard-library Python CLI in `scripts/`.
+It ships as a one-skill BMAD module (`skills/specdex/`):
+- `SKILL.md`: the agent routing guide, with `references/reading-results.md`;
+- `bmod.toml`: the module record and the skill in one file;
+- `help/help.md`: what the `bmad` help skill routes from;
+- `customize.toml`: project settings;
+- `assets/profile-*.toml`: one profile per BMAD layout;
+- a standard-library Python CLI in `scripts/`, with a shipped smoke test in `scripts/tests/`;
+- `evals/triggers.json`: trigger cases for `bmad-eval`.
 
 ## Requirements
 
-Python 3.11+ (standard library only), git for `diff` and `--rev`, Node.js for `npx skills`. Supported layout: BMAD 6.13.0-next dated planning folders plus the preview ticket tree.
+Python 3.11+ (standard library only), `uv` to run it the way the skill does, git for `diff` and `--rev`, Node.js for `npx skills`.
+
+Supported layouts, chosen automatically per project (`--profile` overrides):
+
+| Profile | Layout | Chosen when |
+|---|---|---|
+| `bmad-v7` | BMad v7 initiative folders: `{output_folder}/{active_initiative}/<type>-<slug>/<type>-<slug>.md`, `bmad-ticket` tree | `core.active_initiative` is set or v7 planning documents exist; also the default |
+| `bmad-6.13.0-next` | dated v6 planning folders (`planning-artifacts/prds/prd-*/prd.md` …) plus the preview ticket tree | dated v6 planning documents exist and no v7 signal does |
+
+Under v7 the specs of record are the owners inside the active initiative. Other initiatives (their research, UX routers and tickets included), loose documents and archives are not current; backlog tickets are. BMAD-METHOD still reports version `6.13.0-next` for both, which is why the layout, not the version, decides.
 
 ## Install (per project)
 
@@ -19,45 +35,57 @@ npx skills add <owner>/specdex --skill specdex -a claude-code -y    # once the r
 
 `-a claude-code` copies the skill to `.claude/skills/specdex/`. Adding an agent that uses the shared folder (for example `-a claude-code -a codex`) puts it in `.agents/skills/specdex/` with a `.claude/skills/specdex` symlink, the layout BMAD itself uses. Omit `-a` to choose agents interactively.
 
-In a BMAD project, `bmad status` lists the `specdex` module and `bmad` help can recommend the skill. Run `bmad setup` once so status reports it current (setup only creates an empty `_bmad/specdex/scripts/`); specdex asks no setup questions.
+In a BMAD project, `bmad status` lists the `specdex` module and `bmad` help can recommend the skill. specdex asks no setup questions.
 
 ## First run
 
 ```sh
-python3 .claude/skills/specdex/scripts/specdex.py status
-python3 .claude/skills/specdex/scripts/specdex.py resolve FR-1
+uv run .claude/skills/specdex/scripts/specdex.py status
+uv run .claude/skills/specdex/scripts/specdex.py resolve FR-1
 ```
 
-`status` shows the profile (`verified` when the installed BMAD files match the ones it was built from), the overlay, the files by role, and diagnostics such as `ambiguous-current` or `unsupported-layout`. The first call builds the index in a second or two; later calls verify it against the files and reindex only what changed.
+`status` shows:
+- the profile and why it was chosen (`verified` when the installed BMAD files match the ones it was built from);
+- the record scope;
+- the files by role;
+- diagnostics such as `no-active-initiative`, `ambiguous-current` or `unsupported-layout`. The first call builds the index in a second or two; later calls verify it against the files and reindex only what changed.
 
-## Overlay
+## Settings
 
-Without an overlay, the profile's defaults apply: one document of a type is the record; several (say, two dated PRD folders) are `ambiguous` until you choose. Project conventions go in `_bmad/custom/specdex-overlay.toml` (or `--overlay FILE`):
+Project conventions are BMad customization. The skill's `customize.toml` lists every key under `[workflow]`. A project overrides them in `_bmad/custom/specdex.toml` (team, committed) or `specdex.user.toml` (personal), normally through the `bmad-customize` skill. specdex merges them with BMad's own rules (the same result as BMad's `resolve_customization.py`, which a test checks) but never runs the project's scripts: a read-only tool executes no project code. Arrays of tables carry `id`, so a later layer replaces an item with the same id.
 
 ```toml
-[overlay]
-project = "myproject"
-profile = "bmad-6.13.0-next"
+[workflow]
+records = ["{output_folder}/{active_initiative}/prd-myproject/prd-myproject.md"]   # decides the PRD; other types follow the initiative
 
-[current]          # the specs of record when several candidates exist
-records = ["_bmad-output/planning-artifacts/prds/prd-myproject-2026-09-29/prd.md"]
-
-[[family]]         # an ID family the project adds
-name = "NFR"
+[[workflow.family]]          # an ID family the project adds; id is the family name
+id = "NFR"
 pattern = 'NFR-(?P<key>\d+)'
 key = "int"
 owner = ["prd"]
 
-[[historical]]     # text inside a record that is history, not current
+[[workflow.define]]          # where it is defined
+id = "nfr-in-prd"
+family = "NFR"
+artifact = "prd"
+shape = "item-lead"
+
+[[workflow.historical]]      # text inside a record that is history, not current
+id = "declined"
 artifact = "prd-addendum"
 section = "1.9 Declined proposals"
+
+[workflow.coverage]
+tickets = ["FR"]
 ```
 
-Other tables: `[[define]]` (where a family is defined), `[[positional]]` (FR-n.k list items), `[[elaborate]]`, `[[superseded]]`, `[[role]]` (rationale vs trail for supporting files), `[[marker]]`, `[doc_aliases]`, `[coverage]`. A complete real overlay: `eval/m1-tamagai/overlay.toml`.
+`records` decides only the document types it names: a listed file is the record of its type and the other files of that type are noncurrent. Other keys: `positional` (FR-n.k list items), `elaborate`, `superseded`, `role` (rationale or trail for supporting files; a matching rule outranks the profile's rationale and trail defaults, while memlogs and tickets keep theirs, so put specific globs before a catch-all), `replica`, `marker`, `artifact`, and the tables `aliases`, `doc_aliases`, `frontmatter_types`, `tokens`. `coverage` defaults to FR for tickets and architecture and UJ for UX. A key specdex does not read raises `unknown-setting`; a malformed setting exits 3 with one line.
+
+**Legacy overlay.** A `_bmad/custom/specdex-overlay.toml` (or `--overlay FILE`) is still read for this release and combined with the customization. The default-location file raises `deprecated-overlay`. To move it, put each table under `[workflow]` (`[[family]]` becomes `[[workflow.family]]` with `id` set to its `name`), turn `[current] records` into `[workflow] records`, give each array item an `id`, and drop `[overlay]`. A complete real overlay: `eval/m1-tamagai/overlay.toml`.
 
 ## Commands
 
-Global options come before the command: `--project DIR --overlay FILE --profile FILE --rev REV --db FILE --json`.
+Global options come before the command: `--project DIR --profile FILE --overlay FILE --rev REV --db FILE --json`.
 
 | Command | Does |
 |---|---|
@@ -76,16 +104,35 @@ Scopes: `record` (default), `current`, `rationale`, `trail`, `memlog`, `all`. Ex
 
 ## Read-only guarantee
 
-specdex never writes inside the project. The index lives in `$XDG_CACHE_HOME/specdex/` (default `~/.cache/specdex/`), or at `--db`. `--rev` and `diff` read git objects without touching the worktree, and `lint` runs BMAD's own read-only `lint_spine.py` only when its bytes match the profile's recorded hash (otherwise lint reports `validator-not-run`). An index location inside the project is refused. Spec edits belong to the owning BMAD skills (`bmad-prd`, `bmad-ux`, `bmad-architecture`, `bmad-spec`, `bmad-preview-ticketing`, `bmad-correct-course`).
+specdex never writes inside the project. The index lives in `$XDG_CACHE_HOME/specdex/` (default `~/.cache/specdex/`), or at `--db`. `--rev` and `diff` read git objects without touching the worktree, and `lint` runs BMAD's own read-only `lint_spine.py` only when its bytes match the profile's recorded hash (otherwise lint reports `validator-not-run`). An index location inside the project is refused. Spec edits belong to the owning BMAD skills (`bmad-prd`, `bmad-ux`, `bmad-architecture`, `bmad-spec`, `bmad-ticket`, `bmad-correct-course`).
+
+## BMad Toolsmith compliance
+
+The package passes Toolsmith's checks: `validate_manifests.py`, `init_skill.py --check`, `scan_paths.py`, `scan_scripts.py`, and `prepass.py`, with `SKILL.md` under about 900 tokens and a description under 500 characters. Deliberate deviations:
+
+| Rule | specdex | Why |
+|---|---|---|
+| No paths into other skills | Runs `bmad-architecture/scripts/lint_spine.py` | It is BMAD's own spine check. It runs only when its bytes match the profile's recorded hash, in Python's isolated mode (no module beside it is imported), and it only reads |
+| Folders stay flat | `scripts/specdexlib/` package | A 4,000-line engine split by responsibility |
+| Prefer a personal prefix | Name `specdex` | Renaming would break installs |
+| JSON when a model reads the result | Text by default, `--json` available | Text is what agents read best at this size; JSON is for tools |
+| Read config and customization through BMad's resolver scripts | Reads the same files with BMad's merge rules | Running `_bmad/scripts/*.py` would execute project code from a read-only tool and double its latency; a test proves the result equals the resolvers' |
+| `update_source = "github:…"` | `file:` | Until the repository is published |
 
 ## Limits
 
-- Other layouts (sharded v6 `index.md`, initiative-v7) are reported as `unsupported-layout`, not indexed; the skill then falls back to `rg`.
+- Sharded documents (a v6 `index.md`, or a main file linking to section files beside it, which is how the v6→v7 migration leaves them) are reported as `unsupported-layout`, not indexed; empty answers become `unknown` and the skill falls back to `rg`.
+- Supporting files the profile does not know (a user's own notes in a run folder) stay `unverified` until a `role` setting classifies them.
 - Search is lexical (SQLite FTS5); a paraphrase with no shared words can miss.
 - `lint` is mechanical: a clean result does not mean the documents agree in meaning.
-- Positional IDs (FR-n.k) and project ID families need an overlay.
+- Positional IDs (FR-n.k) and project ID families need project settings.
 - `bmod.toml` uses a `file:` update source until the repository has a remote.
 
 ## Development
 
-`python3 -m unittest discover -s tests` runs the unit tests (synthetic fixtures under `tests/fixtures/`). `eval/m1-tamagai/` holds the M1 evaluation: `run_eval.py` (retrieval, Layer A), `layer_b.py` (maintenance mutations, identity, freshness, latency) and the gold sets; the frozen corpus itself is not in the repository.
+`python3 -m unittest discover -s tests` runs the unit tests; the skill also ships a smoke test (`python3 -m unittest discover -s skills/specdex/scripts/tests`). The synthetic fixtures under `tests/fixtures/` are:
+- `mini-project`: dated v6;
+- `preview-tickets`: the v6 preview ticket tree;
+- `v7-project`: the v7 initiative layout, carrying byte-identical copies of BMad's MIT-licensed resolver scripts.
+
+`docs/` holds the milestone plans, reports and worklogs. `eval/m1-tamagai/` holds the M1 evaluation: `run_eval.py` (retrieval, Layer A), `layer_b.py` (maintenance mutations, identity, freshness, latency) and the gold sets; the frozen corpus itself is not in the repository.

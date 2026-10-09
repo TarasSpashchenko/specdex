@@ -1,0 +1,32 @@
+[[entry]]
+id = 3
+type = "spike"
+title = "Pick the CSV dialect spreadsheets open without a prompt"
+description = "Find the delimiter, quoting and encoding the three most used spreadsheet apps open without an import dialog."
+verify = "The comparison and the chosen dialect are recorded in the epic's Notes as a decision."
+covers = []
+after = []
+hitl = true
+risk = "low"
+
+[[entry]]
+id = 1
+type = "story"
+title = "Export the list as CSV"
+description = "A reader downloads the whole reading list as CSV, one row per book."
+verify = "Exporting a list of three books gives a CSV with a header row and three rows."
+covers = ["FR-4"]
+after = ["1.1", 3]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Import a list from CSV"
+description = "A reader uploads a CSV in the export's format; rows that do not parse are listed and nothing is half-imported."
+verify = "Importing the export of a three-book list into an empty account recreates the three books; a file with one bad row imports nothing and names the row."
+covers = ["FR-5"]
+after = [1]
+hitl = false
+risk = "medium"

@@ -27,7 +27,6 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "skills" / "specdex" / "scripts"))
 
 from specdexlib import cli, tickets  # noqa: E402
-from specdexlib.config import load  # noqa: E402
 from specdexlib.index import open_index  # noqa: E402
 from specdexlib.queries import Queries  # noqa: E402
 
@@ -65,7 +64,7 @@ class PreviewTicketTreeTest(unittest.TestCase):
         cls.coverage_scope = coverage["scope"]
         _, cls.gaps = run_specdex(db, "coverage", "--by", "tickets", "--only", "gaps")
         # The CLI never prints a ticket's plan status or its chain list, so read them through the adapter.
-        index = open_index(load(FIXTURE, cli.DEFAULT_PROFILE, FIXTURE / cli.DEFAULT_OVERLAY), db_path=db)
+        index = open_index(cli.load_config(FIXTURE), db_path=db)
         cls.addClassCleanup(index.conn.close)
         queries = Queries(index)
         tree = tickets.load_tree(queries)

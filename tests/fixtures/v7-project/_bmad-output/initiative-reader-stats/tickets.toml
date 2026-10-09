@@ -1,0 +1,10 @@
+next_id = 2
+
+[[entry]]
+id = 1
+type = "story"
+title = "Monthly bar chart"
+covers = ["FR-1"]
+after = []
+hitl = false
+risk = "low"

@@ -1,0 +1,32 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Add a book by ISBN"
+description = "A reader adds a book by its ISBN and sees its title and author; an unknown ISBN is refused with the reason."
+verify = "Adding 9780141439518 shows Pride and Prejudice by Jane Austen; adding 9780000000000 shows 'ISBN not found'."
+covers = ["E1", "E2"]
+after = []
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Mark a book read and rate it"
+description = "A reader marks a book read, the date is kept, and the reader can then rate it from 1 to 5 stars."
+verify = "A book marked read shows today's date and accepts a rating of 4; an unread book offers no rating."
+covers = ["E3", "E4"]
+after = [1]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Show the reading history"
+description = "A reader sees the books read this year, newest first."
+verify = "With three books read on different dates, the history lists them newest first."
+covers = ["E5"]
+after = [2]
+hitl = false
+risk = "low"

@@ -9,12 +9,15 @@ from __future__ import annotations
 
 import json
 import posixpath
+import re
 import sqlite3
 from collections import defaultdict
 
 from .config import Config, glob_to_regex
 
 RECORD_LIKE = ("record", "ambiguous")
+SCOPED_KINDS = ("rationale", "ticket")   # current only inside the active initiative (backlog tickets excepted)
+LOCAL_MARKDOWN_LINK = re.compile(r"\]\((?:\./)?([^)/#\s]+\.md)(?:#[^)]*)?\)")
 
 
 def derive(conn: sqlite3.Connection, config: Config, skipped_sources: list[tuple[str, str]] = ()) -> None:
@@ -22,12 +25,13 @@ def derive(conn: sqlite3.Connection, config: Config, skipped_sources: list[tuple
     conn.execute("DELETE FROM gdiag")
     conn.execute("DELETE FROM occ WHERE derived=1")
     files = {row["path"]: dict(row) for row in conn.execute(
-        "SELECT path, sha256, identity, is_link, artifact, kind, extracted, frontmatter FROM files")}
-    diags: list[tuple[str, str, str, int, str]] = []
+        "SELECT path, sha256, identity, is_link, artifact, kind, scope_kind, extracted, frontmatter FROM files")}
+    diags: list[tuple[str, str, str, int, str]] = list(config.diagnostics)
     roles, companion_of = _assign_roles(conn, config, files, diags)
     _canonicalize(conn, config, files, roles)
     _write_roles(conn, config, files, roles, companion_of)
     _layout_and_copies(config, files, diags)
+    _sharded_documents(conn, files, diags)
     _effective_definitions(conn, config, files, roles, diags)
     _bare_tokens(conn, config)
     _resolve_occurrences(conn, config)
@@ -39,25 +43,29 @@ def derive(conn: sqlite3.Connection, config: Config, skipped_sources: list[tuple
 def _assign_roles(conn, config: Config, files: dict, diags: list) -> tuple[dict[str, str], dict[str, str]]:
     roles: dict[str, str] = {}
     owners = [p for p, f in files.items() if f["extracted"] and f["kind"] == "owner"]
-    if config.records:
-        for path in config.records:
-            if path not in files:
-                diags.append(("missing-record", "high", path, 0, "overlay names a record file that does not exist"))
-        current = {p for p in config.records if p in files}
-        for path in owners:
-            roles[path] = "record" if path in current else "noncurrent"
-    else:
-        by_type: dict[str, list[str]] = defaultdict(list)
-        for path in owners:
-            by_type[files[path]["artifact"]].append(path)
-        for artifact, paths in by_type.items():
-            if len(paths) == 1:
-                roles[paths[0]] = "record"
-            else:
-                for path in paths:
-                    roles[path] = "ambiguous"
-                diags.append(("ambiguous-current", "high", ", ".join(sorted(paths)), 0,
-                              f"{len(paths)} candidate {artifact} documents and no overlay selection; their IDs resolve to 'ambiguous'"))
+    for path in config.records:
+        if path not in files:
+            diags.append(("missing-record", "high", path, 0, "the records setting names a file that does not exist"))
+    listed = {p for p in config.records if p in files}
+    decided = {files[p]["artifact"] for p in listed}  # the records setting decides the types it names
+    for path in owners:
+        if files[path]["artifact"] in decided:
+            roles[path] = "record" if path in listed else "noncurrent"
+    candidates = [p for p in owners if p not in roles]
+    if config.current_scope is not None:  # the active initiative decides; owners elsewhere are not current
+        roles.update({p: "noncurrent" for p in candidates if not _in_scope(config, p)})
+        candidates = [p for p in candidates if _in_scope(config, p)]
+    by_type: dict[str, list[str]] = defaultdict(list)
+    for path in candidates:
+        by_type[files[path]["artifact"]].append(path)
+    for artifact, paths in by_type.items():
+        if len(paths) == 1 or all(files[p]["scope_kind"] == "document" for p in paths):
+            roles.update({p: "record" for p in paths})  # document-scoped owners (specs, spines) stand side by side
+        else:
+            for path in paths:
+                roles[path] = "ambiguous"
+            diags.append(("ambiguous-current", "high", ", ".join(sorted(paths)), 0,
+                          f"{len(paths)} candidate {artifact} documents and no record selection; their IDs resolve to 'ambiguous'"))
     companion_of: dict[str, str] = {}
     for row in conn.execute("SELECT path, value, line FROM companions"):
         if roles.get(row["path"]) not in RECORD_LIKE:
@@ -76,12 +84,23 @@ def _assign_roles(conn, config: Config, files: dict, diags: list) -> tuple[dict[
 
 
 def _supporting_role(config: Config, path: str, kind: str) -> str:
-    if kind in ("memlog", "ticket", "trail"):
-        return kind
-    for rule in config.roles:
-        if rule.regex.match(path):
-            return rule.role
-    return "unverified"
+    """Memlogs and tickets keep their kind; otherwise the project's role settings outrank the profile's
+    rationale and trail defaults. Profile rationale and tickets of another initiative are not current."""
+    if kind not in ("memlog", "ticket"):
+        for rule in config.roles:
+            if rule.regex.match(path):
+                return rule.role
+    if kind in SCOPED_KINDS and not _in_scope(config, path) and not (kind == "ticket" and _in_backlog(config, path)):
+        return "noncurrent"
+    return kind if kind in ("rationale", "trail", "memlog", "ticket") else "unverified"
+
+
+def _in_scope(config: Config, path: str) -> bool:
+    return config.current_scope is None or path.startswith(config.current_scope + "/")
+
+
+def _in_backlog(config: Config, path: str) -> bool:
+    return bool(config.backlog) and glob_to_regex(config.backlog + "/**").match(path) is not None
 
 
 def _canonicalize(conn, config: Config, files: dict, roles: dict) -> None:
@@ -121,7 +140,7 @@ def _layout_and_copies(config: Config, files: dict, diags: list) -> None:
     for paths in by_sha.values():
         if len(paths) > 1:
             diags.append(("copy-candidate", "info", ", ".join(sorted(paths)), 0,
-                          "byte-identical documents kept distinct (no ownership evidence); declare replicas in the overlay to merge"))
+                          "byte-identical documents kept distinct (no ownership evidence); declare replicas in the project settings to merge"))
     primary_sha = {}
     for group in config.replicas:
         if group[0] in files:
@@ -131,6 +150,21 @@ def _layout_and_copies(config: Config, files: dict, diags: list) -> None:
                     diags.append(("replica-missing", "high", member, 0, f"declared replica of {group[0]} not found"))
                 elif files[member]["sha256"] != primary_sha[group[0]]:
                     diags.append(("replica-drift", "high", member, 0, f"declared replica of {group[0]} differs from it"))
+
+
+def _sharded_documents(conn, files: dict, diags: list) -> None:
+    """The v6→v7 migration keeps a sharded document's sections beside its old index, which becomes the main file.
+    A main owner file linking to sibling files that no rule indexes is that shape: its IDs would be silently lost."""
+    for path, info in files.items():
+        folder = posixpath.dirname(path)
+        if info["kind"] != "owner" or posixpath.splitext(posixpath.basename(path))[0] != posixpath.basename(folder):
+            continue
+        text = conn.execute("SELECT text FROM files WHERE path=?", (path,)).fetchone()["text"] or ""
+        unread = sorted({f"{folder}/{name}" for name in LOCAL_MARKDOWN_LINK.findall(text)}
+                        & {p for p, f in files.items() if f["artifact"] == "unknown"})
+        if unread:
+            diags.append(("unsupported-layout", "high", path, 0, f"sharded document: {len(unread)} linked section file(s) beside it "
+                          f"({', '.join(posixpath.basename(p) for p in unread)}) are not indexed by this profile's rules"))
 
 
 # -- definitions ----------------------------------------------------------------------------

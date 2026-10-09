@@ -16,10 +16,12 @@ from .config import Config
 CHUNK_MAX_LINES = 40
 ROW_CHUNK_MIN = 3
 SHORT_END = re.compile(r"(\d+)(?![\w-]|\.\d)")  # a sentence-final period still ends the range
-BOLD_LEAD = re.compile(r"^\*\*(?P<inner>[^*]+?)\*\*")
+BOLD_LEAD = re.compile(r"^\*\*(?P<inner>(?:[^*]|\*(?!\*))+?)\*\*")  # single-star italics may sit inside the bold
 BACKTICK_WORD = re.compile(r"`([a-z][a-z0-9-]*[a-z0-9])`")
 TOKEN_REF = re.compile(r"\{([a-z][\w-]*(?:\.[\w-]+)+)\}")
 ID_TAIL = re.compile(r"^(?:$|[\s:.,;—–(*])")
+PROSE_AFTER_ID = re.compile(r"^\s+[a-z]")  # "**FR-2 is verified by …**" may be a sentence citing FR-2
+REFINABLE_KINDS = ("owner", "ticket", "other")  # "other": no path rule matched
 PARENTHETICAL = re.compile(r"\([^)]*\)")
 TEXTUAL_SCOPE = re.compile(r"\ball\b[^,;.]*", re.I)  # "all MVP FRs and NFRs": a binding by phrase, not by ID
 CAMEL_CASE = re.compile(r"\b[A-Za-z][a-z0-9]+(?:[A-Z][a-z0-9]+)+\b")
@@ -101,10 +103,11 @@ def classify(config: Config, path: str, frontmatter_type: str | None) -> tuple[s
     """Artifact type, kind and scope kind for a project-relative path."""
     artifact, kind, scope = "unknown", "other", "project"
     for rule in config.artifacts:
-        if rule.regex.match(path):
+        if rule.matches(path):
             artifact, kind, scope = rule.type, rule.kind, rule.scope
             break
-    if frontmatter_type and frontmatter_type in config.frontmatter_types:
+    # `type` refines an owner, a ticket or an unmatched file; an archived or working copy keeps its trail kind.
+    if frontmatter_type in config.frontmatter_types and kind in REFINABLE_KINDS:
         refined = config.frontmatter_types[frontmatter_type]
         if refined != artifact:
             artifact = refined
@@ -377,19 +380,24 @@ class _Builder:
 
     # -- definitions -----------------------------------------------------------
     def _definitions(self) -> None:
+        sentence_leads: list[Candidate] = []
         for rule in self.config.defines:
             if rule.artifact != self.facts.artifact:
                 continue
             if rule.shape == "heading":
                 self._define_headings(rule.family, rule.section, self.facts.definitions)
             elif rule.shape == "item-lead":
-                self._define_item_leads(rule.family, rule.section)
+                self._define_item_leads(rule.family, rule.section, sentence_leads)
             elif rule.shape == "row-key":
                 self._define_row_keys(rule.family, rule.section, self.facts.definitions)
             elif rule.shape == "yaml-tokens":
                 self._define_tokens(rule.roots)
             elif rule.shape == "item-lead-term":
                 self._define_terms(rule.section)
+        # A lead reading as a sentence ("**FR-2 is verified by …**") cites an ID this file defines elsewhere;
+        # alone, it is the definition ("**SM-1 weekly active readers**").
+        defined = {c.id for c in self.facts.definitions}
+        self.facts.definitions += [c for c in sentence_leads if c.id not in defined]
         self._mark_defining_occurrences(self.facts.definitions, "defines")
 
     def _leading_ids(self, text: str, family: str) -> list[str]:
@@ -403,6 +411,12 @@ class _Builder:
             return []
         return [base if not sub else f"{base}.{sub}"]
 
+    def _reads_as_sentence(self, text: str) -> bool:
+        """The leading ID is followed by lowercase words ("FR-2 is verified …")."""
+        stripped = text.strip().lstrip("*").strip()
+        match = self.config.id_regex.match(stripped)
+        return bool(match and PROSE_AFTER_ID.match(stripped[match.end():]))
+
     def _define_headings(self, family: str, section: str | None, out: list[Candidate]) -> None:
         for number, sect in enumerate(self.doc.sections):
             if section and not self._in_section(sect.start, section):
@@ -410,15 +424,16 @@ class _Builder:
             for ident in self._leading_ids(sect.title, family):
                 out.append(Candidate(ident, family, "heading", self.section_span[number], sect.start))
 
-    def _define_item_leads(self, family: str, section: str | None) -> None:
+    def _define_item_leads(self, family: str, section: str | None, sentence_leads: list[Candidate]) -> None:
         for number, item in enumerate(self.doc.items):
             if section and not self._in_section(item.start, section):
                 continue
             lead = BOLD_LEAD.match(item.first_text.strip())
             if not lead:
                 continue
+            found = sentence_leads if self._reads_as_sentence(lead.group("inner")) else self.facts.definitions
             for ident in self._leading_ids(lead.group("inner"), family):
-                self.facts.definitions.append(Candidate(ident, family, "item-lead", self.item_span[number], item.start))
+                found.append(Candidate(ident, family, "item-lead", self.item_span[number], item.start))
 
     def _first_cell_ids(self, row: markdown.Row) -> list[tuple[str, str]]:
         """IDs keying a row: a first cell made only of IDs (a trailing parenthetical allowed)."""

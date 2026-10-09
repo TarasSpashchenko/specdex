@@ -109,7 +109,7 @@ def set_meta(conn: sqlite3.Connection, key: str, value: str) -> None:
 
 
 def reset(conn: sqlite3.Connection) -> None:
-    """Drop every row (used when the schema, profile or overlay changed)."""
+    """Drop every row (used when the schema, profile or project settings changed)."""
     for table in ("files", "chunks", "defs", "gdiag", "meta") + PER_FILE_TABLES:
         conn.execute(f"DELETE FROM {table}")
     conn.execute("INSERT INTO chunks_fts(chunks_fts) VALUES('rebuild')")

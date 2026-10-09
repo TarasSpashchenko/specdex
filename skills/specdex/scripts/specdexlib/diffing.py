@@ -28,8 +28,13 @@ def add_commands(sub) -> None:
 
 
 def run(args, q: Queries) -> int:
-    old = Queries(open_index(q.index.config, args.old, args.db))
-    new = q if args.new == WORKTREE and q.index.mode == "worktree" else Queries(open_index(q.index.config, None if args.new == WORKTREE else args.new, args.db))
+    from .cli import load_config  # each side keeps the profile its own layout selects
+
+    def side(revision: str | None) -> Queries:
+        return Queries(open_index(load_config(q.index.config.project_root, args.profile, args.overlay, revision), revision, args.db))
+
+    old = side(args.old)
+    new = q if args.new == WORKTREE and q.index.mode == "worktree" else side(None if args.new == WORKTREE else args.new)
     report = diff(old, new)
     report["history"] = _history(q.index.config.project_root, args.old, report["added"])
     print(render.to_json(report) if args.json else diff_text(report))

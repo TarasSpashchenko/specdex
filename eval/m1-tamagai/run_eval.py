@@ -27,7 +27,8 @@ lines. Contained recall uses every shown span; top-5 recall uses the first five 
 `workflow_recall` (secondary) is the share of units whose non-blank lines the union of everything
 shown covers. Authority errors need the engine's labels: baselines show unlabelled text, so the proxy
 cannot judge their authority use (the replay judgements do).
-Usage: uv run run_eval.py [--split dev|heldout|all]
+Usage: uv run run_eval.py [--corpus-def FILE] [--split dev|heldout|all]
+The corpus definition (default corpus_def.py) names the corpus, gold, settings and its authority conventions.
 """
 from __future__ import annotations
 
@@ -47,21 +48,24 @@ import tiktoken
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-CORPUS = HERE.parent / "corpora" / "tamagai-2026-10-04"
-OVERLAY = HERE / "overlay.toml"
+sys.path.insert(0, str(HERE))
+import corpus_select  # noqa: E402
+
+C = corpus_select.load()
+CORPUS = C.CORPUS
+OVERLAY = C.OVERLAY
 ENGINE = ROOT / "skills" / "specdex" / "scripts" / "specdex.py"
-DB = HERE / "results" / ".eval-index.sqlite"
+DB = C.RESULTS / ".eval-index.sqlite"
 ENCODING = tiktoken.get_encoding("o200k_base")
 MAX_STEPS = 5
 TOP_K = 5
 REFS_PAGE = 60  # the engine's first text page of `refs` (its --size default); nothing beyond it is shown
 
-# Observed median requested range per document (extract-corpus §B6); default for others.
-OBSERVED_RANGE = {"prd.md": 77, "EXPERIENCE.md": 145, "ARCHITECTURE-SPINE.md": 51, "addendum.md": 29, "DESIGN.md": 38}
+OBSERVED_RANGE = C.OBSERVED_RANGE
 DEFAULT_RANGE = 60
 GREP_HEAD = 40
-ID_PATTERN = re.compile(r"(?<![\w-])(?:SM-C\d+|(?:NFR|FR|UJ|SM|AD|CAP|CR|OQ|CQ|ACR|UX|A)-(?:\d+|[A-Z]))(?:\.\d+)?(?![\w-])")
-SECTION_REF = re.compile(r"\b(PRD addendum|brief addendum|addendum|PRD|spine|EXPERIENCE|DESIGN|OVERVIEW)\s*§\s*(\d+(?:\.\d+)*)", re.I)
+ID_PATTERN = C.ID_PATTERN
+SECTION_REF = C.SECTION_REF
 QUOTED = re.compile(r"[\"“'‘`]([^\"”'’`]{2,60})[\"”'’`]")
 HYPHENATED = re.compile(r"\b[a-z]+(?:-[a-z]+)+\b")
 CITATION_INTENT = re.compile(r"\b(every|all (?:the )?(?:places|lines|citations|rows)|list every|where is .* (?:cited|used)|which ads? bind|cites?|citations?)\b", re.I)
@@ -72,22 +76,16 @@ STOPWORDS = set("""a an and are as at be by can do does for from has have how i 
 these they this to under up was we were what when where which while who why will with would you your about after all also any because before both
 each more most no not now only other out same some such too very just show tell give find list say pull see look does doesn't isn't what's spec specs
 section pip""".split())
-MANIFEST = """Specs of record (Tamagai): PRD prd.md (FR/NFR headings, UJ list §2.3, glossary §3, CR §7, SM §13, OQ §15, CQ §15.1); PRD addendum.md;
-DESIGN.md (tokens in frontmatter); EXPERIENCE.md; ARCHITECTURE-SPINE.md (AD headings, A-n rows); ARCHITECTURE-OVERVIEW.md; CHANGE-REQUESTS.md (ACR/UX rows);
-brief.md and brief addendum.md (superseded by the PRD except economics, brief addendum §1.2). Everything else is supporting or trail."""
-OWNER_FILE = {"FR": "prd.md", "NFR": "prd.md", "UJ": "prd.md", "SM": "prd.md", "CR": "prd.md", "OQ": "prd.md", "CQ": "prd.md",
-              "AD": "ARCHITECTURE-SPINE.md", "A": "ARCHITECTURE-SPINE.md", "ACR": "CHANGE-REQUESTS.md", "UX": "CHANGE-REQUESTS.md"}
-DOC_FILES = {"prd addendum": "prds/prd-tamagai-2026-09-29/addendum.md", "addendum": "prds/prd-tamagai-2026-09-29/addendum.md",
-             "brief addendum": "briefs/brief-tamagai-2026-09-29/addendum.md", "prd": "prd.md", "spine": "ARCHITECTURE-SPINE.md",
-             "experience": "EXPERIENCE.md", "design": "DESIGN.md", "overview": "ARCHITECTURE-OVERVIEW.md"}
+MANIFEST = C.MANIFEST
+OWNER_FILE = C.OWNER_FILE
+DOC_FILES = C.DOC_FILES
 POINTER = re.compile(r"(?P<path>[\w./-]+\.md):(?P<a>\d+)(?:-(?P<b>\d+))?")
 
-# Authority (GOLD-SPEC "Historical text inside record files"; the overlay's [[historical]] and [[superseded]] rules).
-HISTORICAL_SECTIONS = {"addendum.md": ("1.9 Declined proposals", "6. What this PRD changes", "Appendix A"),
-                       "EXPERIENCE.md": ("PRD change requests", "Architecture change requests")}
-HISTORICAL_LABELS = {"prd.md": "**Retired claims", "EXPERIENCE.md": "**Retired claims"}  # PRD §9 and EXPERIENCE lists
-REQUEST_ROWS_FILE = "CHANGE-REQUESTS.md"  # each row's request text is historical; only its Decision cell is current
-BRIEF_AUTHORITY = ("briefs/brief-tamagai-2026-09-29/addendum.md", "1.2 Economics")  # PRD §0: the brief stays authority only here
+# Authority, from the corpus definition.
+HISTORICAL_SECTIONS = C.HISTORICAL_SECTIONS
+HISTORICAL_LABELS = C.HISTORICAL_LABELS
+REQUEST_ROWS_FILE = C.REQUEST_ROWS_FILE
+SUPERSEDED = C.SUPERSEDED
 
 # Gates (docs/m1-plan.md, "Smallest worthwhile benefit").
 LOOKUP = ("section", "exact")
@@ -108,7 +106,8 @@ def tokens(text: str) -> int:
 
 def specdex(*args: str) -> tuple[str, int, float]:
     started = time.perf_counter()
-    done = subprocess.run([sys.executable, str(ENGINE), "--project", str(CORPUS), "--overlay", str(OVERLAY), "--db", str(DB), *args],
+    settings = ["--overlay", str(OVERLAY)] if OVERLAY else []
+    done = subprocess.run([sys.executable, str(ENGINE), "--project", str(CORPUS), *settings, "--db", str(DB), *args],
                           capture_output=True, text=True)
     text = done.stdout if done.returncode in (0, 1) else done.stdout + done.stderr
     return text, done.returncode, time.perf_counter() - started
@@ -704,8 +703,10 @@ def non_current_lines(span: dict, corpus: Corpus) -> set[int]:
     path, lines = span["path"], set(range(span["start"], span["end"] + 1))
     if path not in corpus.records:
         return lines  # supporting material and the working trail
-    if "/briefs/" in path:  # superseded by the PRD, except the economics section
-        return lines - corpus.section_lines(path, (BRIEF_AUTHORITY[1],)) if path.endswith(BRIEF_AUTHORITY[0]) else lines
+    superseded = [(suffix, kept) for suffix, kept in SUPERSEDED.items() if path.endswith(suffix)]
+    if superseded:  # the PRD supersedes this file, except the section that stays authority
+        kept = superseded[0][1]
+        return lines - corpus.section_lines(path, (kept,)) if kept else lines
     return lines & historical_lines(path, corpus)
 
 
@@ -799,11 +800,12 @@ def summarize(rows: list[dict], conditions: list[str]) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--corpus-def", type=Path, default=corpus_select.DEFAULT, help="corpus definition module")
     parser.add_argument("--split", choices=("dev", "heldout", "all"), default="dev")
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     files = {"dev": ["dev.json"], "heldout": ["heldout.json"], "all": ["dev.json", "heldout.json"]}[args.split]
-    tasks = [t for f in files for t in json.loads((HERE / "gold" / f).read_text())]
+    tasks = [t for f in files if (C.GOLD / f).is_file() for t in json.loads((C.GOLD / f).read_text())]
     specdex("status")  # build once; every later call still verifies every byte
     corpus = Corpus()
     agents = [Specdex(corpus, "A"), Specdex(corpus, "B"), B0(corpus), B1(corpus)]
@@ -817,7 +819,7 @@ def main() -> int:
                                          + (f" cit{r['citation_recall']:.2f}" if "citation_recall" in r else "")
                                          for n, r in row["conditions"].items()), flush=True)
     summary = summarize(rows, [a.name for a in agents])
-    out = args.out or HERE / "results" / f"layer-a-{args.split}.json"
+    out = args.out or C.RESULTS / f"layer-a-{args.split}.json"
     out.write_text(json.dumps({"split": args.split, "max_steps": MAX_STEPS, "summary": summary, "tasks": rows}, indent=1))
     print(json.dumps(summary, indent=1))
     return 0
