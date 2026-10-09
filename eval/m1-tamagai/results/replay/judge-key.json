@@ -1,0 +1,178 @@
+{
+ "C01:A": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "C01:B": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "C01:C": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "C01:D": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "C04:A": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "C04:B": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "C04:C": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "C04:D": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "E01:A": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "E01:B": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "E01:C": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "E01:D": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "E04:A": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "E04:B": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "E04:C": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "E04:D": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "S01:A": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "S01:B": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "S01:C": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "S01:D": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "S04:A": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "S04:B": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "S04:C": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "S04:D": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "S07:A": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "S07:B": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "S07:C": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "S07:D": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "S10:A": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "S10:B": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "S10:C": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "S10:D": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "S13:A": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "S13:B": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "S13:C": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "S13:D": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "Y02:A": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "Y02:B": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "Y02:C": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "Y02:D": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "Y05:A": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "Y05:B": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "Y05:C": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "Y05:D": {
+  "harness": "claude",
+  "condition": "specdex"
+ }
+}

@@ -1,0 +1,11 @@
+There are seven explicit FR-7.3 citations: two in ARCHITECTURE-OVERVIEW.md, one in CHANGE-REQUESTS.md, one in addendum.md, and three in prd.md. The CHANGE-REQUESTS.md and addendum.md passages are historical. ARCHITECTURE-SPINE.md also has an implicit binding through “all MVP FRs and NFRs,” without naming FR-7.3.
+
+Evidence:
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-OVERVIEW.md:21-21
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-OVERVIEW.md:79-79
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:22-22
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:408-408
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:241-241
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:396-396
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:2128-2128
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:63-63

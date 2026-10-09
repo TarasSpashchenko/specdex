@@ -1,0 +1,29 @@
+§3, **“The reaction contract,”** defines one interface for both brains, resolving intent open question #15; architecture confirms the details.
+
+The **request** contains the prompt card, Pip’s vocabulary, interest catalog IDs, screen objects, current wish, age band, Pip’s three previous reactions, and either server-tier audio or an on-device transcript; server requests also carry the prompt-card version reference, credential, contract version, and first-turn-today marker.
+
+The **response** is one schema-validated event with these fields, plus a server-added, never-persisted `transcript` outside the brain’s JSON so brain failures cannot hide it; there is no child-emotion field.
+
+| Field | Type or values |
+|---|---|
+| `emotion` | Enum |
+| `action` | Enum; optional target object ID |
+| `line` | Optional text |
+| `unsure` | Boolean |
+| `crisis` | `none`, `self_harm`, `suicide`, `abuse`, `danger` |
+| `intent` | `normal`, `out_of_scope`, `health_question`, `self_claim_question`, `affection`, `feeling_stated`, `teach`, `food_or_hazard` |
+| `proposed_word` | Text for voice-teach |
+
+**Output and validation:** use JSON-schema-constrained output through LiteRT-LM `ResponseFormat.json(schema)`, llama.cpp `response_format` or GBNF, and vLLM structured outputs, without native tool calls; the client converts types, strips code fences, maps unknown reactions to fallback, and checks transcript/crisis before reaction validation, with `crisis` generated first and unreadable or unknown values deferred to the phrase list.
+
+**Limits:** approximately 150 prompt-card tokens, 1,500 input tokens per turn, and at most 60 output tokens; child/Pip names use device-filled placeholders, and the engine enforces every hard limit.
+
+**Evaluation:** contract tests across all three runtimes, NFR-14 probe sets, crisis and child-exaggeration sets as text and audio, a prosody probe, and reference-device latency measurements.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:234-236
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:237-237
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:238-250
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:251-252
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:253-255
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:256-261

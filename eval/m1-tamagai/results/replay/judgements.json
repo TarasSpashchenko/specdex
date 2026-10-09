@@ -1,0 +1,398 @@
+[
+ {
+  "task": "C01",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Does not establish that no other record file cites AD-12; it treats the spine as the only record file and leaves open whether the reviews/ mentions are current.",
+  "reason": "All nine spine lines are right, but A wrongly narrows 'record files' to the spine alone and ends with an unresolved hedge about the review files, which slightly misstates the scope."
+ },
+ {
+  "task": "C01",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Lists exactly the nine gold lines (181, 192, 1310, 1312, 1313, 1335, 1349, 1444, 1452) and says the spine is the only record file that cites AD-12; the prose grouping is loose but nothing in it is materially wrong."
+ },
+ {
+  "task": "C01",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives all nine spine citations with correct locations (AD-5 twice, four capability-map rows, CQ-9, A-4/OQ-12, A-5) and no other files."
+ },
+ {
+  "task": "C01",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives all nine current spine citations with correct locations and no extra or missing lines."
+ },
+ {
+  "task": "C04",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "wrong",
+  "authority_error": false,
+  "missing": "the count of 7 record-file citing lines; FR-7.3's definition at 404-412; ACR-A's current decision",
+  "reason": "Claims 24 citing lines, including memlog, review and extract files, places the normative text wrongly at prd.md:398-399, and admits it never read CHANGE-REQUESTS.md:22."
+ },
+ {
+  "task": "C04",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "ACR-A's current decision ('amend (§3.1); counsel-tagged clauses'); that 2128 sits in the Counsel group of the §16.2 assumption index",
+  "reason": "Lists exactly the 7 gold citing lines, places the definition at 404-412 and correctly marks the addendum and the ACR-A row as historical, but it calls prd.md:2128 a change-log entry and leaves out ACR-A's current decision."
+ },
+ {
+  "task": "C04",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "wrong",
+  "authority_error": false,
+  "missing": "the count of 7 citing lines in record files; FR-7.3's meaning and its counsel-gated CQ-21 clause; ACR-A's current decision",
+  "reason": "It contains all 7 gold lines but adds 17 more from memlog, review, extract and discussion files that are not record files, so its core count (27 citations in 15 files) is materially wrong."
+ },
+ {
+  "task": "C04",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "what FR-7.3 is (the only traffic basic mode may send, CQ-21 counsel-gated clause); ACR-A's current decision",
+  "reason": "Gives the 7 correct lines and correct historical flags, but it adds ARCHITECTURE-SPINE.md:63 to the evidence as a non-citation line and omits FR-7.3's substance and ACR-A's decision."
+ },
+ {
+  "task": "E01",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "C matches the gold: the full current allowlist with every FR reference, the authorization and retention, child-speech, offline-request and credential conditions, and the opt-in rule tagged [ASSUMPTION: CQ-21]."
+ },
+ {
+  "task": "E01",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "D matches the gold: the full current allowlist with every FR reference and all the conditions, and it says outright that the opt-in rule is provisional under CQ-21."
+ },
+ {
+  "task": "E01",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "That the counters/crash-report opt-in rule is provisional pending CQ-21 [ASSUMPTION: CQ-21]; the FR refs for config fetch/link check (FR-94), model downloads (FR-95), credentials (FR-88) and the referral count (FR-104)",
+  "reason": "The allowlist is right and includes the full parent-area FR list, but A states the opt-in rule as settled when it is a CQ-21 assumption, and it attaches the networking-disabled rule (the fourth bullet) to FR-7.3."
+ },
+ {
+  "task": "E01",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "The parent-area FR list (FR-64, FR-68, FR-69.1, FR-70–FR-72, FR-74, FR-86, FR-87, FR-102, FR-103); the FR refs FR-94, FR-95, FR-88 and FR-104",
+  "reason": "The structure, exception categories and CQ-21 assumption are right, but B leaves out the exact FR references that define what counts as parent-area traffic, and the question asks what FR-7.3 is exactly."
+ },
+ {
+  "task": "E04",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gets the value, the 40% use and the 'nowhere else' limit right, but wrongly says the colour value itself is marked [ASSUMPTION] and not final, when the gold marks only the usage."
+ },
+ {
+  "task": "E04",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives #141B33, cites the Room table limit (40% dim over sleeping Pip, nowhere else) and says the row is an assumption; the EXPERIENCE reference is consistent with the gold."
+ },
+ {
+  "task": "E04",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives #141B33, says it is applied at 40% only for sleeping Pip and that the usage is marked [ASSUMPTION]; the layer-placement detail is extra and does not contradict the gold."
+ },
+ {
+  "task": "E04",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives #141B33, says it is used only for the 40% dim over sleeping Pip, and says that use is marked [ASSUMPTION], citing the gold lines."
+ },
+ {
+  "task": "S01",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Delete everything from a linked state also unlinks the device",
+  "reason": "Has the lead, states, events and all the rules under the table, but leaves out the unlink in Delete everything and says server talk stops on refund for every linked state, not only linked with consent."
+ },
+ {
+  "task": "S01",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives the full current state table and every consequence (60 s / 24 h timing, notice that no child data is collected, link check at least every 30 days online with no offline guarantee, no remote erase of the pet, FR-69 beyond-the-defaults row); its mention of the addendum does not present non-current text as current."
+ },
+ {
+  "task": "S01",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives the full current state table, including record deletion shown as requested but never completed, plus every consequence in the gold."
+ },
+ {
+  "task": "S01",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives the full current state table and every gold consequence, with no stale extract wording."
+ },
+ {
+  "task": "S04",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Covers tier, leave condition with the assumption tag, and parent-area text for both rows; the extra note about line 401 does not contradict the gold."
+ },
+ {
+  "task": "S04",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gets all three differences right: Server-only vs both tiers, ears rest until the next connected visit (marked as an assumption) vs until the device cools, and the two parent-area texts; it cites only the current EXPERIENCE rows."
+ },
+ {
+  "task": "S04",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives the tier, leave condition (including the not-mid-visit assumption) and parent-area text for both rows, all matching the gold."
+ },
+ {
+  "task": "S04",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Has every fact the gold treats as essential for both rows, with the assumption flagged and the correct current citations."
+ },
+ {
+  "task": "S07",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States all the gold facts; the extra rationale and memlog note are given as background, not as the current requirement, and contradict nothing in the gold."
+ },
+ {
+  "task": "S07",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States SDK 31/36/37 and NDK r30 with r28 floor from the current Stack rows, matching the gold."
+ },
+ {
+  "task": "S07",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States min 31 / target 36 / compile 37 and NDK r30 with r28 minimum, citing the current Stack rows."
+ },
+ {
+  "task": "S07",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Matches the gold exactly: SDK 31/36/37 and NDK r30 with r28 as the minimum for vendored native builds."
+ },
+ {
+  "task": "S10",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States every gold fact, including the tokens and the EXPERIENCE Parent-area states > Delete everything copy location; the extra detail about the equal pair (same tonal buttons, Keep first) is consistent with DESIGN."
+ },
+ {
+  "task": "S10",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Includes all row facts, explicitly names the components.confirm-dialog frontmatter group (background, radius, title, body) and says the Delete everything copy is in EXPERIENCE.md."
+ },
+ {
+  "task": "S10",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Pointer that the 'Delete everything' copy lives in EXPERIENCE Parent-area states > Delete everything",
+  "reason": "Core facts and tokens are right, but it leaves out the cross-reference to the EXPERIENCE copy for Delete everything."
+ },
+ {
+  "task": "S10",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Pointer that the 'Delete everything' copy lives in EXPERIENCE Parent-area states > Delete everything",
+  "reason": "Covers the Material dialog, parent-raised, 28 dp, equal Keep/Delete, no danger color (NFR-18), PIN first, CQ-17 and the title/body tokens, but leaves out the EXPERIENCE copy cross-reference that the gold row includes."
+ },
+ {
+  "task": "S13",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Prompt card sent by version reference on the server tier; names as placeholders; crisis enum values (none/self_harm/suicide/abuse/danger), the 8 intent values, and action's optional target object ID",
+  "reason": "The core contract is correct and nearly complete, but it leaves out the prompt-card version reference, the name placeholders and the field value details."
+ },
+ {
+  "task": "S13",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "What the visit context contains; server envelope items (prompt-card version reference, credential, contract version, first-turn-today marker); server-added transcript outside the brain JSON; crisis generated first; names as placeholders; what the evaluation suite contains (contract tests on 3 runtimes, crisis/exaggeration sets, prosody, latency)",
+  "reason": "Response fields and limits are right, but the request side, the server envelope, crisis-first generation, placeholders and the evaluation suite contents are missing."
+ },
+ {
+  "task": "S13",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Covers every gold fact: the full request including the prompt-card version reference, the fields with their enums, the transcript envelope, constrained output with no tool calls, the validator order, crisis first, limits, placeholders, engine enforcement and the evaluation suite."
+ },
+ {
+  "task": "S13",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Prompt card sent by version reference; what the visit context contains; no native tool calls; crisis enum values and the 8 intent values",
+  "reason": "Most mechanics are right, but it omits the prompt-card version reference, the visit-context contents, the no-native-tool-calls rule and the field value enums."
+ },
+ {
+  "task": "Y02",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "It covers every essential fact: one coordinator per process, bound to the profile in front, owning MicCapture and the in-flight turns; turns tagged with profile and visit IDs; crisis checks never cancelled by a profile switch; the AD-11 care-letter controller as a second owner never active at the same time; and the memlog as stale."
+ },
+ {
+  "task": "Y02",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "AD-11: MicCapture has two possible owners, never at once (the coordinator and the on-device, parent-area care-letter controller)",
+  "reason": "It gets the per-process AD-5 rule, the turn tagging and the crisis-check point right and marks the memlog as stale, but it leaves out the AD-11 second owner."
+ },
+ {
+  "task": "Y02",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Each turn is tagged with its profile and visit IDs; a profile switch never cancels a crisis check",
+  "reason": "It covers the per-process coordinator that owns MicCapture and the AD-11 care-letter controller (never at the same time) and treats the memlog and review as superseded, but it leaves out the turn tagging and crisis-check rules."
+ },
+ {
+  "task": "Y02",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "AD-11: MicCapture has two possible owners, never at once (the coordinator and the on-device, parent-area care-letter controller)",
+  "reason": "It states AD-5 per-process ownership correctly, including tagging and crisis checks, and marks the memlog as outdated, but it leaves out the AD-11 two-owner rule."
+ },
+ {
+  "task": "Y05",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "FR-58 (with its 7-day retention and FR-70 reporting) as the requirement behind the flagged-line view",
+  "reason": "The core is right: FR-65 says 'never ... transcripts, anything the child said', the addendum dropped the last-20-lines list, and flagged lines are the only line-level view. But it never names FR-58, the ID behind that one allowed view."
+ },
+ {
+  "task": "Y05",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "FR-65.1's explicit 'never shows recordings, transcripts, anything the child said'; the flagged-line exception via FR-58/FR-70",
+  "reason": "It gets 'no FR' right and cites the addendum §1.4 drop. But it backs this with UX and architecture text instead of FR-65.1, and it never names the FR-58 flagged-line view."
+ },
+ {
+  "task": "Y05",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Says no FR allows this, cites FR-65's exclusion of transcripts and anything the child said, notes the recent-lines list was dropped, and names the flagged-line exception (FR-58, 7 days). It leaves out FR-70 reporting, which is only a minor detail."
+ },
+ {
+  "task": "Y05",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Says no FR allows this, cites FR-65's ban and the dropped list (addendum:62), and names the flagged-line exception via FR-58 plus FR-70 reporting. Only the minor 7-day retention detail is missing."
+ }
+]

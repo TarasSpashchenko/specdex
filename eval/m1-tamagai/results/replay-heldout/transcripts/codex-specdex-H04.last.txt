@@ -1,0 +1,6 @@
+The phone’s “Remove animations” setting should govern both Pip and transitions. Pip uses calm animations with the same timing and cues, half the squash, feet no more than 5% off the ground, and no flips. Large movements—travel exceeding one-third of the screen or scaling exceeding 10%—become crossfades lasting at most 150 ms; the hint ring and dream cloud stay still. Yes, the listening ear glow still pulses every 1.6 seconds while the microphone is live, and no setting can hide it.
+
+Evidence:
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:844-877
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-766
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:563-574

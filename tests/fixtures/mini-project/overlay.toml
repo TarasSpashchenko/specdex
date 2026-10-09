@@ -1,0 +1,12 @@
+# specdex overlay for the synthetic mini project used by the unit tests.
+
+[overlay]
+project = "mini-project"
+profile = "bmad-6.13.0-next"
+
+# FR-n.k counts the top-level bullets under "Consequences (testable)" (stated in prd §0).
+[[positional]]
+family = "FR"
+container = "after-marker"
+marker = "**Consequences (testable):**"
+source = "prd §0"

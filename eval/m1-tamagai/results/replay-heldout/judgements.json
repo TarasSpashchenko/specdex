@@ -1,0 +1,290 @@
+[
+ {
+  "task": "H01",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Covers every gold fact: deletion by the parent only, removal from vocabulary, lines, dreams and diary, the taught-word count dropping, reached steps staying reached, and Pip saying nothing; the extra note about the architecture is not contradicted by the gold."
+ },
+ {
+  "task": "H01",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States all the essential gold facts with nothing materially wrong."
+ },
+ {
+  "task": "H01",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Only a parent can delete a word card",
+  "reason": "The core consequences are right, but it never says that deletion is restricted to the parent."
+ },
+ {
+  "task": "H01",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Only a parent can delete a word card",
+  "reason": "The removal scope, count drop, kept steps and Pip's silence are right, but it leaves out that only a parent can delete."
+ },
+ {
+  "task": "H02",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives both gold facts, and its extra details (CR-10, expert sign-off, non-crisis sets) do not contradict the gold; it cites a review file only in Evidence and does not present it as the requirement."
+ },
+ {
+  "task": "H02",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States that research-panel children must not record crisis phrases because it is a safeguarding harm, and that audio comes only from adult actors, child-voice actors or synthetic voices; the extra details do not contradict the gold."
+ },
+ {
+  "task": "H02",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives both gold facts: the three allowed audio sources, and that panel children are excluded as a safeguarding harm."
+ },
+ {
+  "task": "H02",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives both gold facts: the three allowed audio sources, and that panel children are excluded because asking them is a safeguarding harm."
+ },
+ {
+  "task": "H03",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Detailed layout and styling are marked as assumptions",
+  "reason": "The core rules match the gold, but it never says they are marked as assumptions, and it adds an unsupported claim, taken from a validation report, that the order of 'Not now' is inconsistent between flows."
+ },
+ {
+  "task": "H03",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "It states equal size, style and weight, both tonal and never filled beside text, declining or keeping first in all three placements, private preselect, and that the layout and order are marked [ASSUMPTION]."
+ },
+ {
+  "task": "H03",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Detailed layout and styling are marked as assumptions",
+  "reason": "It gets equal size, style and weight, tonal buttons rather than filled beside text, declining first (left, first in focus, on top when stacked) and the private preselect right, but never says the layout and styling are marked as assumptions."
+ },
+ {
+  "task": "H03",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "It covers every essential gold fact: equal size, style and weight, two tonal buttons, decline first in all three placements, private preselect, and the layout and segmented details marked as UX assumptions."
+ },
+ {
+  "task": "H04",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Reduced-motion behaviors are marked as assumptions",
+  "reason": "All the core behaviors are right, including the ear glow keeping its 1.6 s pulse, but it leaves out the assumption marking; the extra details do not contradict the gold."
+ },
+ {
+  "task": "H04",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "It covers the calm variants, the thresholds and 150 ms crossfade, the still hint ring and dream cloud, the 1.6 s ear-glow pulse and the [ASSUMPTION] marking."
+ },
+ {
+  "task": "H04",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Reduced-motion behaviors are marked as assumptions",
+  "reason": "The core behaviors and the ear-glow pulse are right, but it leaves out the assumption marking and adds small details the gold does not have (body-height basis, turns over 30°)."
+ },
+ {
+  "task": "H04",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Reduced-motion behaviors are marked as assumptions",
+  "reason": "Calm variants, thresholds, the 150 ms crossfade, the still hint ring and dream cloud, and the 1.6 s ear-glow pulse are all right, but it never says these behaviors are assumptions."
+ },
+ {
+  "task": "H05",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Covers monotonic elapsed time, the guarantee that a manual clock change cannot advance trusted time, the offline-reboot case where the device clock is accepted, and the residual risk recorded as ACR-J / CR-1 residual (c)."
+ },
+ {
+  "task": "H05",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States monotonic counting, that a manual change normally grants nothing, that an offline reboot with no anchor makes the device clock accepted, and the residual risk ACR-J / CR-1 residual (c); the FR-59 test detail is extra and does not contradict the gold."
+ },
+ {
+  "task": "H05",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Play time uses monotonic elapsed-time deltas",
+  "reason": "Right core (the offline-reboot loophole, protection while an anchor exists, ACR-J/CR-1) but leaves out the monotonic elapsed-time mechanism that the gold states."
+ },
+ {
+  "task": "H05",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Monotonic elapsed-time deltas; the residual risk's identifiers ACR-J and CR-1 residual (c)",
+  "reason": "Right core loophole and says it is a recorded residual risk, but leaves out the monotonic mechanism and does not name the ACR-J / CR-1 residual (c) record."
+ },
+ {
+  "task": "H06",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Right core (only the developer machine and LAN host, no staging or cloud), but it then says the LAN host is 'for actor and synthetic audio only', which contradicts its own core answer."
+ },
+ {
+  "task": "H06",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "partial",
+  "authority_error": false,
+  "missing": "Never states as a rule that processing is limited to the developer machine and LAN host; does not say production is excluded",
+  "reason": "Says panel clips cannot go to cloud staging and mentions the developer machine and LAN host, but only as where the architecture places things, not as the required restriction, and it leaves a 'needs spec change plus counsel sign-off' path open."
+ },
+ {
+  "task": "H06",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Says processing is allowed only on the developer machine or LAN host and that the clips cannot go to cloud staging; 'only' also rules out production."
+ },
+ {
+  "task": "H06",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Limits processing to the developer machine or LAN host and rules out cloud staging, which matches the gold; the extra consent and retention details do not conflict with it."
+ },
+ {
+  "task": "H07",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Says the phone keeps the last good configuration file and fetch age alone never changes what the child sees; the extra detail does not contradict the gold."
+ },
+ {
+  "task": "H07",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States that the device keeps the last good configuration and fetch age alone never changes the child view; the gold does not contradict its added detail about the 30-day fetch interval."
+ },
+ {
+  "task": "H07",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States that the phone keeps the last valid settings and that staleness alone does not change the child view; the resting-ears case is explicitly framed as a separate condition."
+ },
+ {
+  "task": "H07",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States both essential facts: the child view does not change because of stale settings alone, and the last valid configuration is kept."
+ },
+ {
+  "task": "H08",
+  "harness": "claude",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Gives the gold trigger and response (refunds >10%: fix the demo and listing before touching the price) and labels the digest reasoning as reasoning, not as the requirement."
+ },
+ {
+  "task": "H08",
+  "harness": "claude",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "Quotes the addendum trigger exactly: refunds >10% means fix the demo and listing before touching the price; the price-testing context is extra but consistent."
+ },
+ {
+  "task": "H08",
+  "harness": "codex",
+  "condition": "baseline",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States the core gold answer: when refunds go above 10%, improve the demo and store listing before changing the price."
+ },
+ {
+  "task": "H08",
+  "harness": "codex",
+  "condition": "specdex",
+  "verdict": "correct",
+  "authority_error": false,
+  "missing": "",
+  "reason": "States that refunds above 10% trigger fixing the demo and store listing before changing the price; the extra guidance on explaining the purchase does not contradict the gold."
+ }
+]

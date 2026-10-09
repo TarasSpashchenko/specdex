@@ -1,0 +1,10 @@
+AD-5 requires **one voice-turn coordinator per process**, bound to the profile in front, owning `MicCapture` and every in-flight turn. The memlog’s “per visit” wording is stale: review identified competing microphone owners across overlapping profile visits, and fix verification confirms process scope. AD-11 also permits the on-device care-letter controller to own capture in the parent area, but never simultaneously with the coordinator.
+
+Evidence:
+```text
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:168-173
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/.memlog.md:47-47
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/review-adversary.md:28-28
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/review-fix-verification.md:42-42
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:345-346
+```

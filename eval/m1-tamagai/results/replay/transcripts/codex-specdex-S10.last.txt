@@ -1,0 +1,5 @@
+The **Confirm dialog** is in DESIGN.md under **Components → Parent area**: a Material dialog using `{colors.parent-raised}`, 28 dp corners, and equal “Keep” / “Delete” choices. “Delete” names exactly what is removed, uses no danger color (NFR-18), and requires PIN first; “Delete everything” says model files stay. Title and body use `{typography.parent-title}` and `{typography.parent-body}`; “within 30 days” is marked as assumption CQ-17.
+
+Evidence:
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:804-804
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:422-426

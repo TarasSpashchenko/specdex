@@ -1,0 +1,5 @@
+Improve how we explain the purchase first: refunds above 10% explicitly trigger fixing the demo and store listing before changing the price. Clearly explain what the unlock adds, the device’s tier, the guaranteed date, and the 14-day refund promise.
+
+Evidence:
+_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:112-112
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1176-1182

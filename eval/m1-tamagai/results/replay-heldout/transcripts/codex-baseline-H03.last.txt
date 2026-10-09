@@ -1,0 +1,7 @@
+Place the answers side by side, with the declining option (“No” or “Not now”) on the left and first in keyboard focus order; when space or large text requires stacking, put it on top. Give both the same size, tonal style and visual weight—never a filled approval button beside a text-only refusal. Use neutral wording without guilt, loss framing or urgency, and preselect only the more private option where a standing choice needs a default.
+
+Evidence:
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:327-327
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:237-242
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1629

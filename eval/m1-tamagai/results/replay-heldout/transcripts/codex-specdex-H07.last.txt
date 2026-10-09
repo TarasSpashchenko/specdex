@@ -1,0 +1,5 @@
+The kid’s view should stay unchanged solely because settings haven’t refreshed for over a month. The phone keeps the last valid configuration, or uses bundled defaults if it has never received one. Play-time caps, consent, security restrictions, and the guaranteed date still apply independently; the phone cannot assume a service extension it hasn’t received.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1324-1332
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:467-486

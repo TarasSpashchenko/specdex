@@ -1,0 +1,222 @@
+# specdex project overlay: Tamagai (M1 copy; after adoption: _bmad/custom/specdex-overlay.toml).
+# Only what Tamagai adds to BMAD. Source of the registry: discussion-spec-search/outcome.md §3.2.
+
+[overlay]
+project = "tamagai"
+profile = "bmad-6.13.0-next"
+
+# The current specs of record (namespace owners). Spine companions join automatically.
+[current]
+records = [
+  "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+  "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md",
+  "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md",
+  "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+  "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+  "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/brief.md",
+  "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md",
+]
+
+# Authority exceptions: the brief is superseded by the PRD except economics (PRD §0).
+[[superseded]]
+path = "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/brief.md"
+by = "prd"
+[[superseded]]
+path = "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md"
+by = "prd"
+except_sections = ["1.2 Economics"]
+
+[frontmatter_types]
+change-requests = "change-requests"
+
+[[artifact]]
+type = "architecture-overview"
+glob = "{planning_artifacts}/architecture/architecture-*/ARCHITECTURE-OVERVIEW.md"
+kind = "owner"
+
+# Supporting material: current rationale is discoverable and labelled; everything else is trail.
+[doc_aliases]
+overview = ["architecture-overview"]
+"change-requests" = ["change-requests"]
+
+[[role]]
+glob = "**/discussion-*/outcome.md"
+role = "rationale"
+[[role]]
+glob = "**/sme-review/resolutions.md"
+role = "rationale"
+[[role]]
+glob = "{planning_artifacts}/research/*/research.md"
+role = "rationale"
+[[role]]
+glob = "{planning_artifacts}/research/*/results.md"
+role = "rationale"
+[[role]]
+glob = "**"
+role = "trail"
+
+# Families Tamagai adds.
+[[family]]
+name = "NFR"
+pattern = 'NFR-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+[[family]]
+name = "CR"
+pattern = 'CR-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+[[family]]
+name = "OQ"
+pattern = 'OQ-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+[[family]]
+name = "CQ"
+pattern = 'CQ-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+[[family]]
+name = "A"
+pattern = 'A-(?P<key>\d+)'
+key = "int"
+owner = ["architecture-spine"]
+[[family]]
+name = "ACR"
+pattern = 'ACR-(?P<key>[A-Z])'
+key = "alpha"
+owner = ["change-requests"]
+[[family]]
+name = "UX"
+pattern = 'UX-(?P<key>[A-Z])'
+key = "alpha"
+owner = ["change-requests"]
+[[family]]
+name = "TERM"
+kind = "term"
+owner = ["prd"]
+
+[[define]]
+family = "NFR"
+artifact = "prd"
+shape = "heading"
+[[define]]
+family = "CR"
+artifact = "prd"
+shape = "row-key"
+[[define]]
+family = "OQ"
+artifact = "prd"
+shape = "row-key"
+[[define]]
+family = "CQ"
+artifact = "prd"
+shape = "row-key"
+[[define]]
+family = "A"
+artifact = "architecture-spine"
+shape = "row-key"
+section = "Open Questions"
+[[define]]
+family = "ACR"
+artifact = "change-requests"
+shape = "row-key"
+[[define]]
+family = "UX"
+artifact = "change-requests"
+shape = "row-key"
+[[define]]
+family = "TERM"
+artifact = "prd"
+shape = "item-lead-term"
+section = "3. Glossary"
+
+# Positional IDs (PRD §0): FR-n.k counts the top-level bullets under "Consequences (testable)";
+# NFR-n.k counts the NFR's top-level bullets.
+[[positional]]
+family = "FR"
+container = "after-marker"
+marker = "**Consequences (testable):**"
+source = "prd §0"
+[[positional]]
+family = "NFR"
+container = "first-list"
+source = "prd §0"
+
+# Registered elaborations (record): never inferred from index or gate lists.
+[[elaborate]]
+families = ["FR", "NFR"]
+artifact = "prd-addendum"
+section = "5. Traceability"
+shape = "row-any"
+[[elaborate]]
+families = ["NFR"]
+artifact = "ux-experience"
+section = "Accessibility Floor"
+shape = "heading"
+[[elaborate]]
+families = ["UJ"]
+artifact = "ux-experience"
+section = "Key Flows"
+shape = "heading"
+[[elaborate]]
+families = ["OQ"]
+artifact = "architecture-spine"
+section = "Open Questions"
+shape = "row-key"
+[[elaborate]]
+families = ["CQ"]
+artifact = "architecture-spine"
+section = "Counsel-dependent architecture"
+shape = "row-key"
+[[elaborate]]
+families = ["CQ"]
+artifact = "ux-experience"
+section = "Counsel-dependent design"
+shape = "row-key"
+[[elaborate]]
+families = ["ACR", "UX"]
+artifact = "ux-experience"
+section = "Architecture change requests"
+shape = "row-key"
+
+# Historical text inside record files: true as history, never current.
+[[historical]]
+artifact = "prd-addendum"
+section = "1.9 Declined proposals"
+[[historical]]
+artifact = "prd-addendum"
+section = "6. What this PRD changes relative to the brief and the intent"
+[[historical]]
+artifact = "prd-addendum"
+section = "Appendix A"
+[[historical]]
+artifact = "ux-experience"
+section = "PRD change requests"
+[[historical]]
+artifact = "ux-experience"
+section = "Architecture change requests"
+[[historical]]
+artifact = "prd"
+label = "**Retired claims"
+[[historical]]
+artifact = "ux-experience"
+label = "**Retired claims"
+# CHANGE-REQUESTS request texts are as raised; each row's last column is the current decision.
+[[historical]]
+artifact = "change-requests"
+rows = true
+disposition_column = "Decision"
+
+[[marker]]
+name = "conditional"
+pattern = '\[CONDITIONAL[^\]]*\]|Conditional change|\bconditional on\b'
+
+[tokens]
+bare_backtick = true
+
+# Coverage applicability: which requirement families must be covered, by what.
+[coverage]
+tickets = ["FR"]
+architecture = ["FR", "NFR"]
+ux = ["UJ"]

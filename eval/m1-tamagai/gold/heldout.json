@@ -1,0 +1,382 @@
+[
+  {
+    "id": "H01",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "If an adult erases something the pet has learned, where must it disappear, and does the pet lose abilities it already earned?",
+    "answer": "Only a parent can delete a word card; deletion removes the word from vocabulary, lines, dreams and diary. The taught-word count drops, but reached ladder steps remain reached, and Pip says nothing about the deletion.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+        "start": 700,
+        "end": 708,
+        "why": "FR-35 defines word deletion and preservation of reached steps."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Discovery by consequences; prompt avoids word-card and ladder terminology."
+  },
+  {
+    "id": "H02",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "For tests where somebody says they might hurt themselves, may we use children from our tryouts, or who should provide the audio?",
+    "answer": "Use adult actors, child-voice actors and synthetic voices only. Research-panel children must not be asked to record crisis phrases because that would be a safeguarding harm.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md",
+        "start": 64,
+        "end": 64,
+        "why": "The crisis-test-audio decision specifies allowed sources and the rejected alternative."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Current decision row in addendum §1.4; prompt avoids crisis-test-audio and research-panel terminology."
+  },
+  {
+    "id": "H03",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "How should we arrange and style the two answers when asking an adult to approve something, so saying no is as easy as saying yes?",
+    "answer": "Use the same size, style and weight, with two tonal buttons rather than a filled button beside a text button. The declining or keeping option comes first (left, first in focus order, or on top when stacked); segmented choices preselect the more private option, with the detailed layout and styling marked as assumptions.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md",
+        "start": 799,
+        "end": 799,
+        "why": "The Equal choice pair component row defines adult choice ordering and presentation."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Parent-facing discovery; ordering, spacing and segmented-control details carry ASSUMPTION tags."
+  },
+  {
+    "id": "H04",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "For a kid whose phone's accessibility settings ask for less visual movement, how should the pet and big transitions behave, and does the signal that the phone is hearing them still move?",
+    "answer": "Use calm pet variants with the same timing and cues: halve squash, keep feet at most 5% off the ground and remove flips. Large UI movements (over a third of the screen or over 10% scaling) become crossfades of at most 150 ms; the hint ring and dream cloud stay still. The ear glow keeps its 1.6 s pulse; these detailed behaviors are marked as assumptions.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+        "start": 763,
+        "end": 766,
+        "why": "The Reduced motion section defines calm variants, transition thresholds and the ear-glow exception."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Prompt avoids the section title, animation-setting name and implementation vocabulary."
+  },
+  {
+    "id": "H05",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "Can a kid get extra minutes by moving the phone's date and time forward, even if they have no connection and then turn the phone off and on?",
+    "answer": "Play time uses monotonic elapsed-time deltas, and trusted time never runs backward or advances because of a manual clock change. However, after a reboot with no trusted anchor the device clock is accepted, so changing it offline and rebooting can grant play time; that residual risk is recorded as ACR-J and CR-1 residual (c).",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+        "start": 521,
+        "end": 542,
+        "why": "AD-18 specifies the time source and explicitly qualifies the clock-change guarantee after reboot."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Prompt avoids clock-change, trusted-anchor, monotonic and reboot terminology; the residual risk is essential."
+  },
+  {
+    "id": "H06",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "Where may we process recordings collected from children trying the app, and can we send them to our cloud testing setup?",
+    "answer": "Research-panel voices must stay on the developer machine and the LAN host. They cannot be sent to cloud staging or production.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-OVERVIEW.md",
+        "start": 135,
+        "end": 135,
+        "why": "The release-gate list item restricts research-panel voices to the developer machine and LAN host."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Discovery of the research-audio location restriction, phrased without research-panel or LAN terminology."
+  },
+  {
+    "id": "H07",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "What should a kid see if their phone hasn't been able to pick up our latest settings for over a month?",
+    "answer": "The accepted amendment says to keep the last good configuration file. The inability to fetch it for more than 30 days does not itself change anything the child sees.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md",
+        "start": 23,
+        "end": 23,
+        "why": "ACR-B's row records the stale-configuration proposal and the current amend decision."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "CHANGE-REQUESTS request wording is historical; the current Decision column is amend. The answer reports that accepted decision."
+  },
+  {
+    "id": "H08",
+    "split": "heldout",
+    "category": "paraphrase",
+    "prompt": "If more than one in ten buyers asks for their money back, should we change what we charge or improve how we explain the purchase first?",
+    "answer": "When refunds exceed 10%, fix the demo and the store listing before changing the price.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md",
+        "start": 112,
+        "end": 112,
+        "why": "The economics switch-trigger row prescribes the response to refunds above 10%."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Brief addendum §1.2 remains the economics authority under PRD §0; prompt avoids refunds, demo, listing and price terminology."
+  },
+  {
+    "id": "H09",
+    "split": "heldout",
+    "category": "section",
+    "prompt": "Show FR-42, People and hazards in view, including its testable constraints.",
+    "answer": "A person in view produces no proposed label and a generic 'a person!' reaction; hazards follow FR-46. No face data, embedding or voiceprint is extracted or stored, and person names are never learned through show-and-tell.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+        "start": 776,
+        "end": 783,
+        "why": "Complete FR-42 defining section."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Heading through the line before the next higher-level heading."
+  },
+  {
+    "id": "H10",
+    "split": "heldout",
+    "category": "section",
+    "prompt": "Summarize AD-15's rules for admitting dependencies, licences and native libraries.",
+    "answer": "Every direct and transitive artifact must be named on the allowlist; additions require merged-manifest and network-code checks, and no third-party HTTP client is allowed. Licence fields on allowlist entries and model/voice manifests generate the notices, while GPL, non-commercial and research-only entries fail the build. Native libraries need 16 KB ELF alignment and vendored builds use NDK r28 or later. Until the pending size decision, CI uses measured baselines as a temporary no-growth check; the 150 MB product target remains in force.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+        "start": 445,
+        "end": 466,
+        "why": "Complete AD-15 decision, including licensing, dependency and native-library gates."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Summary retains the conditional distinction between the CI comparator and the product size target."
+  },
+  {
+    "id": "H11",
+    "split": "heldout",
+    "category": "exact",
+    "prompt": "What is FR-26.3?",
+    "answer": "A brain line exceeding either FR-38 per-line cap is dropped; its emotion and action play only if they pass the remaining safety checks. A name placeholder counts as one vocabulary word regardless of its filled length; this differs from FR-43's 60-token limit, and crisis-first routing is unchanged.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+        "start": 612,
+        "end": 620,
+        "why": "FR-26's third top-level Consequences bullet is the positional definition."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Count only the three top-level Consequences bullets at 617–619; evidence is the complete FR section."
+  },
+  {
+    "id": "H12",
+    "split": "heldout",
+    "category": "exact",
+    "prompt": "What is the value of the DESIGN token colors.parent-danger?",
+    "answer": "colors.parent-danger is '#A3302B'.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md",
+        "start": 55,
+        "end": 55,
+        "why": "The defining YAML key line for colors.parent-danger."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Exact YAML token lookup."
+  },
+  {
+    "id": "H13",
+    "split": "heldout",
+    "category": "citation",
+    "prompt": "List every line in EXPERIENCE.md that cites FR-41, including references inside numeric ranges and flow summaries.",
+    "answer": "EXPERIENCE.md cites FR-41 on lines 72, 937, 941, 945 and 1167. Line 72 cites it through the inclusive range FR-40–FR-42; the other four cite it directly.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+        "start": 72,
+        "end": 72,
+        "why": "Child-view surfaces table row includes FR-41 inside FR-40–FR-42."
+      },
+      {
+        "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+        "start": 933,
+        "end": 946,
+        "why": "Complete UJ-7 section contains the two step references and the FR summary reference."
+      },
+      {
+        "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+        "start": 1146,
+        "end": 1168,
+        "why": "Complete FR coverage section contains the unheaded system-surface citation."
+      }
+    ],
+    "citations": {
+      "scope": "Every line of _bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md, including headings, tables, flow summaries and historical text; no exclusions. A numeric FR range cites every member.",
+      "target": "FR-41",
+      "lines": [
+        {
+          "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+          "line": 72
+        },
+        {
+          "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+          "line": 937
+        },
+        {
+          "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+          "line": 941
+        },
+        {
+          "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+          "line": 945
+        },
+        {
+          "path": "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md",
+          "line": 1167
+        }
+      ]
+    },
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Candidates generated by expanding numeric ranges, then checked by eye; count each physical line once."
+  },
+  {
+    "id": "H14",
+    "split": "heldout",
+    "category": "citation",
+    "prompt": "Which AD decisions in ARCHITECTURE-SPINE.md bind FR-95? Include ranges and the blanket binding to all MVP FRs, and give every matching Binds line.",
+    "answer": "AD-1, AD-2, AD-17 and AD-27 bind FR-95, on Binds lines 63, 78, 489 and 769 respectively. AD-1 covers all MVP FRs, AD-2 includes FR-95–FR-99, AD-17 includes FR-95–FR-100, and AD-27 names FR-95 directly.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+        "start": 63,
+        "end": 63,
+        "why": "AD-1's all-MVP-FRs binding covers FR-95."
+      },
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+        "start": 78,
+        "end": 78,
+        "why": "AD-2's FR-95–FR-99 range covers FR-95."
+      },
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+        "start": 489,
+        "end": 489,
+        "why": "AD-17's FR-95–FR-100 range covers FR-95."
+      },
+      {
+        "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+        "start": 769,
+        "end": 769,
+        "why": "AD-27 explicitly binds FR-95."
+      }
+    ],
+    "citations": {
+      "scope": "Only the Binds list items belonging to AD-n defining sections of _bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md. Include direct FR-95 references, inclusive numeric ranges covering it, and the blanket all-MVP-FRs binding; exclude YAML frontmatter and every other section or list item.",
+      "target": "FR-95",
+      "lines": [
+        {
+          "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+          "line": 63
+        },
+        {
+          "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+          "line": 78
+        },
+        {
+          "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+          "line": 489
+        },
+        {
+          "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md",
+          "line": 769
+        }
+      ]
+    },
+    "forbidden": [],
+    "not_found": false,
+    "notes": "Range-expansion candidates also include the universal all-MVP-FRs binding. Scope excludes frontmatter and non-Binds references."
+  },
+  {
+    "id": "H15",
+    "split": "heldout",
+    "category": "history",
+    "prompt": "Does ACR-D already let us raise the 150 MB limit or replace the bundled videos with demos driven by the live rig?",
+    "answer": "No. NFR-5's 150 MB product target and offline recorded-video demos remain in force; ACR-D approves neither a budget change nor a demo-definition change. A-9 and OQ-12 must report all assets and measurements, then the product owner must approve the necessary change (and an FR-79/glossary amendment for a demonstrated live-rig demo). The temporary measured-baseline CI check is not evidence of compliance with 150 MB.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+        "start": 1498,
+        "end": 1504,
+        "why": "NFR-5's conditional note states what is and is not approved, the trigger and fallback."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": false,
+    "notes": "The proposed alternatives are conditional, not already adopted. The current NFR-5 note preserves the product target and recorded demos; H16 supplies the required negative history case."
+  },
+  {
+    "id": "H16",
+    "split": "heldout",
+    "category": "history",
+    "prompt": "What does FR-37.2 require?",
+    "answer": "FR-37.2 does not exist. FR-37 has only one top-level Consequences bullet: each stage change plays a growth moment.",
+    "evidence": [
+      {
+        "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+        "start": 717,
+        "end": 725,
+        "why": "The complete FR-37 section proves there is only one numbered testable consequence."
+      }
+    ],
+    "citations": null,
+    "forbidden": [],
+    "not_found": true,
+    "notes": "Statement paragraphs and Notes do not count as positional consequences; the requested second consequence is absent."
+  }
+]

@@ -1,0 +1,6 @@
+Children’s test recordings may be processed only on the developer machine or the LAN host through an SSH tunnel; the LAN host must be registered under CR-10 and pass the AD-24 settings check. **No, they cannot be sent to cloud testing/staging**, which accepts only actor and synthetic audio. These recordings require separate written parental consent for evaluation only, encrypted access-listed storage, separation from player data, and deletion at program end or within 24 months, whichever comes first.
+
+Evidence:
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1230-1237
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746

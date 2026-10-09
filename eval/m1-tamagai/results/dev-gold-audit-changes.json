@@ -1,0 +1,295 @@
+{
+ "source": "results/codex-audit.md, Dev label corrections (finding A-27)",
+ "corpus": "eval/corpora/tamagai-2026-10-04/",
+ "tasks": [
+  {
+   "task": "S05",
+   "auditor_claim": "dev.json:155: forbidden whole CHANGE-REQUESTS rows 35 and 72 contain current decisions; keep evidence, remove these whole-row forbidden entries, retain the stale extract trap.",
+   "verdict": "agree",
+   "change_summary": "Removed CR rows 35 and 72 from forbidden; trap described in notes. Evidence unchanged.",
+   "change": {
+    "forbidden": {
+     "old": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-features-nfr.md",
+       "start": 95,
+       "end": 95,
+       "why": "architecture extract (trail) row for FR-71: 'removes all on-device data and linked-parent record' is stale"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md",
+       "start": 35,
+       "end": 35,
+       "why": "ACR-N request text as raised ('pending deletion item (link credentials only)'); only its Decision column is current"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md",
+       "start": 72,
+       "end": 72,
+       "why": "UX-L request text as raised; only its Decision column is current"
+      }
+     ],
+     "new": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-features-nfr.md",
+       "start": 95,
+       "end": 95,
+       "why": "architecture extract (trail) row for FR-71: 'removes all on-device data and linked-parent record' is stale"
+      }
+     ]
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:20,35,72 (Decision cells 'amend (§3.11); counsel-tagged clauses' and 'amend (§3.11)')",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:12 (request texts are 'as raised')",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1081-1090 (FR-71.1 = 1082-1088)",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-features-nfr.md:95",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:974-976,982 (evidence unchanged)"
+   ]
+  },
+  {
+   "task": "E01",
+   "auditor_claim": "dev.json:472: forbidden whole CHANGE-REQUESTS row 22 contains a current Decision; remove it and retain the three trail traps.",
+   "verdict": "agree",
+   "change_summary": "Removed CR row 22 from forbidden; trap described in notes. Evidence and the three trail traps unchanged.",
+   "change": {
+    "forbidden": {
+     "old": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md",
+       "start": 22,
+       "end": 22,
+       "why": "ACR-A row: the request text is historical (as raised); its proposed reading leaves out FR-69.1 and the link check. Only the Decision column ('amend (§3.1)') is current"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/extract-prd.md",
+       "start": 13,
+       "end": 13,
+       "why": "extract of FR-7.3 from before ACR-A (config fetch, FR-70/FR-102/FR-103, FR-104, store only); stale trail"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-core.md",
+       "start": 163,
+       "end": 163,
+       "why": "stale architecture extract item 3 of FR-7: the old short 'sends nothing except' list"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/review-fidelity.md",
+       "start": 61,
+       "end": 61,
+       "why": "review finding that quotes the FR-7.3 text from before ACR-A ('what a parent chose to send (FR-70, FR-102, FR-103)') and proposes a widening that differs from the final text; trail"
+      }
+     ],
+     "new": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/extract-prd.md",
+       "start": 13,
+       "end": 13,
+       "why": "extract of FR-7.3 from before ACR-A (config fetch, FR-70/FR-102/FR-103, FR-104, store only); stale trail"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-core.md",
+       "start": 163,
+       "end": 163,
+       "why": "stale architecture extract item 3 of FR-7: the old short 'sends nothing except' list"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/review-fidelity.md",
+       "start": 61,
+       "end": 61,
+       "why": "review finding that quotes the FR-7.3 text from before ACR-A ('what a parent chose to send (FR-70, FR-102, FR-103)') and proposes a widening that differs from the final text; trail"
+      }
+     ]
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:20,22 (Decision 'amend (§3.1); counsel-tagged clauses')",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:394-416 (FR-7.3 = 404-412)"
+   ]
+  },
+  {
+   "task": "E06",
+   "auditor_claim": "dev.json:619: do-not-optimize and proposal context lie outside the sole SM-C2 item (prd.md:1913, :1929); replace 1931 with whole §13 1911-1935, or narrow the answer to the item.",
+   "verdict": "agree",
+   "change_summary": "Chose the narrowing alternative: answer drops '(do not optimize)' and 'is a proposal'; keeps the item's own [ASSUMPTION] tag and 'counterbalances SM-1'. Evidence 1931 unchanged.",
+   "change": {
+    "answer": {
+     "old": "SM-C2 'Healthy endings' is a counter-metric (do not optimize): at least 70% of visits end with a goodbye or sleep rather than being abandoned. The target is a proposal marked [ASSUMPTION]. Visit length is never a target (2–5 minutes is the design), and SM-C2 counterbalances SM-1.",
+     "new": "SM-C2 'Healthy endings' is a counter-metric: at least 70% of visits end with a goodbye or sleep rather than being abandoned, a target marked [ASSUMPTION]. Visit length is never a target (2–5 minutes is the design), and SM-C2 counterbalances SM-1."
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1905-1940 (§13 = 1911-1935; 1913 intro; 1929 bold label; 1931 SM-C2 item)"
+   ]
+  },
+  {
+   "task": "C04",
+   "auditor_claim": "dev.json:870: forbidden PRD 371 is a current FR-4 memory definition; remove it from non-current forbidden and keep it as a wrong-match trap in notes. Citation set stays 7 lines.",
+   "verdict": "agree",
+   "change_summary": "Removed PRD 371 from forbidden (now []); wrong-match trap described in notes. Citations (7) and evidence unchanged.",
+   "change": {
+    "forbidden": {
+     "old": [
+      {
+       "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+       "start": 371,
+       "end": 371,
+       "why": "'7.1–7.3 GB' is a memory figure in FR-4's 8 GB class definition, not a citation of FR-7.3. A naive string match or range expansion would read it as FR-7.1–FR-7.3"
+      }
+     ],
+     "new": []
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:365-375 (FR-4; 371 nested under FR-4.1)",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:394-416",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:22"
+   ]
+  },
+  {
+   "task": "C06",
+   "auditor_claim": "dev.json:991: the owner-can-overturn claim lies outside both evidence sections (source CHANGE-REQUESTS.md:14); keep evidence and the 5 citation rows; remove the clause.",
+   "verdict": "agree",
+   "change_summary": "Removed the clause 'and the product owner can overturn any decision'. Evidence, 5 citation rows and forbidden unchanged.",
+   "change": {
+    "answer": {
+     "old": "Five rows. ACR-D is conditional (§4.1; decided after A-9). ACR-T is conditional (§4.2; on A-3 failing after all levers). ACR-V is amended, with only its standby part conditional (§4.3; decided after OQ-7). UX-D is conditional (§4.4; on the OQ-12 and A-9 spikes). UX-E is conditional (§4.5; on OQ-1's earcon tests). The counsel-dependent rows (ACR-H, ACR-J, ACR-K, ACR-X) and the amend rows with counsel-tagged clauses wait on counsel, which is not the same as conditional. UX-F is withdrawn, and the product owner can overturn any decision.",
+     "new": "Five rows. ACR-D is conditional (§4.1; decided after A-9). ACR-T is conditional (§4.2; on A-3 failing after all levers). ACR-V is amended, with only its standby part conditional (§4.3; decided after OQ-7). UX-D is conditional (§4.4; on the OQ-12 and A-9 spikes). UX-E is conditional (§4.5; on OQ-1's earcon tests). The counsel-dependent rows (ACR-H, ACR-J, ACR-K, ACR-X) and the amend rows with counsel-tagged clauses wait on counsel, which is not the same as conditional. UX-F is withdrawn."
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:10-16 (line 14 is preamble prose under the H1, outside 18-56 and 57-73)",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:18-73 (every Decision cell extracted: conditional only in 25, 41, 43, 64, 65; counsel-dependent 29, 31, 32, 45; UX-F 66 withdrawn)"
+   ]
+  },
+  {
+   "task": "Y01",
+   "auditor_claim": "dev.json:1073: forbidden whole CHANGE-REQUESTS row 41 contains the current conditional decision; remove it or forbid only the request cells.",
+   "verdict": "agree",
+   "change_summary": "Removed CR row 41 from forbidden (now []); trap described in notes. Evidence unchanged.",
+   "change": {
+    "forbidden": {
+     "old": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md",
+       "start": 41,
+       "end": 41,
+       "why": "ACR-T request text as raised ('set the on-device reaction start to the measured p90 (at most 5 s)') is historical. The decided text in the NFR-1 note needs the product owner to approve a recorded target and keeps 4 s not gating meanwhile"
+      }
+     ],
+     "new": []
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:41 (Decision 'conditional (§4.2)')",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:172-181 (AD-5 Schedule; 178)",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1464-1477 (NFR-1)"
+   ]
+  },
+  {
+   "task": "Y05",
+   "auditor_claim": "dev.json:1218: neither gold unit supports seven-day retention/FR-70 reporting; add PRD 937-945 (FR-58) and 1068-1076 (FR-70).",
+   "verdict": "agree",
+   "change_summary": "Chose the trimming alternative: removed the answer's last sentence (flagged line kept 7 days, reportable via FR-70); FR-58/FR-70 named in notes as related. Evidence (1014, addendum 62) unchanged.",
+   "change": {
+    "answer": {
+     "old": "None. This is deliberately excluded. FR-65.1 says that what grown-ups see never shows recordings, transcripts, anything the child said, mood or helpline events. Addendum §1.4 records that the parent list of Pip's recent lines (the last 20 lines) was dropped to restore 'never transcripts', so reports come only from the child's flags. The only line-level view is a line of Pip's that the child flagged (FR-58, kept up to 7 days and reportable via FR-70).",
+     "new": "None. This is deliberately excluded. FR-65.1 says that what grown-ups see never shows recordings, transcripts, anything the child said, mood or helpline events. Addendum §1.4 records that the parent list of Pip's recent lines (the last 20 lines) was dropped to restore 'never transcripts', so reports come only from the child's flags."
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:937-945 (FR-58)",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1009-1015 (FR-65; 1014 = FR-65.1)",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1068-1076 (FR-70)",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:56-63 (§1.4; row 62 drop, row 63 flag retention)"
+   ]
+  },
+  {
+   "task": "Y06",
+   "auditor_claim": "dev.json:1281: forbidden PRD 1049 is current FR-68.3, which the answer correctly describes; move it to evidence. The FR-94/CQ-32 example lacks evidence: add PRD 1330 or drop it.",
+   "verdict": "agree",
+   "change_summary": "PRD 1049 moved from forbidden to evidence (3 units: CR 36, PRD 1049, PRD 1050). Dropped the 'for example FR-94, CQ-32' example instead of adding PRD 1330. Forbidden keeps review-fix-verification 81.",
+   "change": {
+    "answer": {
+     "old": "FR-68.4, not FR-68.3. ACR-O's Decision column reads 'amend (§3.12; FR-68.4, not FR-68.3)', so the FR-68.3 in the request text was a wrong reference (FR-68.3 is the on-device linking notice). FR-68.4 now says: a web unlink or record deletion reaches the device at its next successful link check; while online, checks run at least every 30 days; offline delivery has no 30-day guarantee; and a web record deletion unlinks the device without remotely erasing the child's pet. FR-68.4 has no CQ tag; ACR-O's counsel-tagged clauses are elsewhere (for example FR-94, CQ-32).",
+     "new": "FR-68.4, not FR-68.3. ACR-O's Decision column reads 'amend (§3.12; FR-68.4, not FR-68.3)', so the FR-68.3 in the request text was a wrong reference (FR-68.3 is the on-device linking notice). FR-68.4 now says: a web unlink or record deletion reaches the device at its next successful link check; while online, checks run at least every 30 days; offline delivery has no 30-day guarantee; and a web record deletion unlinks the device without remotely erasing the child's pet. FR-68.4 has no CQ tag; ACR-O's counsel-tagged clauses are elsewhere."
+    },
+    "evidence": {
+     "old": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md",
+       "start": 36,
+       "end": 36,
+       "why": "ACR-O row: the request's Location column says FR-68.3; the current Decision column corrects it to FR-68.4"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+       "start": 1050,
+       "end": 1050,
+       "why": "FR-68.4 (fourth top-level Consequences bullet): delivery of web unlinks and record deletions"
+      }
+     ],
+     "new": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md",
+       "start": 36,
+       "end": 36,
+       "why": "ACR-O row: the request's Location column says FR-68.3; the current Decision column corrects it to FR-68.4"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+       "start": 1049,
+       "end": 1049,
+       "why": "FR-68.3 (third top-level Consequences bullet): the on-device linking notice, which ACR-O's request text wrongly referenced"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+       "start": 1050,
+       "end": 1050,
+       "why": "FR-68.4 (fourth top-level Consequences bullet): delivery of web unlinks and record deletions"
+      }
+     ]
+    },
+    "forbidden": {
+     "old": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/review-fix-verification.md",
+       "start": 81,
+       "end": 81,
+       "why": "trail repeats the wrong reference: 'CR O covers FR-94, FR-68.3 and the glossary'"
+      },
+      {
+       "path": "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md",
+       "start": 1049,
+       "end": 1049,
+       "why": "FR-68.3 (on-device linking notice): the wrongly referenced consequence, not the one ACR-O amends"
+      }
+     ],
+     "new": [
+      {
+       "path": "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/review-fix-verification.md",
+       "start": 81,
+       "end": 81,
+       "why": "trail repeats the wrong reference: 'CR O covers FR-94, FR-68.3 and the glossary'"
+      }
+     ]
+    },
+    "notes": "appended an 'Audit A-27' sentence"
+   },
+   "corpus_lines_checked": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:36",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1035-1052 (FR-68 top-level bullets 1039, 1048, 1049, 1050, 1051)",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1324-1332 (FR-94; 1330 tagged CQ-32)",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/outcome.md:252-270 (§3.12 confirms FR-94 1330 is an ACR-O clause; not used as evidence)",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/review-fix-verification.md:81"
+   ]
+  }
+ ]
+}

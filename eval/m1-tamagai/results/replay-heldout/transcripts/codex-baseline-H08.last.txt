@@ -1,0 +1,5 @@
+Improve the demo and store listing first, before changing the price. The specifications treat refunds above 10% as a sign that device-tier disclosure is failing, so clarify what buyers will actually get on their device.
+
+Evidence:
+_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:104-112
+_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/digests/redteam-cfo.md:128-136

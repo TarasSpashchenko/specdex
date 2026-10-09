@@ -1,0 +1,4 @@
+The spine’s Stack table pins Android SDK levels to **min 31, target 36, and compile 37**. It pins the Android NDK to **r30**, with **r28** stated as the minimum for vendored native builds.
+
+Evidence:
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1125-1126

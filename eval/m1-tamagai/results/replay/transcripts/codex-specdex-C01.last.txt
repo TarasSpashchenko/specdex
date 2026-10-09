@@ -1,0 +1,14 @@
+There are nine current citations, all in `ARCHITECTURE-SPINE.md`. AD-5 cites AD-12 in its “One playable turn” and “Barge-in” rules. The capability map cites it for §4.2 Hatching/first visits, §4.4 Talk, §4.5 Teaching/growth, and NFR-17–NFR-19. The remaining citations are CQ-9’s voice-output row and assumption-register rows A-4/OQ-12 (voice engine) and A-5/OQ-6 (small-device caps, marked `[ASSUMPTION]`).
+
+Evidence:
+```text
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:181-183
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:192-192
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1310-1310
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1312-1312
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1313-1313
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1335-1335
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1349-1349
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1444-1444
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1452-1452
+```

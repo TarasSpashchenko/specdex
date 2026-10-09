@@ -1,0 +1,400 @@
+S01  specdex-A: 617t c1.00 t1.00  specdex-B: 617t c1.00 t1.00  B0: 28297t c0.00 t0.00  B1: 2749t c1.00 t1.00
+S02  specdex-A: 401t c1.00 t1.00  specdex-B: 401t c1.00 t1.00  B0: 22140t c1.00 t0.00  B1: 5883t c1.00 t1.00
+S03  specdex-A: 1183t c0.67 t0.67  specdex-B: 2910t c1.00 t0.67  B0: 36957t c0.00 t0.00  B1: 13744t c1.00 t0.67
+S04  specdex-A: 4914t c0.00 t0.00  specdex-B: 932t c1.00 t1.00  B0: 30669t c0.00 t0.00  B1: 1740t c1.00 t1.00
+S05  specdex-A: 4451t c0.00 t0.00  specdex-B: 2463t c1.00 t1.00  B0: 35453t c0.33 t0.00  B1: 7389t c1.00 t1.00
+S06  specdex-A: 649t c1.00 t1.00  specdex-B: 649t c1.00 t1.00  B0: 8964t c1.00 t0.00  B1: 1609t c1.00 t1.00
+S07  specdex-A: 4524t c0.00 t0.00  specdex-B: 1281t c1.00 t1.00  B0: 14993t c1.00 t0.00  B1: 2464t c1.00 t1.00
+S08  specdex-A: 512t c1.00 t1.00  specdex-B: 750t c1.00 t1.00  B0: 7919t c1.00 t0.00  B1: 1407t c1.00 t1.00
+S09  specdex-A: 4369t c1.00 t0.00  specdex-B: 1296t c1.00 t1.00  B0: 29643t c0.00 t0.00  B1: 776t c1.00 t1.00
+S10  specdex-A: 2285t c1.00 t0.00  specdex-B: 2333t c1.00 t1.00  B0: 29619t c0.00 t0.00  B1: 5167t c0.50 t0.50
+S11  specdex-A: 4054t c1.00 t0.00  specdex-B: 828t c1.00 t1.00  B0: 33985t c0.00 t0.00  B1: 804t c1.00 t1.00
+S12  specdex-A: 1086t c1.00 t1.00  specdex-B: 1086t c1.00 t1.00  B0: 33437t c0.00 t0.00  B1: 16440t c1.00 t0.00
+S13  specdex-A: 14480t c1.00 t0.00  specdex-B: 1264t c1.00 t1.00  B0: 29543t c0.00 t0.00  B1: 1465t c1.00 t1.00
+S14  specdex-A: 762t c1.00 t1.00  specdex-B: 762t c1.00 t1.00  B0: 9612t c1.00 t0.50  B1: 4788t c1.00 t1.00
+E01  specdex-A: 874t c1.00 t1.00  specdex-B: 874t c1.00 t1.00  B0: 30489t c0.00 t0.00  B1: 6086t c1.00 t1.00
+E02  specdex-A: 1535t c1.00 t1.00  specdex-B: 1535t c1.00 t1.00  B0: 11538t c0.00 t0.00  B1: 3508t c1.00 t1.00
+E03  specdex-A: 75t c1.00 t1.00  specdex-B: 75t c1.00 t1.00  B0: 31412t c0.00 t0.00  B1: 7892t c1.00 t0.00
+E04  specdex-A: 601t c1.00 t1.00  specdex-B: 601t c1.00 t1.00  B0: 1363t c1.00 t0.50  B1: 6007t c1.00 t1.00
+E05  specdex-A: 163t c1.00 t1.00  specdex-B: 163t c1.00 t1.00  B0: 4797t c1.00 t1.00  B1: 3821t c1.00 t1.00
+E06  specdex-A: 117t c1.00 t1.00  specdex-B: 117t c1.00 t1.00  B0: 3755t c1.00 t0.00  B1: 3438t c1.00 t1.00
+C01  specdex-A: 1121t c1.00 t0.00 cit1.00  specdex-B: 1121t c1.00 t0.00 cit1.00  B0: 2104t c1.00 t0.00 cit1.00  B1: 1475t c1.00 t0.00 cit1.00
+C02  specdex-A: 447t c0.67 t0.67 cit1.00  specdex-B: 3045t c0.67 t0.67 cit1.00  B0: 23163t c0.67 t0.00 cit0.67  B1: 5209t c0.00 t0.00 cit0.67
+C03  specdex-A: 374t c1.00 t1.00 cit1.00  specdex-B: 374t c1.00 t1.00 cit1.00  B0: 417t c1.00 t1.00 cit1.00  B1: 555t c1.00 t1.00 cit1.00
+C04  specdex-A: 2021t c1.00 t0.00 cit1.00  specdex-B: 2021t c1.00 t0.00 cit1.00  B0: 28559t c0.00 t0.00 cit1.00  B1: 7785t c1.00 t0.00 cit1.00
+C05  specdex-A: 4087t c1.00 t0.00 cit1.00  specdex-B: 4087t c1.00 t0.00 cit1.00  B0: 2550t c1.00 t0.00 cit1.00  B1: 2688t c1.00 t0.00 cit1.00
+C06  specdex-A: 42t c0.00 t0.00 cit0.00  specdex-B: 1515t c0.00 t0.00 cit0.00  B0: 27280t c0.50 t0.00 cit0.00  B1: 10328t c1.00 t1.00 cit0.00
+Y01  specdex-A: 1939t c1.00 t1.00  specdex-B: 1939t c1.00 t1.00  B0: 45700t c0.50 t0.00  B1: 8172t c1.00 t1.00
+Y02  specdex-A: 2081t c1.00 t1.00  specdex-B: 2081t c1.00 t1.00  B0: 12553t c1.00 t0.00  B1: 3008t c1.00 t1.00
+Y03  specdex-A: 3937t c0.50 t0.00  specdex-B: 2211t c1.00 t1.00  B0: 27890t c0.50 t0.00  B1: 7190t c1.00 t1.00
+Y04  specdex-A: 1066t c0.50 t0.50  specdex-B: 4054t c1.00 t1.00  B0: 34402t c0.50 t0.00  B1: 15623t c1.00 t0.50
+Y05  specdex-A: 4527t c0.00 t0.00  specdex-B: 6550t c0.50 t0.50  B0: 27128t c0.00 t0.00  B1: 6598t c1.00 t1.00
+Y06  specdex-A: 931t c1.00 t1.00  specdex-B: 931t c1.00 t1.00  B0: 38732t c0.33 t0.33  B1: 6064t c1.00 t1.00
+{
+ "continuation": "shared oracle-assisted continuation: gold units choose the pointer to follow and when to stop; ID definitions and section boundaries come from the engine for every condition",
+ "conditions": {
+  "specdex-A": {
+   "tasks": 32,
+   "contained_complete": 23,
+   "mean_contained_recall": 0.792,
+   "mean_top5_recall": 0.557,
+   "workflow_recall": 0.792,
+   "workflow_complete": 23,
+   "median_tokens": 1103.5,
+   "p90_tokens": 4451,
+   "median_calls": 2.0,
+   "authority_errors": 0,
+   "citation_recall": 0.833,
+   "citation_precision": 0.812,
+   "p95_call_seconds": 0.13
+  },
+  "specdex-B": {
+   "tasks": 32,
+   "contained_complete": 29,
+   "mean_contained_recall": 0.943,
+   "mean_top5_recall": 0.839,
+   "workflow_recall": 0.943,
+   "workflow_complete": 29,
+   "median_tokens": 1192.5,
+   "p90_tokens": 2910,
+   "median_calls": 3.0,
+   "authority_errors": 0,
+   "citation_recall": 0.833,
+   "citation_precision": 0.812,
+   "p95_call_seconds": 0.148
+  },
+  "B0": {
+   "tasks": 32,
+   "contained_complete": 12,
+   "mean_contained_recall": 0.479,
+   "mean_top5_recall": 0.104,
+   "workflow_recall": 0.479,
+   "workflow_complete": 12,
+   "median_tokens": 27585.0,
+   "p90_tokens": 34402,
+   "median_calls": 9.0,
+   "authority_errors": "not measurable by proxy; see replay judgements",
+   "citation_recall": 0.778,
+   "citation_precision": 0.833
+  },
+  "B1": {
+   "tasks": 32,
+   "contained_complete": 30,
+   "mean_contained_recall": 0.953,
+   "mean_top5_recall": 0.771,
+   "workflow_recall": 0.953,
+   "workflow_complete": 30,
+   "median_tokens": 4977.5,
+   "p90_tokens": 8172,
+   "median_calls": 5.0,
+   "authority_errors": "not measurable by proxy; see replay judgements",
+   "citation_recall": 0.778,
+   "citation_precision": 0.833
+  }
+ },
+ "categories": {
+  "lookup": {
+   "specdex-A": {
+    "tasks": 20,
+    "contained_complete": 16,
+    "mean_contained_recall": 0.833,
+    "mean_top5_recall": 0.633,
+    "workflow_recall": 0.833,
+    "workflow_complete": 16,
+    "median_tokens": 980.0,
+    "p90_tokens": 4524,
+    "median_calls": 2.0,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.13
+   },
+   "specdex-B": {
+    "tasks": 20,
+    "contained_complete": 20,
+    "mean_contained_recall": 1.0,
+    "mean_top5_recall": 0.983,
+    "workflow_recall": 1.0,
+    "workflow_complete": 20,
+    "median_tokens": 851.0,
+    "p90_tokens": 2333,
+    "median_calls": 2.0,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.148
+   },
+   "B0": {
+    "tasks": 20,
+    "contained_complete": 8,
+    "mean_contained_recall": 0.417,
+    "mean_top5_recall": 0.1,
+    "workflow_recall": 0.417,
+    "workflow_complete": 8,
+    "median_tokens": 28920.0,
+    "p90_tokens": 33985,
+    "median_calls": 9.0,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   },
+   "B1": {
+    "tasks": 20,
+    "contained_complete": 19,
+    "mean_contained_recall": 0.975,
+    "mean_top5_recall": 0.858,
+    "workflow_recall": 0.975,
+    "workflow_complete": 19,
+    "median_tokens": 3664.5,
+    "p90_tokens": 7892,
+    "median_calls": 4.0,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   }
+  },
+  "citation": {
+   "specdex-A": {
+    "tasks": 6,
+    "contained_complete": 4,
+    "mean_contained_recall": 0.778,
+    "mean_top5_recall": 0.278,
+    "workflow_recall": 0.778,
+    "workflow_complete": 4,
+    "median_tokens": 784.0,
+    "p90_tokens": 2021,
+    "median_calls": 2.0,
+    "authority_errors": 0,
+    "citation_recall": 0.833,
+    "citation_precision": 0.812,
+    "p95_call_seconds": 0.148
+   },
+   "specdex-B": {
+    "tasks": 6,
+    "contained_complete": 4,
+    "mean_contained_recall": 0.778,
+    "mean_top5_recall": 0.278,
+    "workflow_recall": 0.778,
+    "workflow_complete": 4,
+    "median_tokens": 1768.0,
+    "p90_tokens": 3045,
+    "median_calls": 3.5,
+    "authority_errors": 0,
+    "citation_recall": 0.833,
+    "citation_precision": 0.812,
+    "p95_call_seconds": 0.149
+   },
+   "B0": {
+    "tasks": 6,
+    "contained_complete": 3,
+    "mean_contained_recall": 0.694,
+    "mean_top5_recall": 0.167,
+    "workflow_recall": 0.694,
+    "workflow_complete": 3,
+    "median_tokens": 12856.5,
+    "p90_tokens": 27280,
+    "median_calls": 5.5,
+    "authority_errors": "not measurable by proxy; see replay judgements",
+    "citation_recall": 0.778,
+    "citation_precision": 0.833
+   },
+   "B1": {
+    "tasks": 6,
+    "contained_complete": 5,
+    "mean_contained_recall": 0.833,
+    "mean_top5_recall": 0.333,
+    "workflow_recall": 0.833,
+    "workflow_complete": 5,
+    "median_tokens": 3948.5,
+    "p90_tokens": 7785,
+    "median_calls": 5.0,
+    "authority_errors": "not measurable by proxy; see replay judgements",
+    "citation_recall": 0.778,
+    "citation_precision": 0.833
+   }
+  },
+  "exact": {
+   "specdex-A": {
+    "tasks": 6,
+    "contained_complete": 6,
+    "mean_contained_recall": 1.0,
+    "mean_top5_recall": 1.0,
+    "workflow_recall": 1.0,
+    "workflow_complete": 6,
+    "median_tokens": 382.0,
+    "p90_tokens": 874,
+    "median_calls": 1.5,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.127
+   },
+   "specdex-B": {
+    "tasks": 6,
+    "contained_complete": 6,
+    "mean_contained_recall": 1.0,
+    "mean_top5_recall": 1.0,
+    "workflow_recall": 1.0,
+    "workflow_complete": 6,
+    "median_tokens": 382.0,
+    "p90_tokens": 874,
+    "median_calls": 1.5,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.125
+   },
+   "B0": {
+    "tasks": 6,
+    "contained_complete": 3,
+    "mean_contained_recall": 0.5,
+    "mean_top5_recall": 0.25,
+    "workflow_recall": 0.5,
+    "workflow_complete": 3,
+    "median_tokens": 8167.5,
+    "p90_tokens": 30489,
+    "median_calls": 4.5,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   },
+   "B1": {
+    "tasks": 6,
+    "contained_complete": 6,
+    "mean_contained_recall": 1.0,
+    "mean_top5_recall": 0.833,
+    "workflow_recall": 1.0,
+    "workflow_complete": 6,
+    "median_tokens": 4914.0,
+    "p90_tokens": 6086,
+    "median_calls": 5.0,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   }
+  },
+  "history": {
+   "specdex-A": {
+    "tasks": 6,
+    "contained_complete": 3,
+    "mean_contained_recall": 0.667,
+    "mean_top5_recall": 0.583,
+    "workflow_recall": 0.667,
+    "workflow_complete": 3,
+    "median_tokens": 2010.0,
+    "p90_tokens": 3937,
+    "median_calls": 2.0,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.124
+   },
+   "specdex-B": {
+    "tasks": 6,
+    "contained_complete": 5,
+    "mean_contained_recall": 0.917,
+    "mean_top5_recall": 0.917,
+    "workflow_recall": 0.917,
+    "workflow_complete": 5,
+    "median_tokens": 2146.0,
+    "p90_tokens": 4054,
+    "median_calls": 4.0,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.145
+   },
+   "B0": {
+    "tasks": 6,
+    "contained_complete": 1,
+    "mean_contained_recall": 0.472,
+    "mean_top5_recall": 0.056,
+    "workflow_recall": 0.472,
+    "workflow_complete": 1,
+    "median_tokens": 31146.0,
+    "p90_tokens": 38732,
+    "median_calls": 9.5,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   },
+   "B1": {
+    "tasks": 6,
+    "contained_complete": 6,
+    "mean_contained_recall": 1.0,
+    "mean_top5_recall": 0.917,
+    "workflow_recall": 1.0,
+    "workflow_complete": 6,
+    "median_tokens": 6894.0,
+    "p90_tokens": 8172,
+    "median_calls": 10.5,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   }
+  },
+  "section": {
+   "specdex-A": {
+    "tasks": 14,
+    "contained_complete": 10,
+    "mean_contained_recall": 0.762,
+    "mean_top5_recall": 0.476,
+    "workflow_recall": 0.762,
+    "workflow_complete": 10,
+    "median_tokens": 1734.0,
+    "p90_tokens": 4524,
+    "median_calls": 2.0,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.13
+   },
+   "specdex-B": {
+    "tasks": 14,
+    "contained_complete": 14,
+    "mean_contained_recall": 1.0,
+    "mean_top5_recall": 0.976,
+    "workflow_recall": 1.0,
+    "workflow_complete": 14,
+    "median_tokens": 1009.0,
+    "p90_tokens": 2333,
+    "median_calls": 2.0,
+    "authority_errors": 0,
+    "p95_call_seconds": 0.148
+   },
+   "B0": {
+    "tasks": 14,
+    "contained_complete": 5,
+    "mean_contained_recall": 0.381,
+    "mean_top5_recall": 0.036,
+    "workflow_recall": 0.381,
+    "workflow_complete": 5,
+    "median_tokens": 29581.0,
+    "p90_tokens": 33985,
+    "median_calls": 9.0,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   },
+   "B1": {
+    "tasks": 14,
+    "contained_complete": 13,
+    "mean_contained_recall": 0.964,
+    "mean_top5_recall": 0.869,
+    "workflow_recall": 0.964,
+    "workflow_complete": 13,
+    "median_tokens": 2606.5,
+    "p90_tokens": 7389,
+    "median_calls": 3.0,
+    "authority_errors": "not measurable by proxy; see replay judgements"
+   }
+  }
+ },
+ "gates": {
+  "stage_a": {
+   "computable": true,
+   "condition": "specdex-A",
+   "tasks": "lookup (section + exact)",
+   "stronger_baseline": "B1",
+   "stronger_rule": "more contained-evidence completions on lookup tasks; ties: fewer median tokens",
+   "median_lookup_tokens": {
+    "specdex-A": 980.0,
+    "B1": 3664.5
+   },
+   "token_reduction": 0.733,
+   "required_reduction": 0.3,
+   "contained_complete": {
+    "specdex-A": "16/20",
+    "B1": "19/20"
+   },
+   "no_evidence_loss": false,
+   "answer_correctness": "not measurable by proxy; see replay judgements",
+   "proxy_passed": false
+  },
+  "stage_b": {
+   "computable": false,
+   "reason": "no paraphrase tasks in this split"
+  },
+  "authority": {
+   "errors": {
+    "specdex-A": 0,
+    "specdex-B": 0,
+    "B0": "not measurable by proxy; see replay judgements",
+    "B1": "not measurable by proxy; see replay judgements"
+   },
+   "proxy_passed": true
+  }
+ }
+}

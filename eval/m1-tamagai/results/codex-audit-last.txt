@@ -1,0 +1,3 @@
+Wrote [codex-audit.md](/home/taras_spashchenko/TS/ts/specdex/eval/m1-tamagai/results/codex-audit.md) with 29 findings, corrections for 8 dev tasks, and reproductions.
+
+Verdict: M1 acceptance cannot yet be trusted.

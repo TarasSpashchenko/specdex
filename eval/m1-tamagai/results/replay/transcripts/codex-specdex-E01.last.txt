@@ -1,0 +1,4 @@
+FR-7.3 is the third top-level bullet under FR-7’s **“Consequences (testable)”**, beginning “In basic mode, the device sends nothing except.” It permits service-configuration fetches without a stable identifier and linked-device link checks; parent-chosen sends or requests from the parent area; model downloads; unlocked-device server-credential requests; the US referral count; and Google Play purchase and age-signal traffic. Each exception follows its own authorization and retention rules, child speech is never sent, and offline parent requests wait for connectivity. Counters and crash reports require parental opt-in (marked **ASSUMPTION: CQ-21**); credential requests require unlock and active consent.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:394-416

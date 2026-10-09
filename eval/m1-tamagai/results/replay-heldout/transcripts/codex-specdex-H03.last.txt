@@ -1,0 +1,7 @@
+Give both answers equal prominence, size, style, and visual weight; never pair a filled “Yes” with a text-only “No.” The proposed action layout—marked as a UX assumption—uses two tonal buttons 12 dp apart, with “No” or “Not now” first: leftmost, first in focus order, or on top when stacked. Use neutral wording without guilt or loss framing, and preselect the more private option. For selectable choices, the proposed alternative is two joined tonal segments, with a check and 2 dp border marking the selection.
+
+Evidence:  
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1630  
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799  
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:842-842  
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:113-113

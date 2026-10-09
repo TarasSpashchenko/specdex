@@ -1,0 +1,5 @@
+AD-5 specifies **one voice-turn coordinator per process**, bound to the active profile, owning `MicCapture` and every in-flight turn. Each turn carries profile and visit IDs; switching profiles never cancels a crisis check. The architecture memlog’s “one TalkTurn coordinator per visit” wording is outdated; the current architecture spine governs.
+
+Evidence:
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:168-173
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/.memlog.md:47-47

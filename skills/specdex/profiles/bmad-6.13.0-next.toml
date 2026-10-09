@@ -1,0 +1,286 @@
+# specdex BMAD profile: what the installed BMAD-METHOD itself fixes.
+# Derived from BMAD-METHOD core-tools/method 6.13.0-next (dated v6 run folders, v7-preview ticket tree).
+# Project-specific conventions belong in the project overlay, never here.
+
+[profile]
+id = "bmad-6.13.0-next"
+release = 1
+supports = "dated-v6 planning folders + preview ticket tree"
+
+# Installed files this profile was derived from. A missing or different file marks results "profile unverified".
+[binding]
+skill_roots = [".agents/skills", ".claude/skills"]
+files = [
+  { path = "bmod-method/bmod.toml", sha256 = "0d923ed8289e18aebad2ba58f2f4baf61c2d0e02b9921cebea9ef6489ea93147" },
+  { path = "bmad-prd/assets/prd-template.md", sha256 = "b6fe8fc1390b8e46961d5eb5e6f2fe6c65dca2f30623d492677672e02868f7ab" },
+  { path = "bmad-architecture/assets/spine-template.md", sha256 = "ef4ff795624eb5439fae54a06edb389feb5a0cf79cb01ae007af51109335d198" },
+  { path = "bmad-architecture/scripts/lint_spine.py", sha256 = "34d1b5dde498b6332b6dd6ac77bf4a6228c3ddc632e35cb32aa465061c79b742" },
+  { path = "bmad-spec/assets/spec-template.md", sha256 = "4b3a032c045fdd0903933446fc07f93e879997f28a0294ed4344da71192b20ee" },
+  { path = "bmad-preview-ticketing/assets/tickets-template.toml", sha256 = "9cf6ec33b939f7f00281922c4474dbb876c117f27d3910e759ac2fd6e31e1a5f" },
+  { path = "bmad-preview-ticketing/assets/epic-template.md", sha256 = "7de84de511f81deaf5c88dfea08fc3f66af6d9eddeb0bdfb2419661f1714f95b" },
+  { path = "bmad-ux/references/design-md-spec.md", sha256 = "d04d5f663607aba3f3181e818ae33856e6caf5e560dcb16fa64ed80b7cf3d590" },
+]
+
+# Layout probes, relative to the project root after variable expansion.
+[layout]
+unsupported = [
+  { glob = "{planning_artifacts}/*prd*/index.md", reason = "sharded v6 document (index.md)" },
+  { glob = "{output_folder}/initiative-*/prd-*/prd-*.md", reason = "initiative-v7 planning documents" },
+  { glob = "{output_folder}/initiative-*/architecture-*/architecture-*.md", reason = "initiative-v7 planning documents" },
+]
+
+[config]
+files = ["_bmad/config.toml", "_bmad/custom/config.toml", "_bmad/custom/config.user.toml"]
+variables = { output_folder = "core.output_folder", planning_artifacts = "modules.bmm.planning_artifacts", implementation_artifacts = "modules.bmm.implementation_artifacts" }
+defaults = { output_folder = "{project-root}/_bmad-output", planning_artifacts = "{output_folder}/planning-artifacts", implementation_artifacts = "{output_folder}/implementation-artifacts" }
+
+[scan]
+roots = ["{output_folder}"]
+include = ["*.md", "tickets.toml"]
+skip_dirs = [".git", "node_modules"]
+
+# Artifact types from paths (first match wins), then refined by frontmatter `type`.
+# "owner" types can define namespace IDs; "trail" and "memlog" never do.
+[[artifact]]
+type = "prd"
+glob = "{planning_artifacts}/prds/prd-*/prd.md"
+kind = "owner"
+[[artifact]]
+type = "prd-addendum"
+glob = "{planning_artifacts}/prds/prd-*/addendum.md"
+kind = "owner"
+[[artifact]]
+type = "brief"
+glob = "{planning_artifacts}/briefs/brief-*/brief.md"
+kind = "owner"
+[[artifact]]
+type = "brief-addendum"
+glob = "{planning_artifacts}/briefs/brief-*/addendum.md"
+kind = "owner"
+[[artifact]]
+type = "ux-design"
+glob = "{planning_artifacts}/ux-designs/ux-*/DESIGN.md"
+kind = "owner"
+[[artifact]]
+type = "ux-experience"
+glob = "{planning_artifacts}/ux-designs/ux-*/EXPERIENCE.md"
+kind = "owner"
+[[artifact]]
+type = "architecture-spine"
+glob = "{planning_artifacts}/architecture/architecture-*/ARCHITECTURE-SPINE.md"
+kind = "owner"
+[[artifact]]
+type = "spec"
+glob = "{output_folder}/specs/spec-*/SPEC.md"
+kind = "owner"
+scope = "document"
+[[artifact]]
+type = "memlog"
+glob = "**/.memlog.md"
+kind = "memlog"
+[[artifact]]
+type = "tickets-toml"
+glob = "**/tickets.toml"
+kind = "ticket"
+[[artifact]]
+type = "ticket-plan"
+glob = "**/story-*-plan.md"
+kind = "ticket"
+[[artifact]]
+type = "ticket-plan"
+glob = "**/bug-*-plan.md"
+kind = "ticket"
+[[artifact]]
+type = "ticket-plan"
+glob = "**/spike-*-plan.md"
+kind = "ticket"
+[[artifact]]
+type = "build-plan"
+glob = "{implementation_artifacts}/plan-*.md"
+kind = "ticket"
+[[artifact]]
+type = "retrospective"
+glob = "**/epic-*-retrospective.md"
+kind = "trail"
+[[artifact]]
+type = "review"
+glob = "**/review-*.md"
+kind = "trail"
+[[artifact]]
+type = "review"
+glob = "**/reviews/*.md"
+kind = "trail"
+[[artifact]]
+type = "reconcile"
+glob = "**/reconcile-*.md"
+kind = "trail"
+[[artifact]]
+type = "validation-report"
+glob = "**/validation-report.md"
+kind = "trail"
+[[artifact]]
+type = "working"
+glob = "**/.working/**"
+kind = "trail"
+# Ticket containers and leaves: a container is <type>-<slug>/<type>-<slug>.md; leaves are <type>-<slug>.md.
+[[artifact]]
+type = "initiative"
+glob = "**/initiative-*/initiative-*.md"
+kind = "ticket"
+[[artifact]]
+type = "epic"
+glob = "**/epic-*/epic-*.md"
+kind = "ticket"
+[[artifact]]
+type = "ticket-leaf"
+glob = "**/story-*.md"
+kind = "ticket"
+[[artifact]]
+type = "ticket-leaf"
+glob = "**/bug-*.md"
+kind = "ticket"
+[[artifact]]
+type = "ticket-leaf"
+glob = "**/spike-*.md"
+kind = "ticket"
+
+# Frontmatter `type:` values that refine the path-based artifact type.
+[frontmatter_types]
+architecture-spine = "architecture-spine"
+epic = "epic"
+initiative = "initiative"
+story = "ticket-leaf"
+bug = "ticket-leaf"
+spike = "ticket-leaf"
+
+# ID families BMAD defines. pattern must contain a named group "key".
+# owner: artifact types in priority order; a definition in a lower-priority owner becomes an elaboration
+# when a higher-priority owner defines the same ID (PRD UJ IDs mirror an existing UX document's).
+[[family]]
+name = "FR"
+pattern = 'FR-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+[[family]]
+name = "UJ"
+pattern = 'UJ-(?P<key>\d+)'
+key = "int"
+owner = ["prd", "ux-experience"]
+[[family]]
+name = "SM"
+pattern = 'SM-(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+[[family]]
+name = "SM-C"
+pattern = 'SM-C(?P<key>\d+)'
+key = "int"
+owner = ["prd"]
+[[family]]
+name = "AD"
+pattern = 'AD-(?P<key>\d+)'
+key = "int"
+owner = ["architecture-spine"]
+scope = "document"
+[[family]]
+name = "CAP"
+pattern = 'CAP-(?P<key>\d+)'
+key = "int"
+owner = ["spec"]
+scope = "document"
+[[family]]
+name = "TOKEN"
+kind = "token"
+owner = ["ux-design"]
+
+# Definition shapes. shape: heading | item-lead | row-key | yaml-tokens.
+# heading: a heading whose text starts with the ID; item-lead: a list item that opens with the bold ID;
+# row-key: a table row whose first cell is exactly the ID (bold allowed).
+[[define]]
+family = "FR"
+artifact = "prd"
+shape = "heading"
+[[define]]
+family = "UJ"
+artifact = "prd"
+shape = "item-lead"
+[[define]]
+family = "UJ"
+artifact = "ux-experience"
+shape = "heading"
+[[define]]
+family = "SM"
+artifact = "prd"
+shape = "item-lead"
+[[define]]
+family = "SM-C"
+artifact = "prd"
+shape = "item-lead"
+[[define]]
+family = "AD"
+artifact = "architecture-spine"
+shape = "heading"
+[[define]]
+family = "CAP"
+artifact = "spec"
+shape = "item-lead"
+[[define]]
+family = "TOKEN"
+artifact = "ux-design"
+shape = "yaml-tokens"
+roots = ["colors", "typography", "rounded", "spacing", "components"]
+
+# Words that name a document in "<doc> §n" references; the first type with exactly one current document wins.
+[doc_aliases]
+prd = ["prd"]
+addendum = ["prd-addendum", "brief-addendum"]
+"prd addendum" = ["prd-addendum"]
+brief = ["brief"]
+"brief addendum" = ["brief-addendum"]
+spine = ["architecture-spine"]
+architecture = ["architecture-spine"]
+experience = ["ux-experience"]
+design = ["ux-design"]
+spec = ["spec"]
+
+# Ranges cite every member: FR-1–FR-8, UJ-2…UJ-5, FR-20–27.
+[ranges]
+separators = ["–", "…", ".."]
+short_form = true
+max_members = 200
+
+# Spine semantics.
+[spine]
+binds_marker = "**Binds:**"
+inherited_section = "Inherited Invariants"
+frontmatter_binds = "binds"
+
+# Fields: spec `sources` are audit-only; `companions` must be read alongside the owner.
+[fields]
+companions = "companions"
+sources = "sources"
+covers = "covers"
+
+# Provisionality markers, reported on every span that carries them.
+[[marker]]
+name = "assumption"
+pattern = '\[ASSUMPTION[^\]]*\]'
+[[marker]]
+name = "note-for-pm"
+pattern = '\[NOTE FOR PM\]'
+[[marker]]
+name = "non-goal"
+pattern = '\[NON-GOAL[^\]]*\]'
+[[marker]]
+name = "adopted"
+pattern = '\[ADOPTED[^\]]*\]'
+
+# Memlogs are authoring memory: excluded from default search; entries have no per-entry date.
+[memlog]
+entry = '^- (?:\((?P<type>[\w-]+)(?: by (?P<who>[^)]+))?\) )?(?P<text>.*)$'
+
+# Existing validators consumed as adapters (findings JSON; lint_spine exits 0 even with findings).
+[[validator]]
+name = "lint_spine"
+artifact = "architecture-spine"
+command = ["python3", "{skill_root}/bmad-architecture/scripts/lint_spine.py", "--workspace", "{workspace}"]

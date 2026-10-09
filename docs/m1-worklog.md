@@ -1,0 +1,71 @@
+# specdex M1 worklog (working notes; fold into m1-report.md at the end)
+
+## State at 2026-10-04 (pause for compaction)
+
+**Built (skills/specdex/scripts/specdexlib/):** markdown (fence-aware blocks), yamlfm (frontmatter with line numbers), config (profile + overlay merge, ID regex), extract (per-file units, occurrences with range expansion, definition/elaboration candidates, positional FR-n.k, Binds incl. textual "all …" scopes, history/markers, FTS chunks incl. row chunks), sources (worktree; git revision via ls-tree/cat-file), store (SQLite + FTS5), resolve (roles, owner priority, scopes, citation status, token-row elaborations), index (byte-verified freshness, incremental, BEGIN IMMEDIATE), queries (status/outline/resolve/get/refs/search; `doc §n`, `path:line`, `path#heading`, pointers, range labels), render (short unique path suffixes), cli, maintenance (lint incl. lint_spine adapter, impact), coverage (+ tickets adapter: covers chains, drift, planned), diffing (IDs, positional appended/edited/shifted, sections). Launcher `scripts/specdex.py` (PEP 723). Profile `profiles/bmad-6.13.0-next.toml` (real binding hashes). Overlay `eval/m1-tamagai/overlay.toml`.
+
+**Gold:** `eval/m1-tamagai/gold/dev.json` (32, drafted + independently verified by a workflow; verifier changes in results/dev-gold-verifier-changes.json). `gold/heldout.json` (16, Codex via `codex exec`, SEALED — do not open until the final held-out run; Codex touched no forbidden path, corpus lock OK).
+
+**Harness:** `eval/m1-tamagai/run_eval.py` — agents specdex-A, specdex-B, B0, B1 with a frozen initial policy plus ≤5 pointer-following/discovery steps under one relevance oracle; o200k tokens. `corpus_lock.py` verifies the frozen corpus.
+
+**Latest dev results (Layer A):**
+
+| Condition | Median lookup tokens | Median all | Evidence recall | Complete | Citation R/P | Authority errors |
+|---|---|---|---|---|---|---|
+| specdex-B | 798 | 1,134 | 0.922 | 28/32 | 0.833 / 0.805 | 0 |
+| specdex-A | 946 | 1,069 | 0.792 | 23/32 | 0.833 / 0.805 | 0 |
+| B1 | 3,665 | 4,978 | 0.964 | 30/32 | 0.778 / 0.628 | 0 |
+| B0 | 6,290 | 6,170 | 0.370 | 10/32 | 0.778 / 0.628 | 0 |
+
+Warm CLI call p95 ≈ 0.11 s; full build ≈ 1.1 s (gates ≤0.5 s, ≤5 s). Remaining specdex-B dev misses: S05 (row chunks pushed the AD-34 section out of the top 5; continuation budget ran out), C02 (needs semantic "MVP scope" step), C06 (table filter by Decision value), Y05 (negative trap via paraphrase).
+
+**Fixed bugs found by the harness:** `get path:a-b` labelled historical rows as current (now labelled from overlapping spans); harness authority metric now counts only genuinely non-current forbidden spans.
+
+## Progress after compaction (2026-10-04)
+
+- **S05 fixed, engine frozen for Layer A:** CamelCase identifiers are indexed as words in an extra FTS column (`chunks.terms`; "link credentials" finds `LinkCredential`). A one-row-per-table diversity rule was tried and dropped (it broke S07's multi-row answer). Dev: specdex-B recall 0.943, 29/32 complete, median lookup 798 tokens (−78% vs B1 3,665), 0 authority errors; only S05 changed.
+- **Schema upgrades:** `store.SCHEMA_VERSION` is now `PRAGMA user_version`; a mismatch drops and recreates the tables in one transaction (version 4).
+- **Layer B harness** `eval/m1-tamagai/layer_b.py` → `results/layer-b.json`: deterministic 12/12 (B01–B12; B02/B03 = dropped/changed positional, B07–B09 tickets on a synthetic tree over the real PRD), agent-only B13 1/1 (lint states `not checked:`), identity 4/4, freshness 6/6, false-clean 0. Latency: warm p95 0.124 s, full rebuild 1.79 s, typical 20-line edit 0.37 s.
+- **Engine fixes from Layer B, unit tests and the ticket fixture:** short range at a sentence end (`FR-40–44.`); `--db` now holds the worktree index and revision snapshots go to sibling files (mode also checked); path suffixes prefer `/` boundaries; ambiguity wording counts scopes; JSON keeps empty lists; `diff` flags added IDs already in the file's git history (reused retired ID; `--pickaxe-regex -S`, ≤40 IDs); `lint` prints `not checked:`; YAML trailing comments stripped and unclosed lists/quotes reported; ticket `planned` = no file and no plan; requirement lines that reuse a parent ID resolve upstream; launcher sets `dont_write_bytecode`; empty answers are `unknown` when no record files exist. Fenced IDs stay mentions (mermaid nodes cite real IDs).
+- **Tests:** `python3 -m unittest discover -s tests` → 105 OK (mini-project + preview-tickets fixtures).
+- **Packaging drafted** (subagent): `skills/specdex/SKILL.md`, `bmod.toml` (`[bmod]` code/version/update_source=`file:` abs path; `[skill]` empty; no `scripts` list), `help/help.md`, `README.md`; bmad `knowledge.py`/setup: 0 problems; `npx skills add` smoke test OK (scratchpad smoke-proj*).
+
+- **Full paths in text output** (replay finding: an agent turned the short suffix `architecture-…/ARCHITECTURE-SPINE.md` into a wrong `_bmad-output/architecture-…` citation). `short_names` and all `names` parameters removed. Dev cost: specdex-B median lookup 798 → 849 tokens (still −77% vs B1); recall unchanged.
+- **Agent replay** `eval/m1-tamagai/replay/replay.py`: 11 dev tasks (every third by id) × {claude -p (sonnet-5-5, `--setting-sources project`, read-only Bash allow-list), codex exec} × {baseline, specdex}; tool tokens (o200k) incl. skill-guide tokens (reported separately), evidence overlap, isolation check, workspace digest. No `--bare` (needs an API key; OAuth only here). Codex runs with the user's RTK output compression in both conditions (conservative for specdex).
+- **Codex audit** prompt `eval/m1-tamagai/audit-prompt.md` → `results/codex-audit.md`; repo snapshot to detect writes: scratchpad `audit-snapshot.json`.
+
+- **Replay results** (`results/replay/replay.json`, blind judgements `results/replay/judgements.json`, key `judge-key.json`): median tool tokens per answer — Claude 3,684 → 2,857 with specdex (899 without the one-off SKILL.md body, −76%); Codex 13,753 → 5,287 (3,437 without the guide, −75%). Every specdex run used specdex; 0 isolation violations; workspaces unmodified. Blind verdicts (correct/partial/wrong): Claude 5/5/1 → 7/4/0, Codex 7/3/1 → 6/5/0; 0 authority errors. Both baseline 'wrong' answers (C04) counted memlog/review/extract files as record citations. specdex-run partials Y02/Y05: answered from one unit and missed a second rule (AD-11:346; FR-65.1) → SKILL.md now says to `search` the concept's key term when other rules may constrain it.
+
+- **Codex audit** (`results/codex-audit.md`, 29 findings; Codex wrote only its report, corpus lock OK, no held-out access). Verdict: M1 not yet trustworthy. Triage and fixes:
+  - Engine (fixed by me): A-01 validators run only when hash-verified (else `validator-not-run`); A-22 failures → `validator-failed`, none in snapshot mode; A-02 index inside the project refused, foreign SQLite files refused (`application_id` 0x53445831); A-03 inventory re-read under the write lock, every command pinned to one read snapshot; A-04 `partly historical` spans; A-05 definitions in historical text → effective `historical` (CR rows with a decision still define), status `historical`, lint `citation-historical`; A-06 IDs from candidate documents `ambiguous`; A-07 `refs --kind covers`/`impact` list ticket chains; A-08 `ambiguous-source`, ownership check for direct IDs; A-09 any parse gap → unknown negatives, unclosed frontmatter diagnosed; A-10 symlinks out of the project skipped + `source-skipped`; A-16 textual binds offered to named families only; A-17/A-18 fingerprint includes project variables and a code digest, freshness compares identity; A-19 diff keys `ID @ folder` for document scopes; A-20 one range bound (`max_members`, real `FR-40–105` ranges in trail now expand), ID tail guard (`FR-1.2foo`); A-21 `§2` ≠ `§2.1`; A-26 heading markers inherited; A-28 SKILL.md claims; A-29 neutral examples. Launcher ignores SIGPIPE.
+  - Harness (subagent): A-11–A-15, A-23–A-25 — frozen containment metric + comparable top-5 for every condition + gate block; B0 progress guard; overlap authority; replay unique paths; Layer B controls.
+  - Dev labels (subagent, verified independently): all 8 corrections applied (`results/dev-gold-audit-changes.json`).
+  - Regression tests for the engine fixes (subagent).
+
+## Final state (2026-10-04) — M1 complete; report in `docs/m1-report.md`
+
+- Held-out run once (frozen fingerprints above), then re-run on the final engine after Codex's re-check: identical recall, ~4 fewer tokens per call (generation id). Held-out: lookups 4/4 at −85% tokens (Stage A pass); paraphrases 1/8 (top-5 0.125) → Phase-2 trigger fired; Stage B nominal pass (+12.5 pp over 0).
+- Post-hoc diagnostic replay of the 8 held-out paraphrases (`results/replay-heldout/`): specdex agents 12 correct/4 partial vs baseline 9/7, tool tokens −38% (Claude), −25% (Codex); 0 authority errors.
+- Codex re-check (`results/codex-recheck.md`): 11 resolved, 18 partly, 4 new defects N1–N4 → all fixed with the engine partials (A-02, A-09, A-10, A-18, A-19, A-20, A-22); regression tests added.
+- Codex replay model pinned (`CODEX_MODEL`).
+
+## Next steps (need the user)
+
+1. Phase 2: recommendation is to label ~20 new discovery tasks and try lexical improvements first; a local embedder/reranker trial on the LAN GPU host needs the user's go-ahead (round 1 D-07).
+2. Adopt in Tamagai (`npx skills add ~/TS/ts/specdex --skill specdex`; overlay → `_bmad/custom/specdex-overlay.toml`) — changes the Tamagai repo.
+3. Commit `~/TS/ts/specdex` (nothing committed) — only when asked.
+4. M2 / M3 go-ahead.
+
+## Environment notes
+
+- zsh: no word splitting of `$VAR` commands; `echo ===` fails. Wrapper: scratchpad `sdx/sdx` runs specdex on the frozen corpus.
+- Eval index cache: `eval/m1-tamagai/results/.eval-index.sqlite` (delete to force a rebuild).
+
+## Details to keep (so nothing is re-derived)
+
+- **CLI:** global options before the subcommand: `specdex.py --project P --overlay O [--db D] [--rev R] [--json] <cmd>`. Commands: status, outline [file] [--level], resolve ID [--text], get REF… [--budget], refs ID [--scope record|current|rationale|trail|memlog|all] [--children] [--kind mentions|binds|elaborates|covers], search Q [--scope] [-k] [--expand N], lint [--scope] [--no-validators], impact ID|path:a-b, coverage --by tickets|architecture|ux [--family] [--only gaps], covers, diff OLD [NEW|WORKTREE]. Exit: 0 ok, 1 findings, 2 usage/not found, 3 config.
+- **Frozen proxy policy (harness), as frozen for the held-out run (2026-10-04):** the `run_eval.py` docstring is authoritative. Keys = `doc §n` refs, IDs, quoted names (≤4 words), hyphenated words (max 3). Citation intent → refs (B0/B1: ID grep over record files, prompt exclusions applied, Binds requests filtered to Binds lines, no range expansion); else get each key; no keys → Stage B search + get top hit, Stage A grep words + section get, B0 grep words, B1 outlines + best heading. Continuation ≤5 steps under the shared oracle (gold unit picks the pointer and the stop; engine supplies definitions and boundaries for every condition); a step showing nothing new ends the task; B0 never repeats an action (next keyword, then next observed location). Scoring: per-span containment (contained recall), first five distinct shown spans (top-5), union as `workflow_recall`; authority errors by overlap, only for labelled output. Freeze fingerprints: engine+skill df8c57e285619e5a · harness 1ecec415e5db18c7 · dev gold c5a3c3f0631a40c4 · heldout gold 15249271b2024079.
+- **Layer B mutations to build (copies of the corpus in scratch; expected detection):** (1) range-hidden citation → refs finds it via range; (2) dropped/changed positional consequence → diff "shifted"/"edited" + re-pointed citations; (3) two same-ID scopes (two spec folders with CAP-1) → resolution per folder, ambiguous from outside; (4) inherited AD (epic spine Inherited Invariants row) → resolves to parent, no duplicate; local redefinition → lint inherited-conflict; (5) missing required companion → lint missing-companion; (6) unresolved covers source → covers problem; (7) refined file vs stale entry → covers drift; (8) planned ticket without file → planned, not a defect; (9) reused retired ID → needs history (diff removed in A, reappears with different text) — implement via diff/registry or record as optional-not-implemented; (10) same-size restored-time edit → worktree hash verification reindexes; (11) ambiguous current artifact (two PRD folders, no overlay records) → gdiag ambiguous-current, resolve "ambiguous"; (12) semantic contradiction with no edge → agent-only, tool must not claim clean (lint scope note). Identity: identical independent docs → copy-candidate, not merged; declared equal replicas → alias; declared drifting replicas → replica-drift; shared symlink targets → alias, no duplicate definitions. R1 freshness: dirty edit, inserted lines/bullets, delete+rename, invalid YAML (parse-gap diag), branch change (git checkout in a temp repo), two simultaneous readers (parallel processes, one generation).
+- **Synthetic ticket fixture (preview tree):** `_bmad-output/initiative-x/initiative-x.md` (References `- prd — _bmad-output/planning-artifacts/prds/.../prd.md`), `tickets.toml` with `[[epic]] id/slug/covers=[FR-…]`; `epic-y/epic-y.md` frontmatter covers + `## Requirements` lines `- **R1** (FR-7): …`; `epic-y/tickets.toml` `[[entry]] id/type/title/covers=["R1"]`; a pulled `story-….md` with frontmatter id/covers; a `story-…-plan.md` with `ticket:`/`status:`.
+- **Packaging plan:** one-skill module: `skills/specdex/bmod.toml` with `[bmod] code="specdex" version="0.1.0" update_source="file:…" (until a remote exists) skills=["specdex"]` and `[skill] bmod="specdex" source=… scripts=[...]`; SKILL.md = routing guide (ID → resolve/get; heading/`doc §n` → get; wording → search; all/every → refs; change review → diff/impact/lint; tickets → covers/coverage), read-only promise, graceful fallback to rg. help/help.md for `bmad` routing. Then `npx skills add <local path>` into a temp project and `bmad` knowledge.py check.
+- **Replay plan:** 8–12 dev lookup tasks × {B1-style, specdex} × {`claude -p --bare --output-format stream-json`, `codex exec --json -s danger-full-access`}; count o200k tokens of tool outputs + calls; judge answers vs gold answer blind to condition.

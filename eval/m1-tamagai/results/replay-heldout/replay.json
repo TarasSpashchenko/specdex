@@ -1,0 +1,1520 @@
+{
+ "tasks": [
+  "H01",
+  "H02",
+  "H03",
+  "H04",
+  "H05",
+  "H06",
+  "H07",
+  "H08"
+ ],
+ "claude_model": "claude-sonnet-5-5",
+ "workspaces_modified": [],
+ "models": {
+  "claude": [
+   "claude-sonnet-5-5"
+  ],
+  "codex": [
+   "gpt-6.1-sol"
+  ]
+ },
+ "summary": {
+  "claude/baseline": {
+   "runs": 8,
+   "errors": 0,
+   "median_tool_tokens": 7237.0,
+   "median_tool_tokens_without_guide": 7237.0,
+   "median_calls": 5.0,
+   "used_specdex": 0,
+   "mean_evidence_overlap": 0.875,
+   "mean_citation_recall": null,
+   "mean_citation_precision": null,
+   "violations": 0
+  },
+  "claude/specdex": {
+   "runs": 8,
+   "errors": 0,
+   "median_tool_tokens": 4485.5,
+   "median_tool_tokens_without_guide": 2383.5,
+   "median_calls": 5.0,
+   "used_specdex": 8,
+   "mean_evidence_overlap": 0.75,
+   "mean_citation_recall": null,
+   "mean_citation_precision": null,
+   "violations": 0
+  },
+  "codex/baseline": {
+   "runs": 8,
+   "errors": 0,
+   "median_tool_tokens": 18331.0,
+   "median_tool_tokens_without_guide": 18331.0,
+   "median_calls": 5.5,
+   "used_specdex": 0,
+   "mean_evidence_overlap": 0.75,
+   "mean_citation_recall": null,
+   "mean_citation_precision": null,
+   "violations": 0
+  },
+  "codex/specdex": {
+   "runs": 8,
+   "errors": 0,
+   "median_tool_tokens": 13741.5,
+   "median_tool_tokens_without_guide": 11703.5,
+   "median_calls": 10.0,
+   "used_specdex": 8,
+   "mean_evidence_overlap": 0.75,
+   "mean_citation_recall": null,
+   "mean_citation_precision": null,
+   "violations": 0
+  }
+ },
+ "runs": [
+  {
+   "task": "H01",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "When a parent deletes a taught word's card, the word must disappear everywhere it appears: the vocabulary, Pip's lines, dreams and the diary. Only the parent can do this. The child can't delete a card, but can teach the same word again. Pip does not lose abilities it already earned. The taught-word count drops, but ladder steps already reached stay reached, and Pip says nothing about the deletion. The architecture notes implement this by storing the maximum step separately from the word list.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:702-707\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-features-nfr.md:45\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:303",
+   "model": "claude-sonnet-5-5",
+   "calls": 5,
+   "tool_tokens": 3798,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 10,
+     "cache_creation_input_tokens": 14135,
+     "cache_read_input_tokens": 64353,
+     "output_tokens": 1257,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 14135,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 304,
+       "cache_read_input_tokens": 18368,
+       "cache_creation_input_tokens": 579,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 579
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 6,
+    "cost_usd": 0.0820006
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:702-707",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-features-nfr.md:45-45",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:303-303"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H01",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "When a parent deletes a word card, the word must disappear everywhere it appears: vocabulary, lines, dreams and diary. The taught-word count goes down. The pet keeps what it already earned, because ladder steps already reached stay reached. Pip also says nothing about the deletion. Only the parent can delete a word card. The child can't, but can teach the word again.\n\nI read \"adult erases something the pet has learned\" as deleting a word card, since that is the only learned item the specs make deletable. I also checked FR-71 (parent deletion in general). It lists word cards but adds nothing about earned abilities.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:700-708\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:158-163\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1077-1091\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:243",
+   "model": "claude-sonnet-5-5",
+   "calls": 5,
+   "tool_tokens": 4133,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 12,
+     "cache_creation_input_tokens": 14749,
+     "cache_read_input_tokens": 87295,
+     "output_tokens": 1241,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 14749,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 378,
+       "cache_read_input_tokens": 19048,
+       "cache_creation_input_tokens": 513,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 513
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 7,
+    "cost_usd": 0.088889
+   },
+   "specdex_calls": 5,
+   "guide_tokens": 1990,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:700-708",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:158-163",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1077-1091",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:243-243"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H01",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "Deleting a learned word’s card must remove the word everywhere it appears: vocabulary, spoken lines, dreams, and diary. The taught-word count decreases, but previously reached ladder steps and earned abilities remain unlocked; Pip says nothing about the deletion.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:700-707\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:742-742",
+   "model": "gpt-6.1-sol",
+   "calls": 7,
+   "tool_tokens": 30020,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 213937,
+     "cached_input_tokens": 172032,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1074,
+     "reasoning_output_tokens": 179
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:700-707",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:742-742"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H01",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "Deleting a learned word card must remove the word everywhere it appears: vocabulary, lines, dreams, and diary. The taught-word count drops, but abilities already earned remain unlocked because reached ladder steps never lock again; Pip says nothing about the deletion.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:700-708\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:726-744",
+   "model": "gpt-6.1-sol",
+   "calls": 15,
+   "tool_tokens": 18551,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 438237,
+     "cached_input_tokens": 406528,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 3049,
+     "reasoning_output_tokens": 1287
+    }
+   },
+   "specdex_calls": 4,
+   "guide_tokens": 2038,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:700-708",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:726-744"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H02",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "No. Children from your tryouts, meaning the research panel, may not provide crisis audio. The PRD treats asking a child to record crisis phrases as a safeguarding harm. The audio for the crisis test set (self-harm, suicide, abuse and immediate danger) comes only from paid adult actors, child-voice actors and synthetic child voices. The research-panel governance rule (CR-10) says the same thing: the panel never records crisis phrases. The CR-1 child-safety experts also sign off the crisis test set. The panel may still record non-crisis sets.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1594\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1737\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:64\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/review-rubric-v2.md:212-217",
+   "model": "claude-sonnet-5-5",
+   "calls": 5,
+   "tool_tokens": 14618,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 12,
+     "cache_creation_input_tokens": 29147,
+     "cache_read_input_tokens": 126730,
+     "output_tokens": 1379,
+     "output_tokens_details": {
+      "thinking_tokens": 55
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 29147,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 458,
+       "cache_read_input_tokens": 34680,
+       "cache_creation_input_tokens": 1013,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 1013
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 6,
+    "cost_usd": 0.15574800000000003
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1594-1594",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1737-1737",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:64-64",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/review-rubric-v2.md:212-217"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H02",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "No, you may not use children from your research panel (the tryouts) to record crisis phrases such as self-harm statements. The spec treats asking a child to record these phrases as a safeguarding harm. Crisis test audio must come only from paid adult actors, child-voice actors, or synthetic child voices. The research panel still supplies other evaluation audio, but never crisis audio. The rule is recorded as CR-10 and is an Evidence-labelled safeguarding decision. The CR-1 child-safety experts sign off the crisis test set. For the family-beta suite, the product owner signs off a provisional text set instead, with actors' audio.\n\nThe \"tryouts\" are my reading of the research panel (CR-10). If you meant playtests (NFR-17), those aren't covered by this rule, and I didn't check them for crisis content.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1573-1604\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:64",
+   "model": "claude-sonnet-5-5",
+   "calls": 6,
+   "tool_tokens": 5314,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 14,
+     "cache_creation_input_tokens": 14954,
+     "cache_read_input_tokens": 109393,
+     "output_tokens": 1561,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 14954,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 400,
+       "cache_read_input_tokens": 19980,
+       "cache_creation_input_tokens": 1520,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 1520
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 8,
+    "cost_usd": 0.09733259999999999
+   },
+   "specdex_calls": 6,
+   "guide_tokens": 1983,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1573-1604",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:64-64"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H02",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "No—children from tryouts or the research panel must never record self-harm or other crisis phrases; the specifications call this a safeguarding harm. Crisis-test audio must come only from paid adult actors, child-voice actors, or synthetic child voices.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1591-1594  \n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:58-64",
+   "model": "gpt-6.1-sol",
+   "calls": 4,
+   "tool_tokens": 17852,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 117148,
+     "cached_input_tokens": 87168,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 904,
+     "reasoning_output_tokens": 356
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1591-1594",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:58-64"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H02",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "No—children from the tryouts/research panel must never record crisis phrases, because asking them is considered a safeguarding harm. Audio for these self-harm tests must come only from paid adult actors, child-voice actors, or synthetic child voices.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1591-1594\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:64-64",
+   "model": "gpt-6.1-sol",
+   "calls": 10,
+   "tool_tokens": 11450,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 280812,
+     "cached_input_tokens": 224256,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1818,
+     "reasoning_output_tokens": 755
+    }
+   },
+   "specdex_calls": 3,
+   "guide_tokens": 2038,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1591-1594",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:64-64"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H03",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "Use the spec's \"Equal choice pair\" for every adult approval (buy, consent, link, delete, skip/allow). Make both answers the same size, the same tonal style and the same weight. Never put a filled button next to a text button, and use no danger colour. Put the declining or keeping option first: on the left, first in focus order, and on top when the buttons stack. The buttons stack in the same order at narrow widths or large text sizes. Where a setting is preselected, preselect the more private option, such as \"No\" for counters. The copy should be neutral, with no loss framing, urgency or countdown. This follows from the regulatory rule of equal buttons and no dark patterns (SB 1119, ICO standard 13) and from NFR-18.\n\nThe left/right order of \"Not now\" differs between the consent and offer flows. The validation report flagged this as an inconsistency.\n\nEvidence:\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:842-842\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:804-804\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:327-327\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:332-332\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:822-822\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:147-147\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/digests/redteam-counsel.md:95-95\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/validation-report.md:364-364",
+   "model": "claude-sonnet-5-5",
+   "calls": 6,
+   "tool_tokens": 11588,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 12,
+     "cache_creation_input_tokens": 24587,
+     "cache_read_input_tokens": 124186,
+     "output_tokens": 1916,
+     "output_tokens_details": {
+      "thinking_tokens": 42
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 24587,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 764,
+       "cache_read_input_tokens": 29997,
+       "cache_creation_input_tokens": 1136,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 1136
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 7,
+    "cost_usd": 0.1423692
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:842-842",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:804-804",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:327-327",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:332-332",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:822-822",
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:147-147",
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/digests/redteam-counsel.md:95-95",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/validation-report.md:364-364"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H03",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "Use an \"Equal choice pair\": two buttons of the same size, style and weight, both tonal. Put the declining or keeping option first, so it sits on the left, first in focus order, and on top when stacked. Examples are \"Not now / Buy\", \"No / Yes\" and \"Keep / Delete\". Never put a filled button next to a text button, and use no danger color. Neither option is framed as a loss, and where the choice is a setting, the more private option is preselected. The pair layout, its order and the \"no danger color\" rule are marked `[ASSUMPTION]` in the design spec. The equal-prominence rule itself comes from the PRD requirement NFR-18.\n\nEvidence:\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:804\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1630\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:237",
+   "model": "claude-sonnet-5-5",
+   "calls": 5,
+   "tool_tokens": 4559,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 10,
+     "cache_creation_input_tokens": 13473,
+     "cache_read_input_tokens": 72130,
+     "output_tokens": 945,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 13473,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 405,
+       "cache_read_input_tokens": 19727,
+       "cache_creation_input_tokens": 292,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 292
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 7,
+    "cost_usd": 0.07778800000000001
+   },
+   "specdex_calls": 5,
+   "guide_tokens": 1992,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:804-804",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1630",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:237-237"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H03",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "Place the answers side by side, with the declining option (“No” or “Not now”) on the left and first in keyboard focus order; when space or large text requires stacking, put it on top. Give both the same size, tonal style and visual weight—never a filled approval button beside a text-only refusal. Use neutral wording without guilt, loss framing or urgency, and preselect only the more private option where a standing choice needs a default.\n\nEvidence:\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:327-327\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:237-242\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1629",
+   "model": "gpt-6.1-sol",
+   "calls": 6,
+   "tool_tokens": 20910,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 152731,
+     "cached_input_tokens": 107520,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1047,
+     "reasoning_output_tokens": 217
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:327-327",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:237-242",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1629"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H03",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "Give both answers equal prominence, size, style, and visual weight; never pair a filled “Yes” with a text-only “No.” The proposed action layout—marked as a UX assumption—uses two tonal buttons 12 dp apart, with “No” or “Not now” first: leftmost, first in focus order, or on top when stacked. Use neutral wording without guilt or loss framing, and preselect the more private option. For selectable choices, the proposed alternative is two joined tonal segments, with a check and 2 dp border marking the selection.\n\nEvidence:  \n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1630  \n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799  \n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:842-842  \n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:113-113",
+   "model": "gpt-6.1-sol",
+   "calls": 10,
+   "tool_tokens": 11060,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 264326,
+     "cached_input_tokens": 243200,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 2306,
+     "reasoning_output_tokens": 1096
+    }
+   },
+   "specdex_calls": 2,
+   "guide_tokens": 2038,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1627-1630",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:842-842",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:113-113"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H04",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "With the phone's \"Remove animations\" setting on, the app follows it, and there is no separate parent setting for this in v1. Pip plays calm variants. They keep the same timing and cues, with squash halved, feet no more than 5% off the ground, and no flips.\n\nBig transitions change in two ways:\n- Any element that travels more than a third of the screen, or scales more than 10%, becomes a crossfade of 150 ms or less. This covers the word-card fly-in, drawer and tray rise, wish pop, dream entry and diary page turn.\n- Narrator frames and the helpline takeover crossfade, and the time-of-day swap becomes a 150 ms crossfade.\n\nThe signal that the phone is hearing the child (the ear glow) still moves. It keeps its 1.6 s pulse, matching the asset pack's calm variant. The hint ring and dream cloud hold still. Calm audio also follows the same setting for now.\n\nEvidence:\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-765\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/ux.md:176\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/.working/ux-decisions.md:172-174\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/.working/fix-log-experience-reconcile.md:79",
+   "model": "claude-sonnet-5-5",
+   "calls": 3,
+   "tool_tokens": 5542,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 8,
+     "cache_creation_input_tokens": 15033,
+     "cache_read_input_tokens": 53444,
+     "output_tokens": 1067,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 15033,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 515,
+       "cache_read_input_tokens": 20606,
+       "cache_creation_input_tokens": 973,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 973
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 4,
+    "cost_usd": 0.0815068
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-765",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/ux.md:176-176",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/.working/ux-decisions.md:172-174",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/.working/fix-log-experience-reconcile.md:79-79"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H04",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "When the phone's \"Remove animations\" setting is on, Pip plays calm variants. These keep the same timing and cues, but the squash is halved, the feet stay within 5% of the ground, and there are no flips. Big UI transitions are replaced by short crossfades. Anything that travels more than a third of the screen or scales more than 10% becomes a crossfade of 150 ms or less. That covers the word-card fly-in, drawer and tray rise, wish pop, dream entry and diary page turn. Narrator frames and the helpline takeover also crossfade, and the time-of-day swap is a 150 ms crossfade. The brain-ready moment shows sparkles only.\n\nYes, the signal that the phone is hearing them still moves. The ear glow keeps its 1.6 s pulse, as in the pack's calm variant. By contrast, the hint ring and dream cloud hold still. The \"still in reduced motion\" at line 314 refers to the hint ring, not the ear glow.\n\nThe reduced-motion section is marked `[ASSUMPTION]`, so it is provisional. The ear glow's meaning (on exactly while the mic is live) comes from FR-21.\n\nEvidence:\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-766\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:314\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:563-574",
+   "model": "claude-sonnet-5-5",
+   "calls": 4,
+   "tool_tokens": 3615,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 8,
+     "cache_creation_input_tokens": 11965,
+     "cache_read_input_tokens": 52657,
+     "output_tokens": 990,
+     "output_tokens_details": {
+      "thinking_tokens": 61
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 11965,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 531,
+       "cache_read_input_tokens": 17518,
+       "cache_creation_input_tokens": 993,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 993
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 6,
+    "cost_usd": 0.0683074
+   },
+   "specdex_calls": 4,
+   "guide_tokens": 1977,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-766",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:314-314",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:563-574"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H04",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "Android’s “Remove animations” setting should make Pip use calm variants: unchanged timing and cues, half the squash, feet lifting at most 5% of body height, and no flips or turns over 30°. Big transitions—travel over one-third of the screen or scale changes over 10%—become crossfades lasting at most 150 ms; the hint ring and dream cloud stay still. Yes: the listening ear glow still pulses every 1.6 seconds, even with reduced motion enabled.\n\nEvidence:\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-765\n_bmad-output/planning-artifacts/asset-prompts-2026-09-28/02-rig-animation.md:408-408\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:608-608",
+   "model": "gpt-6.1-sol",
+   "calls": 4,
+   "tool_tokens": 16055,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 149029,
+     "cached_input_tokens": 120064,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1097,
+     "reasoning_output_tokens": 344
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-765",
+    "_bmad-output/planning-artifacts/asset-prompts-2026-09-28/02-rig-animation.md:408-408",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:608-608"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H04",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "The phone’s “Remove animations” setting should govern both Pip and transitions. Pip uses calm animations with the same timing and cues, half the squash, feet no more than 5% off the ground, and no flips. Large movements—travel exceeding one-third of the screen or scaling exceeding 10%—become crossfades lasting at most 150 ms; the hint ring and dream cloud stay still. Yes, the listening ear glow still pulses every 1.6 seconds while the microphone is live, and no setting can hide it.\n\nEvidence:\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:844-877\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-766\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:563-574",
+   "model": "gpt-6.1-sol",
+   "calls": 8,
+   "tool_tokens": 10468,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 251318,
+     "cached_input_tokens": 215296,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1837,
+     "reasoning_output_tokens": 661
+    }
+   },
+   "specdex_calls": 2,
+   "guide_tokens": 2038,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:844-877",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-766",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:563-574"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H05",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "Yes, in one narrow case. Play time is counted with the phone's monotonic `elapsedRealtime` clock, and \"trusted now\" is the last trusted anchor plus elapsed time. A manual clock change doesn't advance trusted time, so moving the date forward alone gives no extra minutes. The anchors are the network time clock, the server's HTTPS `Date` header, and the device clock when it agrees with the estimate. A reboot resets the monotonic clock. If there is also no usable anchor because the phone is offline, the spec says the device clock is accepted. So changing the clock offline and then rebooting can grant play time. The architecture records this as a known residual risk (ACR-J, CR-1 residual (c)) and does not close it. The PRD's requirement that a time change never grants play time (tested at ±24 hours) is only fully met while a trusted anchor exists.\n\nEvidence:\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:521-541\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/outcome.md:158-158\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/outcome.md:391-391\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/extract-prd.md:211-211\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/polish-overview.md:68-68",
+   "model": "claude-sonnet-5-5",
+   "calls": 6,
+   "tool_tokens": 7420,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 12,
+     "cache_creation_input_tokens": 18016,
+     "cache_read_input_tokens": 94410,
+     "output_tokens": 1696,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 18016,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 567,
+       "cache_read_input_tokens": 23696,
+       "cache_creation_input_tokens": 866,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 866
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 7,
+    "cost_usd": 0.10793
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:521-541",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/outcome.md:158-158",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/outcome.md:391-391",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/discussion-change-decisions/extract-prd.md:211-211",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/reviews/polish-overview.md:68-68"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H05",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "Yes, in that one case. Play time is counted with a monotonic clock, and normally a manual date or time change doesn't grant any. But if the phone is offline and has no usable trusted time anchor, a reboot makes the device clock the accepted time. A clock change followed by that reboot can then grant play time. The specs record this as a known residual risk (ACR-J, CR-1 residual (c)) and mark it `[ASSUMPTION: CQ-22]`. FR-59 says the behavior is tested at ±24 hours, including the reboot case.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:950-961\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:521-542\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:48-56\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:1032",
+   "model": "claude-sonnet-5-5",
+   "calls": 4,
+   "tool_tokens": 4412,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 10,
+     "cache_creation_input_tokens": 13096,
+     "cache_read_input_tokens": 69637,
+     "output_tokens": 1231,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 13096,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 388,
+       "cache_read_input_tokens": 17812,
+       "cache_creation_input_tokens": 1830,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 1830
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 5,
+    "cost_usd": 0.07864140000000001
+   },
+   "specdex_calls": 3,
+   "guide_tokens": 2212,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:950-961",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:521-542",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:48-56",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:1032-1032"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H05",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "Yes, if the phone restarts offline without a usable trusted time anchor, moving its date and time forward can grant extra play time. The app then accepts the phone’s clock; while a trusted anchor remains available, clock changes cannot grant time. The specifications explicitly acknowledge this loophole as residual risk ACR-J/CR-1, under assumption CQ-22.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:954-959\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:527-540\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:48-54",
+   "model": "gpt-6.1-sol",
+   "calls": 6,
+   "tool_tokens": 18810,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 122051,
+     "cached_input_tokens": 87168,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 893,
+     "reasoning_output_tokens": 290
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:954-959",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:527-540",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:48-54"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H05",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "Yes, potentially: after an offline restart with no usable trusted time reference, the app accepts the phone’s clock, so moving it forward can grant extra play time. While a trusted reference remains available, changing the clock does not grant extra time. The specs explicitly record this loophole as a residual risk, marked `[ASSUMPTION: CQ-22]`.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:959-959\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:527-540\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1737-1737",
+   "model": "gpt-6.1-sol",
+   "calls": 11,
+   "tool_tokens": 26555,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 222512,
+     "cached_input_tokens": 191360,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1701,
+     "reasoning_output_tokens": 809
+    }
+   },
+   "specdex_calls": 1,
+   "guide_tokens": 2038,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:959-959",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:527-540",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1737-1737"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H06",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "Recordings from the research panel (children whose voices are used for evaluation) may be processed only on the developer machine and on the LAN host, and the LAN host is reached through an SSH tunnel only. They may not go to staging or to any cloud testing setup. Staging and the LAN host are for actor and synthetic audio only. The product requirements (PRD) add that panel clips live in our encrypted, access-listed store, with no transfer. Retention is the end of the program or 24 months at most. They are never mixed with player data, and parental consent covers evaluation only. The LAN host must also be named in the CR-10 register, and a preflight check must pass before any clip is sent to it.\n\nI found no passage that names a cloud testing service. The data-routing table simply doesn't list one as an allowed destination, so the answer is no unless the product owner and counsel change CR-10 and AD-29.\n\nEvidence:\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-OVERVIEW.md:135\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1360\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:191\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1701\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746",
+   "model": "claude-sonnet-5-5",
+   "calls": 7,
+   "tool_tokens": 7054,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 14,
+     "cache_creation_input_tokens": 17847,
+     "cache_read_input_tokens": 110604,
+     "output_tokens": 1863,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 17847,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 579,
+       "cache_read_input_tokens": 23349,
+       "cache_creation_input_tokens": 1044,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 1044
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 8,
+    "cost_usd": 0.11216680000000001
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-OVERVIEW.md:135-135",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1360-1360",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:191-191",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1701-1701",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H06",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "Recordings from children trying the app are research-panel clips (the separately consented group of children). The specs let you process them only for the evaluation suite. They must stay in encrypted, access-listed storage that you control, and the specs say \"no transfer\". They're kept until the end of the program, or 24 months at most. The data map says they never leave \"our encrypted store\". Architecture puts the evaluation harness with the encrypted panel clips on the developer machine. It sends audio to a LAN GPU host that \"keeps nothing\".\n\nYou can't send them to cloud staging. The EU staging environment is \"actor/synthetic audio only\", and that is where load tests run. I found no spec that approves a third-party cloud testing service for panel audio. \"No transfer\" and counsel question CQ-28 (consent and retention; whether evaluation counts as \"improving AI\") leave that unresolved, so you would need a change to the specs plus counsel sign-off. CR-10 must be in place before any panel recording. Crisis phrases are never recorded from the panel.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:191\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1701\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1573-1604\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1770\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:2024\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1226-1253",
+   "model": "claude-sonnet-5-5",
+   "calls": 7,
+   "tool_tokens": 5432,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 14,
+     "cache_creation_input_tokens": 14963,
+     "cache_read_input_tokens": 106550,
+     "output_tokens": 1501,
+     "output_tokens_details": {
+      "thinking_tokens": 36
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 14963,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 643,
+       "cache_read_input_tokens": 19749,
+       "cache_creation_input_tokens": 1760,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 1760
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 9,
+    "cost_usd": 0.09620000000000001
+   },
+   "specdex_calls": 7,
+   "guide_tokens": 1977,
+   "evidence_overlap": 0.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:191-191",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1701-1701",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1573-1604",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1770-1770",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:2024-2024",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1226-1253"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H06",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "Children’s test recordings may be processed only on the developer machine or the LAN host through an SSH tunnel; the LAN host must be registered under CR-10 and pass the AD-24 settings check. **No, they cannot be sent to cloud testing/staging**, which accepts only actor and synthetic audio. These recordings require separate written parental consent for evaluation only, encrypted access-listed storage, separation from player data, and deletion at program end or within 24 months, whichever comes first.\n\nEvidence:\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1230-1237\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746",
+   "model": "gpt-6.1-sol",
+   "calls": 4,
+   "tool_tokens": 30019,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 160272,
+     "cached_input_tokens": 131712,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1073,
+     "reasoning_output_tokens": 343
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 0.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:1230-1237",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H06",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "Children’s research-panel recordings may be processed only on the developer machine or the LAN host, reached through an SSH tunnel. The LAN host must be named in the CR-10 register, and its model-server settings must pass a preflight check before receiving clips. **No, they cannot go to cloud staging**; staging uses actor or synthetic audio, including all crisis audio. Before recording, CR-10 requires separate written parental consent for evaluation only, encrypted access-listed storage, withdrawal provisions, consent/deletion records, separation from player data, and retention until program end or at most 24 months.\n\nEvidence:\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831  \n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746",
+   "model": "gpt-6.1-sol",
+   "calls": 8,
+   "tool_tokens": 19004,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 255796,
+     "cached_input_tokens": 231680,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1943,
+     "reasoning_output_tokens": 772
+    }
+   },
+   "specdex_calls": 3,
+   "guide_tokens": 2038,
+   "evidence_overlap": 0.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H07",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "The child should see nothing different. If a phone can't fetch the latest settings, it keeps using the last good configuration file, and fetch age alone never changes what the child sees. A fetch that fails, a bad signature, or an unknown `schemaMajor` all leave that last good file in place. If the phone has never had a good file, it uses the bundled defaults and doesn't assume any extension it hasn't received.\n\nCaps, consent, security restrictions and the guaranteed date still apply on their own terms, so they aren't affected by staleness. The only child-facing case in the specs where the child sees something different (resting ears, with basic mode continuing) is an old app excluded for a documented security risk. That is a different situation from a stale fetch.\n\nI didn't find any spec text that gives the child a \"settings out of date\" notice. Notices about configuration go to parents as a dismissible status card.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1326\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1331\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1322\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:470\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:481\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:485\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:456",
+   "model": "claude-sonnet-5-5",
+   "calls": 5,
+   "tool_tokens": 12121,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 10,
+     "cache_creation_input_tokens": 24943,
+     "cache_read_input_tokens": 94624,
+     "output_tokens": 1715,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 24943,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 620,
+       "cache_read_input_tokens": 29222,
+       "cache_creation_input_tokens": 2267,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 2267
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 6,
+    "cost_usd": 0.1358668
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 0.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1326-1326",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1331-1331",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1322-1322",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:470-470",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:481-481",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:485-485",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:456-456"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H07",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "The child should see nothing different. Under AD-16, fetch age alone never changes what the child sees. The device keeps using the last good signed configuration, or the bundled defaults if it has never had a good one. Caps, consent, security restrictions and the guaranteed date still apply on their own terms. An extension that was not received is never assumed. The 30-day figure is the interval at which devices should fetch when they can connect, not a cutoff after which the child view degrades. The addendum's interface table also gives \"Last good file\" as the offline behavior for the global configuration. The UX spec says the child view is identical for every resting-ears cause. I did not find a spec that defines a separate child-facing \"settings out of date\" state.\n\nEvidence:\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:467-486\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:128\n_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:350-375\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-OVERVIEW.md:181-198",
+   "model": "claude-sonnet-5-5",
+   "calls": 7,
+   "tool_tokens": 8358,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 16,
+     "cache_creation_input_tokens": 19805,
+     "cache_read_input_tokens": 134285,
+     "output_tokens": 2233,
+     "output_tokens_details": {
+      "thinking_tokens": 147
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 19805,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 497,
+       "cache_read_input_tokens": 23337,
+       "cache_creation_input_tokens": 3014,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 3014
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 8,
+    "cost_usd": 0.128439
+   },
+   "specdex_calls": 6,
+   "guide_tokens": 2212,
+   "evidence_overlap": 0.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:467-486",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:128-128",
+    "_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:350-375",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-OVERVIEW.md:181-198"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H07",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "The kid should see the usual Pip experience: settings being over a month old must not by itself change the child view. The phone keeps the last valid settings, or bundled defaults if none exist; caps, consent, security restrictions and the guaranteed date still apply, and an unseen extension cannot be assumed. If a separate condition stops talk, Pip shows folded “resting ears” and keeps playing with basic-mode features; the cause is explained only to the parent.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1324-1331\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:417-435",
+   "model": "gpt-6.1-sol",
+   "calls": 5,
+   "tool_tokens": 15973,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 110939,
+     "cached_input_tokens": 82560,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1007,
+     "reasoning_output_tokens": 327
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 0.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1324-1331",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:417-435"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H07",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "The kid’s view should stay unchanged solely because settings haven’t refreshed for over a month. The phone keeps the last valid configuration, or uses bundled defaults if it has never received one. Play-time caps, consent, security restrictions, and the guaranteed date still apply independently; the phone cannot assume a service extension it hasn’t received.\n\nEvidence:\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1324-1332\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:467-486",
+   "model": "gpt-6.1-sol",
+   "calls": 7,
+   "tool_tokens": 14789,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 213331,
+     "cached_input_tokens": 187904,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 1942,
+     "reasoning_output_tokens": 913
+    }
+   },
+   "specdex_calls": 2,
+   "guide_tokens": 2038,
+   "evidence_overlap": 0.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1324-1332",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:467-486"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H08",
+   "harness": "claude",
+   "condition": "baseline",
+   "answer": "Improve how the purchase is explained first. The specs set a switch trigger: if refunds go above 10%, fix the demo and the listing before touching the price. The CFO red-team digest gives the reasoning: a refund rate that high means the tier disclosure is failing, so the problem is what buyers understand before they pay. The planning target is refunds under 5%, with a 5–8% budget for the 14-day refund window. Price changes are reserved for other triggers, such as demo-to-unlock conversion under 2% over the first 5,000 installs, or non-buyer costs above 10% of net. Those would move the app to paid-upfront.\n\nEvidence:\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:112-112\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/digests/redteam-cfo.md:136-136\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/.memlog.md:62-63\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/digests/brief-addendum-extract.md:142-142\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/digests/brief-addendum-extract.md:197-197\n_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-governance.md:188-188",
+   "model": "claude-sonnet-5-5",
+   "calls": 2,
+   "tool_tokens": 2798,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 6,
+     "cache_creation_input_tokens": 10417,
+     "cache_read_input_tokens": 32902,
+     "output_tokens": 880,
+     "output_tokens_details": {
+      "thinking_tokens": 27
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 10417,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 507,
+       "cache_read_input_tokens": 13803,
+       "cache_creation_input_tokens": 3160,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 3160
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 3,
+    "cost_usd": 0.057060400000000004
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:112-112",
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/digests/redteam-cfo.md:136-136",
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/.memlog.md:62-63",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/digests/brief-addendum-extract.md:142-142",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/digests/brief-addendum-extract.md:197-197",
+    "_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/extracts/prd-governance.md:188-188"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H08",
+   "harness": "claude",
+   "condition": "specdex",
+   "answer": "Improve how the purchase is explained first. The addendum's switch-trigger table says that when refunds go above 10%, the response is \"Fix the demo and the listing before touching the price.\" The \"demo\" and \"listing\" are the pre-purchase explanation, so price comes last. The addendum also says price can't be properly tested in early access. Detecting a 20% relative difference in conversion needs about 8,500 installs per price. Price is therefore set from anchors and revisited after launch. The trigger is marked as a reasoned figure (`[RF]`), not a measured one.\n\nEvidence:\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:104-112\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:114-116",
+   "model": "claude-sonnet-5-5",
+   "calls": 3,
+   "tool_tokens": 3338,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 8,
+     "cache_creation_input_tokens": 11516,
+     "cache_read_input_tokens": 52458,
+     "output_tokens": 791,
+     "output_tokens_details": {
+      "thinking_tokens": 0
+     },
+     "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+     },
+     "service_tier": "standard",
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 11516,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "inference_geo": "not_available",
+     "iterations": [
+      {
+       "input_tokens": 2,
+       "output_tokens": 276,
+       "cache_read_input_tokens": 17311,
+       "cache_creation_input_tokens": 751,
+       "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 751
+       },
+       "type": "message"
+      }
+     ],
+     "speed": "standard",
+     "fallback_credit": null
+    },
+    "num_turns": 5,
+    "cost_usd": 0.0644816
+   },
+   "specdex_calls": 3,
+   "guide_tokens": 1989,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:104-112",
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:114-116"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H08",
+   "harness": "codex",
+   "condition": "baseline",
+   "answer": "Improve the demo and store listing first, before changing the price. The specifications treat refunds above 10% as a sign that device-tier disclosure is failing, so clarify what buyers will actually get on their device.\n\nEvidence:\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:104-112\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/digests/redteam-cfo.md:128-136",
+   "model": "gpt-6.1-sol",
+   "calls": 7,
+   "tool_tokens": 17374,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 116058,
+     "cached_input_tokens": 91264,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 834,
+     "reasoning_output_tokens": 290
+    }
+   },
+   "specdex_calls": 0,
+   "guide_tokens": 0,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:104-112",
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/digests/redteam-cfo.md:128-136"
+   ],
+   "violations": [],
+   "error": null
+  },
+  {
+   "task": "H08",
+   "harness": "codex",
+   "condition": "specdex",
+   "answer": "Improve how we explain the purchase first: refunds above 10% explicitly trigger fixing the demo and store listing before changing the price. Clearly explain what the unlock adds, the device’s tier, the guaranteed date, and the 14-day refund promise.\n\nEvidence:\n_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:112-112\n_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1176-1182",
+   "model": "gpt-6.1-sol",
+   "calls": 13,
+   "tool_tokens": 12694,
+   "harness_usage": {
+    "usage": {
+     "input_tokens": 345933,
+     "cached_input_tokens": 327808,
+     "cache_write_input_tokens": 0,
+     "output_tokens": 2134,
+     "reasoning_output_tokens": 563
+    }
+   },
+   "specdex_calls": 3,
+   "guide_tokens": 2038,
+   "evidence_overlap": 1.0,
+   "citation_recall": null,
+   "citation_precision": null,
+   "cited": [
+    "_bmad-output/planning-artifacts/briefs/brief-tamagai-2026-09-29/addendum.md:112-112",
+    "_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1176-1182"
+   ],
+   "violations": [],
+   "error": null
+  }
+ ]
+}

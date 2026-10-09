@@ -1,0 +1,16 @@
+**FR-68: Linking and consent states** lets a parent become the device’s linked parent by completing the consent method once (FR-86); servers then keep only the linked-parent record, realizing UJ-10.
+
+| From \ event | Link or consent | Revoke consent | Unlink | Delete everything | Refund |
+|---|---|---|---|---|---|
+| Unlinked | Linked (server tier: linked with consent) | — | — | Family’s on-device data deleted; model files stay (FR-71) | Basic mode |
+| Linked (on-device tier) | — | — | Unlinked; loosened limits return to defaults | Unlinked; family’s on-device data deleted, model files stay; record deletion requested, shown as not yet accepted or accepted, never as completed (FR-71) | Basic mode; still linked |
+| Linked with consent (server tier) | — | Linked without consent; server talk stops | Unlinked; server talk stops; loosened limits return to defaults | Unlinked; family’s on-device data deleted, model files stay; record deletion requested, shown as not yet accepted or accepted, never as completed (FR-71) | Basic mode; server talk stops; still linked |
+| Linked without consent (server tier) | Linked with consent (no new purchase) | — | Unlinked; loosened limits return to defaults | Unlinked; family’s on-device data deleted, model files stay; record deletion requested, shown as not yet accepted or accepted, never as completed (FR-71) | Basic mode; still linked |
+
+“Stops” means before the next voice turn and within 60 seconds, except refunds allow up to 24 hours (FR-83).
+On the on-device tier, the linking notice says no child data is collected.
+Web unlink or record deletion reaches the device at its next successful link check—at least every 30 days while online, with no such guarantee offline—and web record deletion unlinks without remotely erasing the child’s pet.
+Returning loosened limits to defaults resets every setting in FR-69’s “Go beyond the SB 1119 defaults” row while keeping settings already within the defaults.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1034-1052

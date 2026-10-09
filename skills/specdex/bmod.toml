@@ -1,0 +1,11 @@
+[bmod]
+code = "specdex"
+version = "0.1.0"
+# file: until a remote exists; then github:<owner>/specdex/skills
+update_source = "file:/home/taras_spashchenko/TS/ts/specdex/skills"
+skills = ["specdex"]
+
+# A one-skill module: this file is both the record and the skill. With [bmod]
+# present, BMad ignores [skill].bmod/.source, and no scripts are declared because
+# specdex runs from its skill folder rather than from _bmad/specdex/scripts/.
+[skill]

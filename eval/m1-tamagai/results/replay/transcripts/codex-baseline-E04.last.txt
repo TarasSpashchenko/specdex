@@ -1,0 +1,6 @@
+`colors.sleep-dim` is `#141B33`, applied at **40% opacity** only for sleeping Pip. Place it above the room tint and below the lamp glow and controls; these usage rules are marked `[ASSUMPTION]` in the specs.
+
+Evidence:
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:40-40
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:544-544
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:727-727

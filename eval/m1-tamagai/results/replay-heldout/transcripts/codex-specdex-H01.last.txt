@@ -1,0 +1,5 @@
+Deleting a learned word card must remove the word everywhere it appears: vocabulary, lines, dreams, and diary. The taught-word count drops, but abilities already earned remain unlocked because reached ladder steps never lock again; Pip says nothing about the deletion.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:700-708
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:726-744

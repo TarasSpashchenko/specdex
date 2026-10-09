@@ -1,0 +1,5 @@
+FR-7.3 is the **third testable consequence under FR-7**, beginning “In basic mode, the device sends nothing except”; it has no separate numbered heading. Its exhaustive allowlist covers configuration fetches without a stable identifier and linked-device link checks; parent-area sends/requests under FR-64, FR-68, FR-69.1, FR-70–FR-72, FR-74, FR-86, FR-87, FR-102 and FR-103; model downloads; server-credential requests by unlocked devices; the US referral count; and Google Play purchase/age-signal traffic. Each exception retains its own authorization and retention rules: credentials require active consent, counters/crash reports require parent opt-in, and offline parent requests wait for connectivity. **Child speech is never sent in basic mode**, and every basic-mode feature must work with networking disabled.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:394-410
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:412-412

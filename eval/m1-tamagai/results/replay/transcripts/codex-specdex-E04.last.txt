@@ -1,0 +1,5 @@
+The `sleep-dim` token is `#141B33`. Its use as a 40% dim overlay over sleeping Pip, and nowhere else, is marked `[ASSUMPTION]`.
+
+Evidence:
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:40-40
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:544-544

@@ -1,0 +1,5 @@
+Children’s research-panel recordings may be processed only on the developer machine or the LAN host, reached through an SSH tunnel. The LAN host must be named in the CR-10 register, and its model-server settings must pass a preflight check before receiving clips. **No, they cannot go to cloud staging**; staging uses actor or synthetic audio, including all crisis audio. Before recording, CR-10 requires separate written parental consent for evaluation only, encrypted access-listed storage, withdrawal provisions, consent/deletion records, separation from player data, and retention until program end or at most 24 months.
+
+Evidence:
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:822-831  
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1746-1746

@@ -1,0 +1,6 @@
+The **Confirm dialog** is a Material dialog using `{colors.parent-raised}`, 28 dp corners, `{typography.parent-title}`, and `{typography.parent-body}`. It presents equally styled “Keep” / “Delete” actions, with Keep first; Delete names exactly what is removed and uses no danger color (NFR-18). Deletions require PIN first, “within 30 days” is marked `[ASSUMPTION: CQ-17]`, and “Delete everything” explicitly says model files stay.
+
+Evidence:
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:422-426
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:799-799
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:804-804

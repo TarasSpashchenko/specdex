@@ -1,0 +1,7 @@
+eval/corpora/
+__pycache__/
+*.pyc
+.pytest_cache/
+.idea/
+# rebuildable eval index caches
+*.sqlite

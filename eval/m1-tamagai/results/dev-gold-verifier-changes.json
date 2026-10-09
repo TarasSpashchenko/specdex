@@ -1,0 +1,56 @@
+{
+ "exact": [
+  "E01 prompt narrowed from 'Define FR-7 … what is FR-7.3' to FR-7.3 only, so it does not repeat a section task on the whole FR-7 section",
+  "E01 evidence 394-416 (whole FR-7 section) → 404-412 (the FR-7.3 list item, the minimal unit)",
+  "E01 answer rewritten for FR-7.3 only; the CQ-21 qualifier now says it is a counsel question",
+  "E01 forbidden extract-prd.md 11-13 → 13 (the stale list line)",
+  "E01 forbidden extracts/prd-core.md 160-165 → 163 (the stale FR-7.3 item)",
+  "E01 forbidden added: reviews/review-fidelity.md:61 (quotes the FR-7.3 text from before ACR-A)",
+  "E03 answer: replaced the unsupported 'It is not a calendar day' with 'a day starts at that profile's wake time, not at midnight'",
+  "E05 answer: says A-7 is still an open spike question; evidence unchanged",
+  "E02, E04, E06: every label re-derived and confirmed; no change"
+ ],
+ "history": [
+  "Y01 evidence: removed SPINE 1422 (register row ACR-T); it only repeats the fallback already in SPINE 178",
+  "Y01 notes updated to match",
+  "Y02 prompt: 'one voice-turn coordinator per visit' changed to 'one TalkTurn coordinator per visit', the memlog's exact wording",
+  "Y02 answer: says that AD-11's 'visit coordinator' is the AD-5 coordinator",
+  "Y03 forbidden: added architecture/bmad-architecture-prompt.md 204-205 (trail: 'Arwen-SDD is the spec authority', 'Next comes a one-time Arwen ingest')",
+  "Y03 answer: gate wording now covers the fallbacks of pending changes",
+  "Y04: re-verified, no label change",
+  "Y05 evidence: removed PRD 1816 (§11 non-goal); it repeats FR-65.1. Answer: removed the §11 sentence and added that flagged lines are kept 7 days",
+  "Y06 answer: added that FR-68.4 has no CQ tag (ACR-O's counsel-tagged clauses are elsewhere, e.g. FR-94/CQ-32)"
+ ],
+ "citation": [
+  "C01: no label changes; all 9 citation lines, the scope and the evidence 369–389 checked and confirmed (notes rewritten as the checker's derivation)",
+  "C02: forbidden SPINE:1309 removed (current capability-map text, not historical, trail or superseded)",
+  "C02: forbidden added reviews/review-fidelity.md:14 (stale trail traceability row: FR-7 → AD 4, 8, 14, AD-5 missing)",
+  "C02: scope now states the exact-token rule (NFR-7 in AD-10:317, AD-28:788, AD-37:1049 and FR-7.n excluded); citation lines 11, 63, 145, 170, 272, 418 confirmed unchanged",
+  "C02: answer drops the forbidden-row framing and keeps the 'Binds lines are authoritative' clarification",
+  "C03: prompt now asks for lines that reference the token 'by name', so it matches the scope; draft reviewer question settled with SPINE:893 excluded",
+  "C03: answer adds the [ASSUMPTION: CQ-13, CQ-22] qualifier for DESIGN:695; 4 citation lines confirmed",
+  "C04: answer corrects 'PRD §16.2 counsel index' to 'the Counsel group of the PRD §16.2 assumption index' (prd.md:2128 is under **Counsel** at 2119 in §16.2 Index)",
+  "C04: answer adds the counsel-gated qualifier [ASSUMPTION: CQ-21] and the full ACR-A decision 'amend (§3.1); counsel-tagged clauses'",
+  "C04: scope lists the excluded look-alikes; forbidden why adds the range-expansion trap; 7 citation lines and evidence 404–412 and 36 confirmed",
+  "C05: answer adds the open/owner qualifier (Architecture; blocks FR-27, NFR-1, NFR-5), marks CR 64 as historical request text and notes that ACR-D/UX-D are conditional on OQ-12; 21 citation lines confirmed",
+  "C06: evidence replaced: prose line 14 (not a spec unit) and row 43 swapped for heading sections CHANGE-REQUESTS.md 18–56 (PRD table) and 57–73 (UX table)",
+  "C06: answer adds that amend rows with counsel-tagged clauses wait on counsel rather than being conditional, and that the product owner can overturn any decision; 5 citation rows and both forbidden rows confirmed"
+ ],
+ "section": [
+  "S01 answer: refund clause corrected (Unlinked -> basic mode only; linked states stay linked; server talk stops from linked with consent); Delete everything unlinks only from linked states; added on-device linking notice",
+  "S02 answer: added 'the child sees a sleeping Pip' to FR-69.2; evidence 1053-1067 confirmed",
+  "S03 no change (row 1061, FR-69.1 1064, FR-64.4 1006 verified); notes add FR-64.5 (1007) as related",
+  "S04 no change (rows 360, 367 and trail rows 120, 126 verified)",
+  "S05 no change (FR-71.1 1082-1088, AD-34 step 3 982, outbox bullet 974-976 verified)",
+  "S06 no change (AD-20 578-600 verified); notes cite fix-verification line 44 for F-01 supersession",
+  "S07 no change (Stack rows 1125, 1126 verified)",
+  "S08 no change (SPINE 1226-1253 verified)",
+  "S09 answer: placeholders attached to Pip's vocabulary; added 'zeros included' and 'food and allergy settings never leave the phone'",
+  "S10 evidence added DESIGN 422-426 (frontmatter components.confirm-dialog tokens); answer adds title/body typography tokens",
+  "S10 forbidden added .working/fix-log-design-reconcile.md 15 (superseded confirm-dialog.actions key)",
+  "S11 forbidden added extracts/ux.md 183 (trail summary of the minima); answer: [ASSUMPTION] attached to the playtest check only",
+  "S12 answer: added [ASSUMPTION] on the Wave button and the tile-tapped-again confirmation",
+  "S13 no change (addendum 234-262, extract 168 verified)",
+  "S14 no change (addendum 181-196, ACR-D row 25, extract 121-133 verified)"
+ ]
+}

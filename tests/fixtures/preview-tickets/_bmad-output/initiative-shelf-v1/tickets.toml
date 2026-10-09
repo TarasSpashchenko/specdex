@@ -1,0 +1,12 @@
+[[epic]]
+id = 1
+slug = "epic-reading-list"
+title = "Readers build their reading list"
+covers = ["FR-1", "FR-2", "FR-3"]
+
+[[epic]]
+id = 2
+slug = "epic-csv-transfer"
+title = "Readers move their list in and out as CSV"
+covers = ["FR-4", "FR-5"]
+after = [{ epic = 1, needs = "the book record the list stores" }]

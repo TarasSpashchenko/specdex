@@ -1,0 +1,130 @@
+{
+ "H01:A": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H01:B": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H01:C": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "H01:D": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H02:A": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H02:B": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "H02:C": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H02:D": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H03:A": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "H03:B": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H03:C": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H03:D": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H04:A": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H04:B": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H04:C": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H04:D": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "H05:A": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H05:B": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H05:C": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "H05:D": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H06:A": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H06:B": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "H06:C": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H06:D": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H07:A": {
+  "harness": "codex",
+  "condition": "baseline"
+ },
+ "H07:B": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H07:C": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H07:D": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H08:A": {
+  "harness": "codex",
+  "condition": "specdex"
+ },
+ "H08:B": {
+  "harness": "claude",
+  "condition": "baseline"
+ },
+ "H08:C": {
+  "harness": "claude",
+  "condition": "specdex"
+ },
+ "H08:D": {
+  "harness": "codex",
+  "condition": "baseline"
+ }
+}

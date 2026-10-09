@@ -1,0 +1,9 @@
+PRD addendum **§3, “The reaction contract,”** defines one interface for both brains: requests carry visit context plus server audio or an on-device transcript, with server metadata including credentials, contract version, and the first-turn-today marker.
+The schema-validated response contains `emotion`, `action` with an optional target object ID, optional `line`, `unsure`, `crisis`, `intent`, and voice-teach `proposed_word`; it excludes the child’s emotion.
+The server adds a never-persisted `transcript` outside the brain’s JSON, and the client checks transcript and crisis before validating the reaction, preserving them even when validation fails.
+Every runtime uses JSON-schema-constrained output; the validator converts types, strips code fences, and maps unknown responses to a fallback, while `crisis` is generated first.
+Budgets are approximately 150 prompt-card tokens, 1,500 input tokens per turn, and 60 output tokens maximum; names use placeholders filled on-device, and the engine enforces hard limits.
+Evaluation covers runtime contract tests, NFR-14 probes, crisis and child-exaggeration tests in text and audio, prosody, and reference-device latency.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:234-262

@@ -1,0 +1,6 @@
+Yes, if the phone restarts offline without a usable trusted time anchor, moving its date and time forward can grant extra play time. The app then accepts the phone’s clock; while a trusted anchor remains available, clock changes cannot grant time. The specifications explicitly acknowledge this loophole as residual risk ACR-J/CR-1, under assumption CQ-22.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:954-959
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:527-540
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/CHANGE-REQUESTS.md:48-54

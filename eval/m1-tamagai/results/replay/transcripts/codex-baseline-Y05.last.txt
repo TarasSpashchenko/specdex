@@ -1,0 +1,6 @@
+No FR authorizes that: **FR-65, “What grown-ups see,” explicitly excludes transcripts and anything the child said**, and the list of Pip’s recent lines was dropped. For a story about reviewing only Pip lines flagged by the child, use **FR-65**, with **FR-58** covering flagging and seven-day retention.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1009-1015
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:56-63
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:937-944

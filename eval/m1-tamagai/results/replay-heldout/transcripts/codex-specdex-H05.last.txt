@@ -1,0 +1,6 @@
+Yes, potentially: after an offline restart with no usable trusted time reference, the app accepts the phone’s clock, so moving it forward can grant extra play time. While a trusted reference remains available, changing the clock does not grant extra time. The specs explicitly record this loophole as a residual risk, marked `[ASSUMPTION: CQ-22]`.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:959-959
+_bmad-output/planning-artifacts/architecture/architecture-tamagai-2026-10-03/ARCHITECTURE-SPINE.md:527-540
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1737-1737

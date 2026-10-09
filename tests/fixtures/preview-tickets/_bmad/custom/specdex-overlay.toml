@@ -1,0 +1,7 @@
+# specdex project overlay for the synthetic preview-ticketing fixture: only coverage applicability.
+[overlay]
+project = "shelf"
+profile = "bmad-6.13.0-next"
+
+[coverage]
+tickets = ["FR"]

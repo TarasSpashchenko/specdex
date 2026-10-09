@@ -1,0 +1,5 @@
+The kid should see the usual Pip experience: settings being over a month old must not by itself change the child view. The phone keeps the last valid settings, or bundled defaults if none exist; caps, consent, security restrictions and the guaranteed date still apply, and an unseen extension cannot be assumed. If a separate condition stops talk, Pip shows folded “resting ears” and keeps playing with basic-mode features; the cause is explained only to the parent.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1324-1331
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:417-435

@@ -1,0 +1,6 @@
+Android’s “Remove animations” setting should make Pip use calm variants: unchanged timing and cues, half the squash, feet lifting at most 5% of body height, and no flips or turns over 30°. Big transitions—travel over one-third of the screen or scale changes over 10%—become crossfades lasting at most 150 ms; the hint ring and dream cloud stay still. Yes: the listening ear glow still pulses every 1.6 seconds, even with reduced motion enabled.
+
+Evidence:
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:763-765
+_bmad-output/planning-artifacts/asset-prompts-2026-09-28/02-rig-animation.md:408-408
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/DESIGN.md:608-608

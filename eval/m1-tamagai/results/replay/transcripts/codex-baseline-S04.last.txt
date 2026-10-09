@@ -1,0 +1,5 @@
+Offline applies only to the Server tier and ends at the next visit with a connection, explicitly assuming no mid-visit recovery; the parent area says “The device is offline.” Heat applies to both tiers and ends when the device cools; the parent area describes “The nap, then resting ears until the device cools.”
+
+Evidence:
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:358-360
+_bmad-output/planning-artifacts/ux-designs/ux-tamagai-2026-09-30/EXPERIENCE.md:367-367

@@ -1,0 +1,7 @@
+No FR permits this: **FR-65** explicitly forbids showing transcripts or anything the child said in the parent area. The proposed list of Pip’s recent lines was explicitly dropped. For a story about viewing **child-flagged Pip lines**, use **FR-65** with **FR-58**; **FR-70** covers reporting or dismissing those lines.
+
+Evidence:
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1009-1016
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/addendum.md:62-62
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:937-945
+_bmad-output/planning-artifacts/prds/prd-tamagai-2026-09-29/prd.md:1068-1076
