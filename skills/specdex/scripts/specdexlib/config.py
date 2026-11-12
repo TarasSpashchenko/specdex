@@ -44,6 +44,7 @@ class Family:
     key: str | None           # "int" | "alpha"
     owners: tuple[str, ...]
     scope: str                # "project" | "document"
+    contexts: tuple[str, ...] = ()  # where it may be cited (covers, requirements, binds); empty: anywhere
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,6 +54,7 @@ class DefineRule:
     shape: str                # heading | item-lead | row-key | yaml-tokens | item-lead-term
     section: str | None
     roots: tuple[str, ...]
+    documents: str = "any"    # any | engine (a bmad-facilitate document: frontmatter `template`, or a shard) | legacy
 
 
 @dataclass(frozen=True, slots=True)
@@ -119,6 +121,7 @@ class Config:
     skip_dirs: set[str]
     artifacts: list[ArtifactRule]
     frontmatter_types: dict[str, str]
+    templates: dict[str, tuple[str, str]]   # frontmatter `template` id -> (artifact type, kind)
     families: dict[str, Family]
     defines: list[DefineRule]
     elaborations: list[ElaborateRule]
@@ -132,7 +135,9 @@ class Config:
     aliases: dict[str, str]
     coverage: dict[str, list[str]]
     range_separators: list[str]
+    range_short_separators: list[str]       # separators that may end in a bare number (FR-20–27)
     range_short_form: bool
+    range_bold_ends: bool                   # "**FR-1** to **FR-4**" is a range
     range_max: int
     spine: dict[str, str]
     fields: dict[str, str]
@@ -146,6 +151,8 @@ class Config:
     profile_reason: str = "given"
     current_scope: str | None = None        # owners under this folder are the candidate records
     backlog: str | None = None              # folder of standalone tickets
+    ambiguous_hint: str | None = None       # how to settle two candidate records of one type
+    alias_families: tuple[str, ...] = ()    # Requirements-line ids naming the line's own requirement (the spec fold)
     diagnostics: list[tuple[str, str, str, int, str]] = field(default_factory=list)  # code, severity, path, line, detail
     id_regex: re.Pattern = field(init=False)
     family_groups: dict[str, str] = field(init=False)
@@ -407,7 +414,8 @@ def load(project_root: Path, profile_path: Path, overlay_path: Path | None = Non
     families: dict[str, Family] = {}
     for family in _build("family", both("family"), lambda r: Family(
             name=r["name"], kind=r.get("kind", "id"), pattern=r.get("pattern"),
-            key=r.get("key"), owners=tuple(r.get("owner", [])), scope=r.get("scope", "project"))):
+            key=r.get("key"), owners=tuple(r.get("owner", [])), scope=r.get("scope", "project"),
+            contexts=tuple(r.get("contexts", [])))):
         families[family.name] = family
     artifacts = _build("artifact", list(overlay.get("artifact", [])) + list(profile.get("artifact", [])), lambda r: ArtifactRule(
         r["type"], glob_to_regex(expand(r["glob"], variables)), r.get("kind", "owner"), r.get("scope", "project"), bool(r.get("main"))))
@@ -416,6 +424,7 @@ def load(project_root: Path, profile_path: Path, overlay_path: Path | None = Non
     effective = json.dumps([variables, overlay, diagnostics], sort_keys=True, default=str).encode()
     fingerprint = hashlib.sha256(b"\0".join([profile_bytes, effective, CODE_DIGEST.encode()])).hexdigest()[:16]
     backlog = profile.get("tickets", {}).get("backlog")
+    separators = list(ranges.get("separators", ["–"]))
     return Config(
         project_root=project_root,
         profile_id=profile_id,
@@ -427,8 +436,10 @@ def load(project_root: Path, profile_path: Path, overlay_path: Path | None = Non
         skip_dirs=set(profile.get("scan", {}).get("skip_dirs", [".git"])),
         artifacts=artifacts,
         frontmatter_types={**profile.get("frontmatter_types", {}), **overlay.get("frontmatter_types", {})},
+        templates=_templates(profile.get("templates", {})),
         families=families,
-        defines=_build("define", both("define"), lambda r: DefineRule(r["family"], r["artifact"], r["shape"], r.get("section"), tuple(r.get("roots", [])))),
+        defines=_build("define", both("define"), lambda r: DefineRule(r["family"], r["artifact"], r["shape"], r.get("section"),
+                                                                     tuple(r.get("roots", [])), r.get("documents", "any"))),
         elaborations=_build("elaborate", both("elaborate"), lambda r: ElaborateRule(tuple(r["families"]), r["artifact"], r["section"], r["shape"])),
         positional={rule.family: rule for rule in _build("positional", both("positional"), lambda r: PositionalRule(
             r["family"], r["container"], r.get("marker"), r.get("source")))},
@@ -441,8 +452,10 @@ def load(project_root: Path, profile_path: Path, overlay_path: Path | None = Non
         replicas=_build("replica", both("replica"), lambda r: tuple(r["paths"])),
         aliases=dict(overlay.get("aliases", {})),
         coverage={k: list(v) for k, v in {**profile.get("coverage", {}), **overlay.get("coverage", {})}.items()},
-        range_separators=list(ranges.get("separators", ["–"])),
+        range_separators=separators,
+        range_short_separators=list(ranges.get("short_separators", separators)),
         range_short_form=bool(ranges.get("short_form", False)),
+        range_bold_ends=bool(ranges.get("bold_ends", False)),
         range_max=int(ranges.get("max_members", 200)),
         spine=dict(profile.get("spine", {})),
         fields=dict(profile.get("fields", {})),
@@ -456,8 +469,17 @@ def load(project_root: Path, profile_path: Path, overlay_path: Path | None = Non
         profile_reason=profile_reason,
         current_scope=current_scope,
         backlog=expand(backlog, variables) if backlog else None,
+        ambiguous_hint=expand(current["hint"], variables) if current.get("hint") else None,
+        alias_families=tuple(profile.get("tickets", {}).get("alias_families", [])),
         diagnostics=diagnostics,
     )
+
+
+def _templates(section: dict) -> dict[str, tuple[str, str]]:
+    """Engine templates by id: owners map to the artifact type they define for; rationale templates are their own type."""
+    templates = {template: (artifact, "owner") for template, artifact in section.get("owner", {}).items()}
+    templates.update({template: (template, "rationale") for template in section.get("rationale", [])})
+    return templates
 
 
 def _build(kind: str, raws: list[dict], build: Callable[[dict], object]) -> list:

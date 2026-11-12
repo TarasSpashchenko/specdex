@@ -49,13 +49,14 @@ def leaf(title: str, covers: str, ident: str | None = None, kind: str = "story")
 
 
 class TicketTreeProject(unittest.TestCase):
-    """A private copy of the v7 fixture per test, indexed into a private database."""
+    """A private copy of a v7 fixture per test, indexed into a private database."""
+    fixture = FIXTURE
 
     def setUp(self) -> None:
         workdir = tempfile.TemporaryDirectory()
         self.addCleanup(workdir.cleanup)
         self.root = Path(workdir.name) / "project"
-        shutil.copytree(FIXTURE, self.root)
+        shutil.copytree(self.fixture, self.root)
         self.db = Path(workdir.name) / "index.sqlite"
 
     def run_cli(self, *args: str) -> tuple[int, dict]:
@@ -280,3 +281,22 @@ class CoverageFamilyTest(TicketTreeProject):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# M3 review findings on the October layout
+class OctoberReviewFindingTest(TicketTreeProject):
+    def test_an_initiatives_own_prd_ids_still_have_to_be_in_its_covers(self):
+        self.edit(f"{SHELF}/initiative-shelf.md", "covers: [FR-1, FR-2, FR-3,", "covers: [FR-1, FR-3,")
+        self.assertIn(("1", "FR-2", "not-in-container-covers"), self.problems(self.covers()))
+
+    def test_an_october_prd_defines_its_open_questions_and_rules(self):
+        self.write(f"{SHELF}/prd-shelf/prd-shelf.md", self.read(f"{SHELF}/prd-shelf/prd-shelf.md")
+                   + "\n## 7. Open Questions\n\n- **OQ-1:** Do lists sync across devices?\n- **RULE-1:** One list per reader.\n")
+        for ident in ("OQ-1", "RULE-1"):
+            with self.subTest(ident):
+                self.assertEqual(self.run_cli("resolve", ident)[1]["status"], "defined")
+
+    def test_a_spec_id_the_spec_does_not_define_is_no_folded_alias(self):
+        self.edit(CSV_EPIC, "- FR-5:", "- E9 (CAP-7): An extra capability.\n- FR-5:")
+        self.edit(CSV_TOML, ENTRY_2_IMPORT_COVERS, 'covers = ["E9"]')
+        self.assertIn(("2.2", "E9", "upstream-unresolved"), self.problems(self.covers()))

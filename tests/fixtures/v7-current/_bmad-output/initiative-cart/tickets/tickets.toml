@@ -1,0 +1,13 @@
+[[epic]]
+id = 1
+slug = "epic-checkout"
+title = "Shoppers fill a cart and check it out"
+description = "A shopper adds, changes and removes cart lines on the live site and the total follows the pricing source."
+covers = ["R1", "R2", "R3"]
+
+[[epic]]
+id = 2
+slug = "epic-wishlist"
+title = "Shoppers save items for later"
+description = "A signed-in shopper saves an item and finds it on the next visit."
+covers = ["R4"]

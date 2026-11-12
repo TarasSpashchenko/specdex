@@ -7,3 +7,5 @@ __pycache__/
 *.sqlite
 # local, unpublishable evaluation material (e.g. Barracuda gold sets and results)
 eval/local/
+# bmad-eval transcripts and staged workspaces (large; run.json and triggers-result.json are kept)
+eval/m3-v7-current/triggers/*/queries/

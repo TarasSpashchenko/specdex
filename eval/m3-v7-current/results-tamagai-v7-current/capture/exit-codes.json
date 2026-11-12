@@ -1,0 +1,51 @@
+{
+ "status": {
+  "command": [
+   "status"
+  ],
+  "exit": 0,
+  "stderr": ""
+ },
+ "lint": {
+  "command": [
+   "lint",
+   "--no-validators"
+  ],
+  "exit": 0,
+  "stderr": ""
+ },
+ "covers": {
+  "command": [
+   "covers"
+  ],
+  "exit": 0,
+  "stderr": ""
+ },
+ "coverage-tickets": {
+  "command": [
+   "coverage",
+   "--by",
+   "tickets"
+  ],
+  "exit": 1,
+  "stderr": ""
+ },
+ "coverage-architecture": {
+  "command": [
+   "coverage",
+   "--by",
+   "architecture"
+  ],
+  "exit": 1,
+  "stderr": ""
+ },
+ "coverage-ux": {
+  "command": [
+   "coverage",
+   "--by",
+   "ux"
+  ],
+  "exit": 0,
+  "stderr": ""
+ }
+}

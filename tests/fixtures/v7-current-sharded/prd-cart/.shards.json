@@ -1,0 +1,74 @@
+{
+ "source": ".source/prd-cart.md",
+ "folder": "prd-cart",
+ "title": "Cart",
+ "lookup": "\\b(?:FR|UJ|RULE|SM|OQ)-\\d+\\b",
+ "groups": [
+  {
+   "heading": "Purpose and users",
+   "shards": [
+    {
+     "file": "contents-and-vision.md",
+     "title": "Contents, purpose and vision",
+     "summary": "The source's table of contents, who the PRD is for, and the one-cart, one-total vision.",
+     "start": 9,
+     "end": 32
+    },
+    {
+     "file": "users-and-journeys.md",
+     "title": "Users, journeys and glossary",
+     "summary": "The two shopper journeys (Mia fills her cart, Omar trims his) and the cart, line and total terms.",
+     "start": 33,
+     "end": 46,
+     "related": [
+      "features-and-requirements.md"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Requirements",
+   "shards": [
+    {
+     "file": "features-and-requirements.md",
+     "title": "Features and requirements",
+     "summary": "Every functional requirement for cart lines and totals, including the withdrawn gift-wrapping one.",
+     "start": 47,
+     "end": 75,
+     "related": [
+      "users-and-journeys.md",
+      "rules-and-scope.md"
+     ]
+    },
+    {
+     "file": "rules-and-scope.md",
+     "title": "Rules, non-goals and MVP scope",
+     "summary": "The rounding rule, the non-goals, and the first release's scope with its journey-to-requirement table.",
+     "start": 76,
+     "end": 92,
+     "related": [
+      "features-and-requirements.md",
+      "users-and-journeys.md"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Measures and questions",
+   "shards": [
+    {
+     "file": "metrics-and-open-questions.md",
+     "title": "Success metrics and open questions",
+     "summary": "The checkout-completion metric with its counter-metric, and the open question on carts surviving sign-out.",
+     "start": 93,
+     "end": 99,
+     "related": [
+      "features-and-requirements.md"
+     ]
+    }
+   ]
+  }
+ ],
+ "frontmatter_lines": 8,
+ "sub_maps": []
+}

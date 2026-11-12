@@ -1,0 +1,32 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Add an item"
+description = "A shopper adds a product to the cart from its page, through the page, the cart service and its store."
+verify = "On the deployed site, adding a mug shows one line with quantity one in the cart."
+covers = ["R1"]
+after = []
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Remove an item"
+description = "A shopper changes a line's quantity or removes the line, and removing the last line shows the empty cart."
+verify = "Setting a line to zero removes it; removing the last line shows the empty cart with its catalogue link."
+covers = ["R2", "R3", "R5"]
+after = [1]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Totals from the pricing source"
+description = "The cart shows the pricing source's total after every change."
+verify = "For three sample carts, the cart total equals the pricing source's total for the same lines."
+covers = ["R4"]
+after = [1]
+hitl = false
+risk = "medium"

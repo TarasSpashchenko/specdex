@@ -1,0 +1,14 @@
+[[initiative]]
+id = 1
+slug = "initiative-cart"
+title = "Shoppers keep a cart and check out"
+description = "A shopper fills a cart and checks out on the live site, every total from the pricing source."
+covers = ["R1", "R2"]
+
+[[initiative]]
+id = 2
+slug = "initiative-search"
+title = "Shoppers find products by name"
+description = "A shopper types a product's name and reaches its page on the live site."
+covers = ["R2"]
+after = [{ initiative = 1, needs = "the product page the cart adds from" }]

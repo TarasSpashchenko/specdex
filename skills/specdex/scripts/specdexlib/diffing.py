@@ -47,12 +47,16 @@ def _definitions(q: Queries) -> dict[str, dict]:
     rows = q.conn.execute(
         "SELECT d.id, d.family, d.scope, d.path, d.shape, d.parent_id, d.ordinal, s.start, s.end FROM defs d JOIN spans s ON s.sid=d.sid "
         "JOIN files f ON f.path=d.path WHERE d.effective='definition' AND f.role IN ('record','ambiguous')").fetchall()
-    result = {}
-    for r in rows:
+    result: dict[str, dict] = {}
+    for r in sorted(rows, key=lambda r: (r["path"], r["start"])):
         text = " ".join(q.text(r["path"], r["start"], r["end"]).split())
         scope = "" if r["scope"] == "project" else f"{SCOPE_MARK}{posixpath.dirname(r['scope'])}"
         parent = r["parent_id"] and f"{r['parent_id']}{scope}"
-        result[f"{r['id']}{scope}"] = {"id": r["id"], "path": r["path"], "start": r["start"], "end": r["end"], "text": text,
+        key = f"{r['id']}{scope}"
+        if key in result:  # an ID defined twice (lint reports the duplicate): a change to either definition is a change
+            result[key]["text"] += " ¶ " + text
+            continue
+        result[key] = {"id": r["id"], "path": r["path"], "start": r["start"], "end": r["end"], "text": text,
                                        "shape": r["shape"], "parent": parent, "ordinal": r["ordinal"]}
     return result
 

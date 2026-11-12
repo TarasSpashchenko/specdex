@@ -1,6 +1,6 @@
 ---
 name: specdex
-description: 'Looks up, cites and checks the project''s BMAD specs read-only: PRD and addendum, UX DESIGN.md and EXPERIENCE.md, architecture spine, specs, tickets. Use when an answer depends on what the specs say or where: an ID such as FR-12 or AD-3, "prd §4.2", wording, every citation of an ID, what a change touches, dangling references, ticket coverage; use it before grep. Not for editing specs: bmad-prd, bmad-ux, bmad-architecture, bmad-spec and bmad-ticket do that.'
+description: 'Looks up, cites and checks the project''s BMAD specs read-only: PRD and other planning documents, UX DESIGN.md and EXPERIENCE.md, architecture spine, tickets. Use when an answer depends on what the specs say or where: an ID such as FR-12 or AD-3, "prd §4.2", wording, every citation of an ID, what a change touches, dangling references, ticket coverage; use it before grep. Not for editing specs: bmad-agent-pm, bmad-ux, bmad-architecture and bmad-agent-po do that.'
 ---
 # specdex
 
@@ -12,11 +12,11 @@ specdex returns the exact spec unit an answer needs, with its `path:start-end` r
 uv run {skill-root}/scripts/specdex.py [--json] <command> ...
 ```
 
-Run it inside the project (the folder holding `_bmad/`) or pass `--project DIR`. `--help` lists every option. It picks its BMAD profile from the project's layout (v7 initiative folders or v6 dated folders); under v7 the specs of record are the active initiative's.
+Run it inside the project (the folder holding `_bmad/`) or pass `--project DIR`. `--help` lists every option. It picks its BMAD profile from the project's layout (v7 initiative folders or v6 dated folders); under v7 the specs of record are the active initiative's and its parents'.
 
 | The question has | Run |
 |---|---|
-| An ID: FR-12, AD-3, UJ-2, a glossary term, a design token | `resolve FR-12` for where it is defined; `get FR-12` for its text |
+| An ID: FR-12, AD-3, UJ-2, R2, a glossary term, a design token | `resolve FR-12` for where it is defined; `get FR-12` for its text |
 | A heading, `doc §n`, `path:line`, `path:a-b` or `path#Heading` | `get "prd §4.2"` |
 | Wording or a paraphrase | `search <words>`, then `get` the top hit (`--expand 1` inlines it) |
 | Every place citing X | `refs FR-12` (`--children` adds FR-12.k; `--kind binds` narrows) |
@@ -35,4 +35,4 @@ Each hit starts `path:start-end [labels] — heading path`. Quote only `record` 
 
 Exit 1 means findings, not failure. Exit 2 (usage or unknown reference) and exit 3 (configuration or source error) print one line on stderr: report it. Say that specdex could not answer and use `rg -n` over the output folder with bounded reads when it exits 3; when `status` shows `unsupported-layout`, `ambiguous-current`, `no-active-initiative` or no `record` files; when an empty answer is `unknown (...)`; or when `search` misses a paraphrase after one retry.
 
-specdex only reads; its index lives in the user cache. Spec edits belong to `bmad-prd`, `bmad-ux`, `bmad-architecture`, `bmad-spec`, `bmad-ticket` or `bmad-correct-course`; afterwards `impact` and `lint` show what else needs attention. Project settings (ID families, records, historical sections) go in `_bmad/custom/specdex.toml` through `bmad-customize`; the keys are in this skill's `customize.toml`.
+specdex only reads; its index lives in the user cache. Spec edits belong to `bmad-agent-pm`, `bmad-agent-analyst`, `bmad-ux`, `bmad-architecture`, `bmad-agent-po`; afterwards `impact` and `lint` show what else needs attention. Project settings (ID families, records, historical sections) go in `_bmad/custom/specdex.toml` through `bmad-customize`; the keys are in this skill's `customize.toml`.

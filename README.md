@@ -19,10 +19,18 @@ Supported layouts, chosen automatically per project (`--profile` overrides):
 
 | Profile | Layout | Chosen when |
 |---|---|---|
-| `bmad-v7` | BMad v7 initiative folders: `{output_folder}/{active_initiative}/<type>-<slug>/<type>-<slug>.md`, `bmad-ticket` tree | `core.active_initiative` is set or v7 planning documents exist; also the default |
+| `bmad-v7` | BMad v7 initiative folders: `{output_folder}/{active_initiative}/<type>-<slug>/<type>-<slug>.md`; the `bmad-agent-po` ticket tree with each container's breakdown in its `tickets/` folder (BMAD-METHOD `a867e160`, 2026-11), or beside its file (the October 2026 layout) | `core.active_initiative` is set or v7 planning documents exist; also the default |
 | `bmad-6.13.0-next` | dated v6 planning folders (`planning-artifacts/prds/prd-*/prd.md` …) plus the preview ticket tree | dated v6 planning documents exist and no v7 signal does |
 
-Under v7 the specs of record are the owners inside the active initiative. Other initiatives (their research, UX routers and tickets included), loose documents and archives are not current; backlog tickets are. BMAD-METHOD still reports version `6.13.0-next` for both, which is why the layout, not the version, decides.
+Under v7 the specs of record are the owners inside the active initiative and the parent initiatives that list it (`[[initiative]]` in a parent's `tickets.toml`): one record of each type per container, so an epic's PRD, UX and spine stand beside its initiative's, while two of one type in one folder are `ambiguous`. Other initiatives (their research, UX routers and tickets included), loose documents and archives are not current; backlog tickets are. BMAD-METHOD still reports version `6.13.0-next` for every layout, which is why the layout, not the version, decides.
+
+What the `bmad-v7` profile reads on the current layout:
+
+| Artifact | How |
+|---|---|
+| Planning documents (`bmad-facilitate`) | Their `template:` frontmatter gives the type: `prd`, `prd-light`, `srs`, `brd`, `agent-spec`, `brief` and `charter` define IDs (FR, UJ, SM, RULE, OQ, BR, SC); the other templates (business case, narrative, pitch …) are rationale. IDs are defined where BMad's `check_ids.py` says they are, with its ranges (`FR-1 to FR-4`) and `withdrawn` marks; documents without `template:` keep the earlier forms. |
+| Ticket tree | Requirements lines `R1 (FR-2, FR-5)`, `R1 (prd FR-2)`, `R1 (parent R3)`, `R1 (<section>)`; `sources:` and `companions:` from the project root; folded specs (`R2 (CAP-1)`). A ticket's R ids are definitions; `covers` chains and architecture coverage follow them to the source IDs. |
+| Sharded documents (`bmad-shard-pro`) | A shard (`part_of:`) is part of its document; `.source/`, map pages and the identifier lookup are trail. |
 
 ## Install (per project)
 
@@ -104,7 +112,7 @@ Scopes: `record` (default), `current`, `rationale`, `trail`, `memlog`, `all`. Ex
 
 ## Read-only guarantee
 
-specdex never writes inside the project. The index lives in `$XDG_CACHE_HOME/specdex/` (default `~/.cache/specdex/`), or at `--db`. `--rev` and `diff` read git objects without touching the worktree, and `lint` runs BMAD's own read-only `lint_spine.py` only when its bytes match the profile's recorded hash (otherwise lint reports `validator-not-run`). An index location inside the project is refused. Spec edits belong to the owning BMAD skills (`bmad-prd`, `bmad-ux`, `bmad-architecture`, `bmad-spec`, `bmad-ticket`, `bmad-correct-course`).
+specdex never writes inside the project. The index lives in `$XDG_CACHE_HOME/specdex/` (default `~/.cache/specdex/`), or at `--db`. `--rev` and `diff` read git objects without touching the worktree, and `lint` runs BMAD's own read-only `lint_spine.py` only when its bytes match the profile's recorded hash (otherwise lint reports `validator-not-run`). An index location inside the project is refused. Spec edits belong to the owning BMAD skills (`bmad-agent-pm` on `bmad-facilitate`, `bmad-agent-analyst`, `bmad-ux`, `bmad-architecture`, `bmad-agent-po`).
 
 ## BMad Toolsmith compliance
 
@@ -118,10 +126,21 @@ The package passes Toolsmith's checks: `validate_manifests.py`, `init_skill.py -
 | JSON when a model reads the result | Text by default, `--json` available | Text is what agents read best at this size; JSON is for tools |
 | Read config and customization through BMad's resolver scripts | Reads the same files with BMad's merge rules | Running `_bmad/scripts/*.py` would execute project code from a read-only tool and double its latency; a test proves the result equals the resolvers' |
 | `update_source = "github:…"` | `file:` | Until the repository is published |
+| `init_skill.py --check` expects a prefixed name | Run with `--any-name` | The unprefixed name is kept (see above) |
+
+Deliberate deviations from BMad's own checkers:
+
+| BMad | specdex | Why |
+|---|---|---|
+| `check_ids.py` defines an ID opening any bold list item | A bold lead reading as a sentence (`**FR-2 is verified by …**`) defines only an ID the file defines nowhere else | Such a line cites the requirement; reading it as a second definition would make the ID ambiguous |
+| `check_ids.py` applies to any document it is given | Only to documents `bmad-facilitate` wrote (`template:` frontmatter) and their shards | Earlier PRDs list IDs as `- FR-2 — …` in assumption and question lists, which check_ids reads as definitions |
+| `check_ids.py` reads the files it is given in order | Reads the specs of record parents first (a parent initiative's, the active initiative's, then an epic's), a sharded document in its map's order | specdex sees the whole tree at once; this is the order BMad passes a document with its parent's |
 
 ## Limits
 
-- Sharded documents (a v6 `index.md`, or a main file linking to section files beside it, which is how the v6→v7 migration leaves them) are reported as `unsupported-layout`, not indexed; empty answers become `unknown` and the skill falls back to `rg`.
+- Sharded documents other than `bmad-shard-pro`'s (a v6 `index.md`, or a main file linking to section files beside it, which is how the v6→v7 migration leaves them) are reported as `unsupported-layout`, not indexed; empty answers become `unknown` and the skill falls back to `rg`.
+- Only the active initiative's tree (with its parent initiatives and the backlog) is checked; a sibling initiative's tickets are another initiative's work. Tracker stores are read only through what is mirrored into the files.
+- IDs a sponsor document (business case, narrative) lists are not definitions: those templates are rationale.
 - Supporting files the profile does not know (a user's own notes in a run folder) stay `unverified` until a `role` setting classifies them.
 - Search is lexical (SQLite FTS5); a paraphrase with no shared words can miss.
 - `lint` is mechanical: a clean result does not mean the documents agree in meaning.
@@ -133,6 +152,8 @@ The package passes Toolsmith's checks: `validate_manifests.py`, `init_skill.py -
 `python3 -m unittest discover -s tests` runs the unit tests; the skill also ships a smoke test (`python3 -m unittest discover -s skills/specdex/scripts/tests`). The synthetic fixtures under `tests/fixtures/` are:
 - `mini-project`: dated v6;
 - `preview-tickets`: the v6 preview ticket tree;
-- `v7-project`: the v7 initiative layout, carrying byte-identical copies of BMad's MIT-licensed resolver scripts.
+- `v7-project`: the October 2026 v7 initiative layout, carrying byte-identical copies of BMad's MIT-licensed resolver scripts;
+- `v7-current`: the current layout (parent initiative, epic-level documents, `tickets/` folders), carrying byte-identical copies of BMad's `check_ids.py` and `tickets.py`, which `tests/test_conformance.py` compares specdex with; `v7-current-sharded` is its PRD after `bmad-shard-pro`;
+- `v7-folded`: `v7-project` after BMad's spec fold (`migrate_v6.py --fold-specs`) and migration-2.
 
 `docs/` holds the milestone plans, reports and worklogs. `eval/m1-tamagai/` holds the M1 evaluation: `run_eval.py` (retrieval, Layer A), `layer_b.py` (maintenance mutations, identity, freshness, latency) and the gold sets; the frozen corpus itself is not in the repository.

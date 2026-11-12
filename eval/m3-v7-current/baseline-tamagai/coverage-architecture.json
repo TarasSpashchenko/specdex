@@ -1,0 +1,1693 @@
+{
+ "by": "architecture",
+ "families": [
+  "FR",
+  "NFR"
+ ],
+ "counts": {
+  "declared": 124,
+  "missing": 3
+ },
+ "rows": [
+  {
+   "id": "FR-1",
+   "state": "declared",
+   "declared": [
+    "AD-30"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-2",
+   "state": "declared",
+   "declared": [
+    "AD-20",
+    "AD-4"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-3",
+   "state": "declared",
+   "declared": [
+    "AD-19",
+    "AD-2",
+    "AD-21",
+    "AD-22"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-4",
+   "state": "declared",
+   "declared": [
+    "AD-9"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-5",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-18",
+    "AD-9"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-6",
+   "state": "declared",
+   "declared": [
+    "AD-22",
+    "AD-9"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-7",
+   "state": "declared",
+   "declared": [
+    "AD-14",
+    "AD-4",
+    "AD-5",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-8",
+   "state": "declared",
+   "declared": [
+    "AD-19",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-9",
+   "state": "declared",
+   "declared": [
+    "AD-19",
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-10",
+   "state": "declared",
+   "declared": [
+    "AD-12"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-11",
+   "state": "declared",
+   "declared": [
+    "AD-19"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-12",
+   "state": "declared",
+   "declared": [
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-13",
+   "state": "declared",
+   "declared": [
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-14",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-19",
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-15",
+   "state": "declared",
+   "declared": [
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-16",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-19",
+    "AD-2",
+    "AD-21"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-17",
+   "state": "declared",
+   "declared": [
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-18",
+   "state": "declared",
+   "declared": [
+    "AD-14",
+    "AD-18",
+    "AD-19"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-19",
+   "state": "declared",
+   "declared": [
+    "AD-19"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-20",
+   "state": "declared",
+   "declared": [
+    "AD-3",
+    "AD-31"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-21",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-21",
+    "AD-31",
+    "AD-33",
+    "AD-5"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-22",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-5"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-23",
+   "state": "declared",
+   "declared": [
+    "AD-4"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-24",
+   "state": "declared",
+   "declared": [
+    "AD-5"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-25",
+   "state": "declared",
+   "declared": [
+    "AD-2",
+    "AD-21",
+    "AD-5",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-26",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-31",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-27",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-12",
+    "AD-29"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-28",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-19",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-29",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-19",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-30",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-11",
+    "AD-9"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-31",
+   "state": "declared",
+   "declared": [
+    "AD-2",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-32",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-4",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-33",
+   "state": "declared",
+   "declared": [
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-34",
+   "state": "declared",
+   "declared": [
+    "AD-3",
+    "AD-4"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-35",
+   "state": "declared",
+   "declared": [
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-36",
+   "state": "declared",
+   "declared": [
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-37",
+   "state": "declared",
+   "declared": [
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-38",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-19",
+    "AD-2",
+    "AD-3",
+    "AD-31",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-39",
+   "state": "missing",
+   "declared": [],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "FR-40",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-21",
+    "AD-29"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-41",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-13",
+    "AD-14"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-42",
+   "state": "declared",
+   "declared": [
+    "AD-11"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-43",
+   "state": "declared",
+   "declared": [
+    "AD-1",
+    "AD-3",
+    "AD-4",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-44",
+   "state": "declared",
+   "declared": [
+    "AD-29",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-45",
+   "state": "declared",
+   "declared": [
+    "AD-16",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-46",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-47",
+   "state": "declared",
+   "declared": [
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-48",
+   "state": "declared",
+   "declared": [
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-49",
+   "state": "declared",
+   "declared": [
+    "AD-29",
+    "AD-3",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-50",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-31",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-51",
+   "state": "declared",
+   "declared": [
+    "AD-1",
+    "AD-16",
+    "AD-29",
+    "AD-3",
+    "AD-37",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-52",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-29",
+    "AD-3",
+    "AD-35",
+    "AD-5",
+    "AD-6",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-53",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-22",
+    "AD-33",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-54",
+   "state": "declared",
+   "declared": [
+    "AD-19",
+    "AD-29",
+    "AD-30",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-55",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-28",
+    "AD-4",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-56",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-18",
+    "AD-19"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-57",
+   "state": "declared",
+   "declared": [
+    "AD-29",
+    "AD-31"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-58",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-18",
+    "AD-2",
+    "AD-21",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-59",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-19",
+    "AD-2",
+    "AD-21"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-60",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-19"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-61",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-19"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-62",
+   "state": "declared",
+   "declared": [
+    "AD-17",
+    "AD-18"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-63",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-20",
+    "AD-22",
+    "AD-30"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-64",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-16",
+    "AD-18",
+    "AD-2",
+    "AD-20",
+    "AD-26"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-65",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-14"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-66",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-20",
+    "AD-4"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-67",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-21"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-68",
+   "state": "declared",
+   "declared": [
+    "AD-16",
+    "AD-2",
+    "AD-20",
+    "AD-26"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-69",
+   "state": "declared",
+   "declared": [
+    "AD-16",
+    "AD-2",
+    "AD-20",
+    "AD-26"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-70",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-14",
+    "AD-2",
+    "AD-23",
+    "AD-32",
+    "AD-34"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-71",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-16",
+    "AD-2",
+    "AD-20",
+    "AD-23",
+    "AD-26",
+    "AD-32",
+    "AD-34",
+    "AD-36"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-72",
+   "state": "declared",
+   "declared": [
+    "AD-2",
+    "AD-23",
+    "AD-26",
+    "AD-32",
+    "AD-34"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-73",
+   "state": "declared",
+   "declared": [
+    "AD-23",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-74",
+   "state": "declared",
+   "declared": [
+    "AD-14",
+    "AD-2",
+    "AD-23",
+    "AD-32",
+    "AD-34"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-75",
+   "state": "declared",
+   "declared": [
+    "AD-20",
+    "AD-26"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-76",
+   "state": "declared",
+   "declared": [
+    "AD-19",
+    "AD-2",
+    "AD-20",
+    "AD-5"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-77",
+   "state": "declared",
+   "declared": [
+    "AD-19"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-78",
+   "state": "declared",
+   "declared": [
+    "AD-22"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-79",
+   "state": "declared",
+   "declared": [
+    "AD-21",
+    "AD-22"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-80",
+   "state": "declared",
+   "declared": [
+    "AD-17",
+    "AD-20",
+    "AD-21",
+    "AD-22",
+    "AD-9"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-81",
+   "state": "declared",
+   "declared": [
+    "AD-2",
+    "AD-22",
+    "AD-25",
+    "AD-26",
+    "AD-34"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-82",
+   "state": "declared",
+   "declared": [
+    "AD-2",
+    "AD-22",
+    "AD-34"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-83",
+   "state": "declared",
+   "declared": [
+    "AD-2",
+    "AD-22",
+    "AD-25",
+    "AD-35"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-84",
+   "state": "declared",
+   "declared": [
+    "AD-22",
+    "AD-6",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-85",
+   "state": "declared",
+   "declared": [
+    "AD-17",
+    "AD-21",
+    "AD-22",
+    "AD-4",
+    "AD-9"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-86",
+   "state": "declared",
+   "declared": [
+    "AD-21",
+    "AD-23",
+    "AD-26",
+    "AD-34",
+    "AD-36"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-87",
+   "state": "declared",
+   "declared": [
+    "AD-23",
+    "AD-25",
+    "AD-26",
+    "AD-34",
+    "AD-35"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-88",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-23",
+    "AD-24",
+    "AD-25",
+    "AD-35",
+    "AD-36"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-89",
+   "state": "declared",
+   "declared": [
+    "AD-23",
+    "AD-24",
+    "AD-32",
+    "AD-35",
+    "AD-38",
+    "AD-5"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-90",
+   "state": "declared",
+   "declared": [
+    "AD-1",
+    "AD-14",
+    "AD-23",
+    "AD-24",
+    "AD-3",
+    "AD-4"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-91",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-19",
+    "AD-2",
+    "AD-23",
+    "AD-25",
+    "AD-35",
+    "AD-5",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-92",
+   "state": "declared",
+   "declared": [
+    "AD-23",
+    "AD-35",
+    "AD-5",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-93",
+   "state": "declared",
+   "declared": [
+    "AD-16",
+    "AD-22",
+    "AD-23",
+    "AD-27",
+    "AD-37"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-94",
+   "state": "declared",
+   "declared": [
+    "AD-14",
+    "AD-16",
+    "AD-23",
+    "AD-26"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-95",
+   "state": "declared",
+   "declared": [
+    "AD-17",
+    "AD-2",
+    "AD-27"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-96",
+   "state": "declared",
+   "declared": [
+    "AD-16",
+    "AD-17",
+    "AD-2"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-97",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-17",
+    "AD-2",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-98",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-16",
+    "AD-17",
+    "AD-2",
+    "AD-29",
+    "AD-37"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-99",
+   "state": "declared",
+   "declared": [
+    "AD-17",
+    "AD-2",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-100",
+   "state": "declared",
+   "declared": [
+    "AD-14",
+    "AD-17",
+    "AD-22",
+    "AD-27"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-101",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-14",
+    "AD-9"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-102",
+   "state": "declared",
+   "declared": [
+    "AD-2",
+    "AD-21",
+    "AD-28"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-103",
+   "state": "declared",
+   "declared": [
+    "AD-15",
+    "AD-28"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-104",
+   "state": "declared",
+   "declared": [
+    "AD-18",
+    "AD-2",
+    "AD-21",
+    "AD-22",
+    "AD-28",
+    "AD-32",
+    "AD-36",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-105",
+   "state": "declared",
+   "declared": [
+    "AD-21",
+    "AD-31"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "FR-106",
+   "state": "missing",
+   "declared": [],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "FR-107",
+   "state": "missing",
+   "declared": [],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "FR-108",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-11",
+    "AD-13",
+    "AD-14",
+    "AD-21",
+    "AD-4",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-1",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-11",
+    "AD-12",
+    "AD-28",
+    "AD-3",
+    "AD-35",
+    "AD-5"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-2",
+   "state": "declared",
+   "declared": [
+    "AD-30",
+    "AD-33"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-3",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-30",
+    "AD-5"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-4",
+   "state": "declared",
+   "declared": [
+    "AD-30"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-5",
+   "state": "declared",
+   "declared": [
+    "AD-15",
+    "AD-17",
+    "AD-31",
+    "AD-37"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-6",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-8"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-7",
+   "state": "declared",
+   "declared": [
+    "AD-10",
+    "AD-28",
+    "AD-37"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-8",
+   "state": "declared",
+   "declared": [
+    "AD-11"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-9",
+   "state": "declared",
+   "declared": [
+    "AD-23",
+    "AD-24",
+    "AD-25",
+    "AD-27",
+    "AD-32",
+    "AD-35",
+    "AD-36",
+    "AD-37"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-10",
+   "state": "declared",
+   "declared": [
+    "AD-1",
+    "AD-11",
+    "AD-13",
+    "AD-14",
+    "AD-15",
+    "AD-23",
+    "AD-34",
+    "AD-38",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-11",
+   "state": "declared",
+   "declared": [
+    "AD-1",
+    "AD-14",
+    "AD-15"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-12",
+   "state": "declared",
+   "declared": [
+    "AD-13",
+    "AD-14",
+    "AD-16",
+    "AD-20",
+    "AD-22",
+    "AD-24",
+    "AD-25",
+    "AD-27",
+    "AD-36",
+    "AD-38"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-13",
+   "state": "declared",
+   "declared": [
+    "AD-12",
+    "AD-20",
+    "AD-26",
+    "AD-30",
+    "AD-31",
+    "AD-33",
+    "AD-7"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-14",
+   "state": "declared",
+   "declared": [
+    "AD-1",
+    "AD-29",
+    "AD-3",
+    "AD-35",
+    "AD-37",
+    "AD-6"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-15",
+   "state": "declared",
+   "declared": [
+    "AD-22",
+    "AD-31"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-16",
+   "state": "declared",
+   "declared": [
+    "AD-23",
+    "AD-24",
+    "AD-28",
+    "AD-32",
+    "AD-38"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-17",
+   "state": "declared",
+   "declared": [
+    "AD-20"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-18",
+   "state": "declared",
+   "declared": [
+    "AD-26",
+    "AD-28"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  },
+  {
+   "id": "NFR-19",
+   "state": "declared",
+   "declared": [
+    "AD-11",
+    "AD-12",
+    "AD-33"
+   ],
+   "partial": [
+    "spine frontmatter binds"
+   ],
+   "unknown": []
+  }
+ ],
+ "scope": "fully indexed"
+}

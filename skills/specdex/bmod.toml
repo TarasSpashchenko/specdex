@@ -2,7 +2,7 @@
 
 [bmod]
 code = "specdex"
-version = "0.2.0"
+version = "0.3.0"
 # file: until the repository is published; then github:<owner>/specdex/skills
 update_source = "file:/home/taras_spashchenko/TS/ts/specdex/skills"
 skills = ["specdex"]

@@ -6,12 +6,13 @@ a changed file can be re-extracted alone. Decisions that need the whole corpus
 """
 from __future__ import annotations
 
+import posixpath
 import re
 from dataclasses import dataclass, field
 from pathlib import PurePosixPath
 
 from . import markdown, yamlfm
-from .config import Config
+from .config import Config, DefineRule
 
 CHUNK_MAX_LINES = 40
 ROW_CHUNK_MIN = 3
@@ -26,6 +27,23 @@ PARENTHETICAL = re.compile(r"\([^)]*\)")
 TEXTUAL_SCOPE = re.compile(r"\ball\b[^,;.]*", re.I)  # "all MVP FRs and NFRs": a binding by phrase, not by ID
 CAMEL_CASE = re.compile(r"\b[A-Za-z][a-z0-9]+(?:[A-Z][a-z0-9]+)+\b")
 CAMEL_PART = re.compile(r"[A-Z]?[a-z0-9]+")
+# The definition forms of bmad-facilitate's check_ids.py, ported so that specdex and BMad agree on where an ID is
+# defined: an ID opening a heading, a table row's first cell, or a bold cell, list item or line; an unbolded list
+# item or line only when punctuation follows; never an ID opening a list of IDs. Fenced code and comments are skipped.
+CHECK_IDS = "check-ids"
+ANY_ID = r"(?<![A-Za-z0-9-])[A-Z][A-Z0-9]{0,5}-\d+(?![A-Za-z0-9])"
+ANY_ID_TOKEN = re.compile(ANY_ID)
+LIST_CONNECTOR = re.compile(rf"^(?:\*\*)?\s*(?:,|/|&|and\b|or\b|to\b|through\b|[–—-])\s*(?:\*\*)?{ANY_ID}")
+DEFINITION_SEPARATOR = re.compile(r"^\s*(?:[:.()/–—]|-\s)")
+WITHDRAWN = re.compile(r"^[\s*:.)(—–-]*(?:withdrawn|removed|dropped|superseded)\b", re.IGNORECASE)
+QUOTE = re.compile(r"^(?: {0,3}> ?)+")
+HEADING_LEAD = re.compile(r"^ {0,3}#{1,6}[ \t]+")
+ITEM_LEAD = re.compile(r"^[ \t]*(?:[-*+]|\d+[.)])[ \t]+(?:\[[ xX]\][ \t]+)?")
+FENCE_OPEN = re.compile(r"^ {0,3}(`{3,}|~{3,})")
+HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
+TICKET_KIND = "ticket"
+ENGINE, LEGACY, SHARD = "engine", "legacy", "shard"
+FOREIGN = ("", "", "", False)  # an ID of a family the profile does not know opens the text: check_ids.py stops there
 
 
 @dataclass(slots=True)
@@ -64,6 +82,10 @@ class Candidate:
     line: int
     parent_id: str | None = None
     ordinal: int | None = None
+    group: int | None = None   # a table's first line: whether its rows define or re-cite is decided across files
+    withdrawn: bool = False
+    documents: str = "any"     # the rule set that found it; a shard's is chosen by its main file, across files
+    sentence: bool = False     # a bold lead reading as a sentence: a definition only where nothing else defines the ID
 
 
 @dataclass(slots=True)
@@ -99,20 +121,31 @@ class FileFacts:
     diagnostics: list[tuple[str, str, int, str]] = field(default_factory=list)  # code, severity, line, detail
 
 
-def classify(config: Config, path: str, frontmatter_type: str | None) -> tuple[str, str, str]:
+def classify(config: Config, path: str, frontmatter_type: str | None, template: str | None = None) -> tuple[str, str, str]:
     """Artifact type, kind and scope kind for a project-relative path."""
     artifact, kind, scope = "unknown", "other", "project"
     for rule in config.artifacts:
         if rule.matches(path):
             artifact, kind, scope = rule.type, rule.kind, rule.scope
             break
-    # `type` refines an owner, a ticket or an unmatched file; an archived or working copy keeps its trail kind.
-    if frontmatter_type in config.frontmatter_types and kind in REFINABLE_KINDS:
+    # `type`, else an engine document's `template`, refines an owner, a ticket or an unmatched file; an archived or
+    # working copy keeps its trail kind.
+    if kind not in REFINABLE_KINDS:
+        return artifact, kind, scope
+    if frontmatter_type in config.frontmatter_types:
         refined = config.frontmatter_types[frontmatter_type]
         if refined != artifact:
             artifact = refined
             kind = next((r.kind for r in config.artifacts if r.type == refined), "owner")
+    elif template in config.templates:
+        artifact, kind = config.templates[template]
     return artifact, kind, scope
+
+
+def part_of(path: str, frontmatter: dict) -> str | None:
+    """The main file a bmad-shard-pro shard belongs to (its frontmatter `part_of`)."""
+    main = frontmatter.get("part_of")
+    return posixpath.normpath(posixpath.join(posixpath.dirname(path), main)) if isinstance(main, str) and main else None
 
 
 def extract(config: Config, path: str, text: str) -> FileFacts:
@@ -121,7 +154,8 @@ def extract(config: Config, path: str, text: str) -> FileFacts:
     doc = markdown.parse(text)
     fm = _frontmatter(doc)
     fm_type = fm.get("type") if isinstance(fm.get("type"), str) else None
-    artifact, kind, scope = classify(config, path, fm_type)
+    template = fm.get("template") if isinstance(fm.get("template"), str) else None
+    artifact, kind, scope = classify(config, part_of(path, fm) or path, fm_type, template)  # a shard is its document
     facts = FileFacts(path, artifact, kind, scope, len(doc.lines), frontmatter=fm)
     builder = _Builder(config, doc, facts)
     builder.run()
@@ -306,11 +340,14 @@ class _Builder:
     def _occurrences(self) -> None:
         config = self.config
         token_roots = self._token_roots()
-        for number, line in enumerate(self.doc.lines, start=1):
+        cited = self._cited_lines()
+        # In a document bmad-facilitate wrote, IDs in fenced code and comments cite nothing, as check_ids.py reads it.
+        prose = _prose_lines(self.doc.lines) if self._document_kind() == ENGINE else self.doc.lines
+        for number, (line, text) in enumerate(zip(self.doc.lines, prose), start=1):
             if not line:
                 continue
             unit = self.line_unit[number]
-            matches = list(config.id_regex.finditer(line))
+            matches = [m for m in config.id_regex.finditer(text) if self._citable(m, number, cited)]
             for match in matches:
                 family, base, sub = self._identify(match)
                 if family is None:
@@ -325,6 +362,28 @@ class _Builder:
             if self.config.token_bare_backtick and self.facts.artifact in ("ux-design", "ux-experience"):
                 for word in BACKTICK_WORD.finditer(line):
                     self.facts.backtick_words.append((number, word.start(), word.group(1), unit))
+
+    def _cited_lines(self) -> dict[str, set[int]]:
+        """Lines of each citing context: frontmatter `covers` and `binds`, a ticket's Requirements section and a
+        spine's Binds items."""
+        covers, binds = self.config.fields.get("covers", "covers"), self.config.spine.get("frontmatter_binds", "binds")
+        lines: dict[str, set[int]] = {"covers": set(), "requirements": set(), "binds": set()}
+        for entry in self.facts.frontmatter.get("__entries__", []):
+            if entry.path in (covers, binds):
+                lines["covers" if entry.path == covers else "binds"].update(range(entry.line, entry.end + 1))
+        if self.facts.kind == TICKET_KIND:
+            for number in self._sections_titled("Requirements"):
+                lines["requirements"].update(range(self.doc.sections[number].start, self.doc.sections[number].end + 1))
+        marker = self.config.spine.get("binds_marker", "**Binds:**")
+        for item in self.doc.items if self.facts.artifact == "architecture-spine" else ():
+            if item.first_text.strip().startswith(marker):
+                lines["binds"].update(range(item.start, item.end + 1))
+        return lines
+
+    def _citable(self, match: re.Match, number: int, cited: dict[str, set[int]]) -> bool:
+        """A family limited to contexts (R ids) counts only there; anywhere else "R2" is prose."""
+        family = self.config.families.get(self._identify(match)[0] or "")
+        return not family or not family.contexts or any(number in cited.get(context, ()) for context in family.contexts)
 
     def _token_roots(self) -> set[str]:
         roots: set[str] = set()
@@ -341,8 +400,9 @@ class _Builder:
 
     def _expand_ranges(self, number: int, line: str, matches: list[re.Match], unit: int) -> None:
         config = self.config
-        separators = "|".join(re.escape(s) for s in config.range_separators)
-        joint = re.compile(rf"\s*(?:{separators})\s*")
+        separators = "|".join(re.escape(s) for s in sorted(config.range_separators, key=len, reverse=True))
+        bold = r"(?:\*\*)?" if config.range_bold_ends else ""
+        joint = re.compile(rf"{bold}\s*(?P<sep>{separators})\s*{bold}")
         for index, first in enumerate(matches):
             family, base, sub = self._identify(first)
             if family is None:
@@ -351,13 +411,16 @@ class _Builder:
             gap = joint.match(line, first.end())
             if not gap:
                 continue
+            # Separators that are words or dashes ("FR-1 to FR-4") may just as well join two IDs in prose: a pair that
+            # is no range is not reported.
+            short = gap.group("sep") in config.range_short_separators
             second = matches[index + 1] if index + 1 < len(matches) else None
             if second is not None and second.start() == gap.end():
                 family2, base2, sub2 = self._identify(second)
                 if family2 == family:
-                    self._add_members(number, first, fam, base, sub, base2, sub2, unit, line[first.start():second.end()])
+                    self._add_members(number, first, fam, base, sub, base2, sub2, unit, line[first.start():second.end()], quiet=not short)
                 continue
-            if config.range_short_form and fam.key == "int" and not sub:
+            if short and config.range_short_form and fam.key == "int" and not sub:
                 short = SHORT_END.match(line, gap.end())
                 span = int(short.group(1)) - int(_key_of(fam, base)) if short else 0
                 if 0 < span < config.range_max:
@@ -368,10 +431,11 @@ class _Builder:
                     self.facts.diagnostics.append(("bad-range", "low", number,
                                                    f"{line[first.start():short.end()]} read as an ID and a number (more than {config.range_max} members)"))
 
-    def _add_members(self, number, first, fam, base, sub, base2, sub2, unit, raw, include_end=False) -> None:
+    def _add_members(self, number, first, fam, base, sub, base2, sub2, unit, raw, include_end=False, quiet=False) -> None:
         members = _range_members(fam, base, sub, base2, sub2, self.config)
         if members is None:
-            self.facts.diagnostics.append(("bad-range", "medium", number, f"cannot expand range {raw}"))
+            if not quiet:
+                self.facts.diagnostics.append(("bad-range", "medium", number, f"cannot expand range {raw}"))
             return
         if include_end:
             members = members + [base2]
@@ -380,10 +444,29 @@ class _Builder:
 
     # -- definitions -----------------------------------------------------------
     def _definitions(self) -> None:
-        sentence_leads: list[Candidate] = []
-        for rule in self.config.defines:
-            if rule.artifact != self.facts.artifact:
-                continue
+        """Candidates of each rule set that applies; a shard keeps both the engine and the legacy set, and the index
+        keeps the one its main file's `template` calls for."""
+        kind = self._document_kind()
+        rules = [r for r in self.config.defines if r.artifact == self.facts.artifact and (kind == SHARD or r.documents in ("any", kind))]
+        for documents in dict.fromkeys(rule.documents for rule in rules):
+            sentence_leads: list[Candidate] = []
+            first = len(self.facts.definitions)
+            self._apply_rules([r for r in rules if r.documents == documents], sentence_leads)
+            # A lead reading as a sentence ("**FR-2 is verified by …**") cites an ID this file defines elsewhere;
+            # alone, it is the definition ("**SM-1 weekly active readers**"). A shard's other parts are decided in the index.
+            defined = {c.id for c in self.facts.definitions if c.documents in (documents, "any")}
+            for lead in sentence_leads:
+                lead.sentence = True
+            self.facts.definitions += [c for c in sentence_leads if c.id not in defined]
+            for candidate in self.facts.definitions[first:]:
+                candidate.documents = documents
+        self._mark_defining_occurrences(self.facts.definitions, "defines")
+
+    def _apply_rules(self, rules: list[DefineRule], sentence_leads: list[Candidate]) -> None:
+        check_ids = [r for r in rules if r.shape == CHECK_IDS]
+        if check_ids:
+            self._define_check_ids(check_ids, sentence_leads)
+        for rule in rules:
             if rule.shape == "heading":
                 self._define_headings(rule.family, rule.section, self.facts.definitions)
             elif rule.shape == "item-lead":
@@ -394,11 +477,68 @@ class _Builder:
                 self._define_tokens(rule.roots)
             elif rule.shape == "item-lead-term":
                 self._define_terms(rule.section)
-        # A lead reading as a sentence ("**FR-2 is verified by …**") cites an ID this file defines elsewhere;
-        # alone, it is the definition ("**SM-1 weekly active readers**").
-        defined = {c.id for c in self.facts.definitions}
-        self.facts.definitions += [c for c in sentence_leads if c.id not in defined]
-        self._mark_defining_occurrences(self.facts.definitions, "defines")
+
+    def _document_kind(self) -> str:
+        """`engine` for a document bmad-facilitate wrote (it carries `template`; its check_ids.py decides where IDs are
+        defined), `legacy` for one written before, `shard` for a bmad-shard-pro shard, whose main file decides."""
+        frontmatter = self.facts.frontmatter
+        if isinstance(frontmatter.get("part_of"), str):
+            return SHARD
+        return ENGINE if isinstance(frontmatter.get("template"), str) else LEGACY
+
+    def _define_check_ids(self, rules: list[DefineRule], sentence_leads: list[Candidate]) -> None:
+        """IDs defined in the forms check_ids.py accepts. A table's rows carry the table, so the index can tell a
+        table that re-cites IDs defined before it (a traceability table) from one that defines them. One deviation:
+        a bold lead reading as a sentence ("**FR-2 is verified by …**") defines only an ID the file defines nowhere else."""
+        by_family = {rule.family: rule for rule in rules}
+        body = self.doc.frontmatter[1] + 1 if self.doc.frontmatter else 1
+        table = None
+        for number, line in enumerate(_prose_lines(self.doc.lines), start=1):
+            row = _is_table_row(line)
+            table = (table or number) if row else None
+            found = self._opening_definition(line) if number >= body else None
+            if found is None:
+                continue
+            family, ident, rest, bold, form = found
+            rule = by_family.get(family)
+            if rule is None or not self._in_section(number, rule.section):
+                continue
+            sentence = bold and form in ("item-lead", "line") and PROSE_AFTER_ID.match(rest)
+            (sentence_leads if sentence else self.facts.definitions).append(Candidate(
+                ident, family, form, self.line_unit[number], number, group=table, withdrawn=bool(WITHDRAWN.match(rest))))
+
+    def _opening_definition(self, line: str) -> tuple[str, str, str, bool, str] | None:
+        """(family, id, text after it, bold, form) for the ID a line defines (check_ids.py's `definition`)."""
+        quote = QUOTE.match(line)
+        body = line[quote.end() if quote else 0:]
+        if body.lstrip().startswith("|"):
+            for number, cell in enumerate(body.lstrip()[1:].split("|")):
+                found = self._opening_id(cell.strip(), bold_only=number > 0)
+                if found:
+                    return None if found is FOREIGN else (*found, "row-key")
+            return None
+        for lead, form in ((HEADING_LEAD, "heading"), (ITEM_LEAD, "item-lead")):
+            match = lead.match(body)
+            if match:
+                found = self._opening_id(body[match.end():], needs_separator=form == "item-lead")
+                return (*found, form) if found and found is not FOREIGN else None
+        found = self._opening_id(body.lstrip(), needs_separator=True)
+        return (*found, "line") if found and found is not FOREIGN else None
+
+    def _opening_id(self, text: str, *, bold_only: bool = False, needs_separator: bool = False) -> tuple[str, str, str, bool] | None:
+        bold = text.startswith("**")
+        if bold_only and not bold:
+            return None
+        match = self.config.id_regex.match(text, 2 if bold else 0) or ANY_ID_TOKEN.match(text, 2 if bold else 0)
+        if not match:
+            return None
+        rest = text[match.end():]
+        if LIST_CONNECTOR.match(rest) or (needs_separator and not bold and not DEFINITION_SEPARATOR.match(rest)):
+            return None
+        family, base, sub = self._identify(match) if match.re is self.config.id_regex else (None, "", None)
+        if family is None:
+            return FOREIGN
+        return family, f"{base}.{sub}" if sub and family in self.config.positional else base, rest, bold
 
     def _leading_ids(self, text: str, family: str) -> list[str]:
         """IDs of the family at the very start of text (a bold wrapper allowed)."""
@@ -471,10 +611,12 @@ class _Builder:
                 self.facts.definitions.append(Candidate(lead.group("inner").strip(), "TERM", "item-lead", self.item_span[number], item.start))
 
     def _mark_defining_occurrences(self, candidates: list[Candidate], kind: str) -> None:
+        """The first occurrence of the ID on its line defines it; a later one cites (`- R1 (parent R1): …`)."""
         keyed = {(c.line, c.id) for c in candidates}
-        for occurrence in self.facts.occurrences:
+        for occurrence in sorted(self.facts.occurrences, key=lambda o: (o.line, o.col)):
             if (occurrence.line, occurrence.id) in keyed and not occurrence.via_range:
                 occurrence.kind = kind
+                keyed.discard((occurrence.line, occurrence.id))
 
     # -- elaborations ------------------------------------------------------------
     def _elaborations(self) -> None:
@@ -519,7 +661,8 @@ class _Builder:
             for ordinal, item_number in enumerate(items, start=1):
                 item = self.doc.items[item_number]
                 self.facts.definitions.append(Candidate(f"{candidate.id}.{ordinal}", candidate.family, "positional",
-                                                        self.item_span[item_number], item.start, candidate.id, ordinal))
+                                                        self.item_span[item_number], item.start, candidate.id, ordinal,
+                                                        documents=candidate.documents))
 
     def _positional_items(self, rule, start: int, end: int) -> list[int]:
         begin = start
@@ -630,6 +773,29 @@ class _Builder:
         for paragraph in self.doc.paragraphs:
             if start < paragraph.start <= end and paragraph.start not in covered:
                 self.facts.chunks.append(Chunk(self.para_span[paragraph.start], paragraph.start, paragraph.end, hpath, self.doc.text(paragraph.start, paragraph.end)))
+
+
+def _prose_lines(lines: list[str]) -> list[str]:
+    """The lines with fenced code and HTML comments blanked, numbering and columns kept (check_ids.py's `prose_lines`,
+    which also reads a CRLF file's lines without their CR)."""
+    lines = [line[:-1] if line.endswith("\r") else line for line in lines]
+    mask, fence = [], None
+    for line in lines:
+        opening = FENCE_OPEN.match(line)
+        if fence is None:
+            fence = opening.group(1) if opening else None
+            mask.append(fence is not None)
+        else:
+            mask.append(True)
+            if opening and opening.group(1)[0] == fence[0] and len(opening.group(1)) >= len(fence) and not line.strip(" `~"):
+                fence = None
+    kept = "\n".join("" if code else line for line, code in zip(lines, mask))
+    return HTML_COMMENT.sub(lambda m: re.sub(r"[^\n]", " ", m.group(0)), kept).split("\n")
+
+
+def _is_table_row(line: str) -> bool:
+    quote = QUOTE.match(line)
+    return line[quote.end() if quote else 0:].lstrip().startswith("|")
 
 
 def _key_of(family, ident: str) -> str:

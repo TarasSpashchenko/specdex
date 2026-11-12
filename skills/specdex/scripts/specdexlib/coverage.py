@@ -9,7 +9,7 @@ from __future__ import annotations
 import sys
 from collections import defaultdict
 
-from . import render, tickets
+from . import layout, render, tickets
 from .cli import EXIT_USAGE
 from .diffing import SCOPE_MARK
 from .queries import Queries
@@ -20,6 +20,7 @@ RECORD_ROLES = ("record", "ambiguous")
 UNDEFINED_STATES = ("unresolved", "upstream-unresolved")  # what every chain ends in when no spec of record exists
 BROKEN_LEAF = "an unresolved leaf chain"
 UNMAPPED_LEAF = "a leaf citing a local id whose parent map is not checked"
+FULLY_INDEXED = "fully indexed"
 
 
 def add_commands(sub) -> None:
@@ -41,11 +42,13 @@ def run(args, q: Queries) -> int:
               "in _bmad/custom/specdex.toml, or pass --family", file=sys.stderr)
         return EXIT_USAGE
     report = coverage(q, args.by, families)
+    # Nothing counted, or counted over a scope not fully indexed, is no clean result.
+    unsure = not report["rows"] or report["scope"] != FULLY_INDEXED
     if args.only:
         wanted = ("missing", "unknown") if args.only == "gaps" else (args.only,)
         report["rows"] = [r for r in report["rows"] if r["state"] in wanted]
     print(render.to_json(report) if args.json else coverage_text(report, q.index.generation))
-    return 1 if any(r["state"] in ("missing", "unknown") for r in report["rows"]) else 0
+    return 1 if unsure or any(r["state"] in ("missing", "unknown") for r in report["rows"]) else 0
 
 
 def population(q: Queries, families: list[str]) -> list[dict]:
@@ -84,22 +87,37 @@ def coverage(q: Queries, by: str, families: list[str] | None) -> dict:
         counts[row["state"]] += 1
     complete = q.scope_complete(RECORD_ROLES)
     return {"by": by, "families": families, "counts": dict(counts), "rows": rows,
-            "scope": "fully indexed" if complete is None else f"incomplete: {complete}"}
+            "scope": FULLY_INDEXED if complete is None else f"incomplete: {complete}"}
 
 
-def _architecture_edges(q: Queries) -> dict[str, dict[str, set]]:
-    evidence: dict[str, dict[str, set]] = defaultdict(lambda: defaultdict(set))
+def _architecture_edges(q: Queries) -> dict:
+    """A spine binds requirement IDs: population IDs directly, or its ticket's R ids, which reach population IDs
+    through the same Requirements lines a ticket chain follows (the spine's run folder sits in that ticket)."""
+    evidence: dict = defaultdict(lambda: defaultdict(set))
     rows = q.conn.execute(
-        "SELECT o.id, o.src_id, o.rule, o.status, o.path, o.line FROM occ o JOIN files f ON f.path=o.path "
+        "SELECT o.id, o.family, o.src_id, o.rule, o.status, o.path, o.line FROM occ o JOIN files f ON f.path=o.path "
         "WHERE o.kind='binds' AND f.role='record' AND f.artifact='architecture-spine'").fetchall()
+    tree = tickets.load_tree(q) if any(_ticket_owned(q, row["family"]) for row in rows) else None
     for row in rows:
-        if row["status"] == "ambiguous":
+        kind, label = ("declared", row["src_id"]) if row["rule"] == "binds-marker" else ("partial", "spine frontmatter binds")
+        if tree is not None and _ticket_owned(q, row["family"]):
+            for reach in tickets.trace(q, tree, tickets.container_holding(tree, row["path"]), row["id"]):
+                key = (reach.target_path, reach.target) if reach.target_path else reach.target
+                if reach.state in tickets.REACHED and reach.target:
+                    evidence[key][kind].add(label)
+                elif reach.target:
+                    evidence[key]["unknown"].add(f"{row['path']}:{row['line']} {row['id']}: {reach.state}")
+        elif row["status"] == "ambiguous":
             evidence[row["id"]]["unknown"].add(f"{row['path']}:{row['line']}")
-        elif row["rule"] == "binds-marker":
-            evidence[row["id"]]["declared"].add(row["src_id"])
         else:
-            evidence[row["id"]]["partial"].add("spine frontmatter binds")
+            evidence[row["id"]][kind].add(label)
     return evidence
+
+
+def _ticket_owned(q: Queries, family: str) -> bool:
+    """A family a ticket defines (R ids)."""
+    owners = getattr(q.index.config.families.get(family), "owners", ())
+    return any(owner in layout.CONTAINER_TYPES for owner in owners)
 
 
 def _ux_edges(q: Queries) -> dict[str, dict[str, set]]:
@@ -148,7 +166,9 @@ def covers(q: Queries) -> dict:
     tree = tickets.load_tree(q)
     all_chains = tickets.chains(q, tree)
     live = [t for t in tree.tickets if not t.dropped]
-    problems = [{"ticket": c.ticket, "covers": c.covered_id, "state": c.state, "detail": c.detail}
+    by_key = {t.key: t for t in tree.tickets}
+    problems = [{"ticket": c.ticket, "covers": c.covered_id, "state": c.state, "detail": c.detail,
+                 **dict(zip(("path", "line"), tickets.covers_location(q, by_key[c.key])))}
                 for c in all_chains if c.state not in tickets.REACHED]
     unchecked = _no_specs_of_record(q)
     if unchecked and all_chains:  # every chain would end "not defined"; that says nothing about the tickets
@@ -159,7 +179,7 @@ def covers(q: Queries) -> dict:
         if ticket.file is not None and ticket.file_covers is not None and sorted(ticket.file_covers) != sorted(ticket.covers):
             drift.append({"ticket": ticket.ref, "file": ticket.file, "file_covers": ticket.file_covers, "entry_covers": ticket.covers})
     for code, path, line, detail in tree.problems:
-        problems.append({"ticket": None, "covers": None, "state": code, "detail": f"{path}:{line} {detail}"})
+        problems.append({"ticket": None, "covers": None, "state": code, "detail": f"{path}:{line} {detail}", "path": path, "line": line})
     local = [{"ticket": c.ticket, "covers": c.covered_id, "detail": c.detail} for c in all_chains if c.state == "local"]
     return {"tickets": len(tree.tickets), "chains": len(all_chains), "problems": problems, "drift": drift,
             "planned": [t.ref for t in live if t.planned], "dropped": [t.ref for t in tree.tickets if t.dropped], "local": local,

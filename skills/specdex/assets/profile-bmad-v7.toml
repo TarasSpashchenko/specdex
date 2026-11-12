@@ -1,12 +1,15 @@
 # specdex BMAD profile: the BMad v7 initiative layout.
 # BMAD-METHOD "next" still reports version 6.13.0-next, but since its v6→v7 migration (bmod-method migration-1.toml)
-# planning skills write {output_folder}/{active_initiative}/<type>-<slug>/<type>-<slug>.md, and bmad-ticket replaced
-# bmad-preview-ticketing. Project-specific conventions belong in the project's customization, never here.
+# planning skills write {output_folder}/{active_initiative}/<type>-<slug>/<type>-<slug>.md. Since migration-2 each
+# initiative's and epic's breakdown sits in its tickets/ folder; Sofia (bmad-agent-po) writes the ticket tree and John
+# and Mary (bmad-agent-pm, bmad-agent-analyst) write planning documents on the bmad-facilitate engine, which marks each
+# with `template: <id>`. The October layout (breakdowns beside the container's file) is read too.
+# Project-specific conventions belong in the project's customization, never here.
 
 [profile]
 id = "bmad-v7"
-release = 1
-supports = "initiative-v7 layout (BMAD-METHOD next, 2026-10) + bmad-ticket tree"
+release = 2
+supports = "initiative-v7 layout (BMAD-METHOD next a867e160, 2026-11; the 2026-10 layout too) + bmad-agent-po ticket tree"
 
 # Profile selection when --profile is not given: profiles are tried in `order`; the first whose detection matches
 # wins, and the `default` profile is used when none matches.
@@ -21,22 +24,23 @@ globs = [
   "{output_folder}/initiative-*/architecture-*/architecture-*.md",
   "{output_folder}/initiative-*/spec-*/spec-*.md",
   "{output_folder}/prd-*/prd-*.md",
+  "{output_folder}/initiative-*/tickets/tickets.toml",
 ]
 default = true
 
-# Installed files this profile was derived from. A missing or different file marks results "profile unverified".
+# Installed files this profile was derived from (BMAD-METHOD a867e160). A missing or different file marks results
+# "profile unverified". BMad's tickets.py is not pinned: tests compare specdex's tree with its output instead.
 [binding]
 skill_roots = [".agents/skills", ".claude/skills"]
 files = [
-  { path = "bmod-method/bmod.toml", sha256 = "0b2715bd4ec4dccd418a7185bc6e5369bfe93cdaa07f74d507afdaa5d01a35c4" },
-  { path = "bmad-prd/assets/prd-template.md", sha256 = "b6fe8fc1390b8e46961d5eb5e6f2fe6c65dca2f30623d492677672e02868f7ab" },
-  { path = "bmad-architecture/assets/spine-template.md", sha256 = "ef4ff795624eb5439fae54a06edb389feb5a0cf79cb01ae007af51109335d198" },
+  { path = "bmod-method/bmod.toml", sha256 = "bb0845c80ca14724dc4402754e5a50892cd67549e1cb2d17efabbecc32640908" },
+  { path = "bmad-agent-pm/assets/template-prd.md", sha256 = "47bfad621d981fcd23726a827e2ff9a505ccd7e6500ecb83110a1ce20518bc94" },
+  { path = "bmad-architecture/assets/spine-template.md", sha256 = "9dfeedef63217d9f988addf39fc86893cd7bbc12d4da85043650e4cc8b7291b2" },
   { path = "bmad-architecture/scripts/lint_spine.py", sha256 = "d4cda7e79fedc3752a9f363202c10e1c6226ef8b560eaaafd092e5b230f30d32" },
-  { path = "bmad-spec/assets/spec-template.md", sha256 = "8b499ac796ab038d266e1c2aba41a4161a9cc073c8a7b64254db94608c4ad1c3" },
   { path = "bmad-ux/references/design-md-spec.md", sha256 = "d04d5f663607aba3f3181e818ae33856e6caf5e560dcb16fa64ed80b7cf3d590" },
-  { path = "bmad-ticket/assets/tickets-template.toml", sha256 = "3bd5f76e099fe796c5d63e08e8b2945b74f0180801709ed0da45dba4eea62199" },
-  { path = "bmad-ticket/assets/epic-template.md", sha256 = "11b0faa125402a10cf2c66187a818ee445f322f8797b54473c323c21814f0fe2" },
-  { path = "bmad-ticket/assets/story-template.md", sha256 = "ca41c532e6f35e0014920e37c8b4441c1b0166f8c9830a39acc1d714e1b6f300" },
+  { path = "bmad-agent-po/assets/ticket-template.md", sha256 = "02167ba264c555aea6be0ddc5cbad00857c784c5eeede50280299180cdddb261" },
+  { path = "bmad-agent-po/assets/tickets-template.toml", sha256 = "e0943e4f1f30460d676737c1a004a9ed7f701438d05e00b7d32d1d69bd682016" },
+  { path = "bmad-facilitate/scripts/check_ids.py", sha256 = "b2ed8b916989e306edcecafccb3eb6e0ecaa7e276ee039b15043e3e41d7202c7" },
 ]
 
 # Layout probes: documents this profile cannot index.
@@ -50,12 +54,15 @@ unsupported = [
 variables = { output_folder = "core.output_folder", active_initiative = "core.active_initiative" }
 defaults = { output_folder = "{project-root}/_bmad-output", active_initiative = "" }
 
-# The specs of record are the owners inside the active initiative; owners, rationale and tickets elsewhere are
-# noncurrent (backlog tickets excepted). bmad-ticket may set active_initiative to a backlog folder: that scopes
-# tickets, not specs. With no initiative, one owner per type is the record and several are ambiguous.
+# The specs of record are the owners inside the active initiative and the parent initiatives that list it
+# (`[[initiative]]` in a parent's tickets.toml), one per type in each container: an epic's PRD stands beside its
+# initiative's. Owners, rationale and tickets elsewhere are noncurrent (backlog tickets excepted). active_initiative
+# may name a backlog folder: that scopes tickets, not specs. With no initiative, one owner per type is the record and
+# several are ambiguous.
 [current]
 scope = "{output_folder}/{active_initiative}"
 requires = { active_initiative = "initiative-*" }
+hint = "name the current one in the records setting, or move the older runs into {output_folder}/archive/"
 
 # Default families per coverage view (the project's coverage setting overrides each view).
 [coverage]
@@ -68,10 +75,13 @@ roots = ["{output_folder}"]
 include = ["*.md", "tickets.toml"]
 skip_dirs = [".git", "node_modules"]
 
-# Standalone tickets with no epic: a folder glob, since the v6→v7 migration writes backlog/, or backlog-<slug>/ when
-# there are several.
+# Standalone tickets with no epic: the backlog folder. bmad-agent-po's tickets.py reads `backlog/` alone, but the v6→v7
+# migration wrote `backlog-<slug>/` when there were several, so those are read too.
+# alias_families: an ID of these families on a Requirements line names the line's own requirement when no source
+# defines it (migrate_v6.py --fold-specs writes `R2 (CAP-1)` for a spec's capability folded into its ticket).
 [tickets]
 backlog = "{output_folder}/backlog*"
+alias_families = ["CAP"]
 
 # Artifact types from paths (first match wins), then refined by frontmatter `type`.
 # main = true: the file is its folder's main file (<type>-<slug>/<type>-<slug>.md).
@@ -80,6 +90,26 @@ backlog = "{output_folder}/backlog*"
 [[artifact]]
 type = "archive"
 glob = "{output_folder}/**/archive-*/**"   # the migration archives inside each initiative (archive-v6/)
+kind = "trail"
+[[artifact]]
+type = "archive"
+glob = "{output_folder}/archive/**"
+kind = "trail"
+[[artifact]]
+type = "shard-source"
+glob = "**/.source/**"   # bmad-shard-pro keeps the document it split here; the shards are the document
+kind = "trail"
+[[artifact]]
+type = "shard-lookup"
+glob = "**/identifier-lookup.md"
+kind = "trail"
+[[artifact]]
+type = "shard-map"
+glob = "{output_folder}/**/*-*/map-*.md"
+kind = "trail"
+[[artifact]]
+type = "template-copy"
+glob = "**/.template.md"   # bmad-facilitate's merged template in each run folder
 kind = "trail"
 [[artifact]]
 type = "inbox"
@@ -187,6 +217,26 @@ type = "brief-addendum"
 glob = "{output_folder}/**/brief-*/addendum.md"
 kind = "owner"
 [[artifact]]
+type = "srs"
+glob = "{output_folder}/**/srs-*/*.md"
+kind = "owner"
+main = true
+[[artifact]]
+type = "brd"
+glob = "{output_folder}/**/brd-*/*.md"
+kind = "owner"
+main = true
+[[artifact]]
+type = "agent-spec"
+glob = "{output_folder}/**/agent-spec-*/*.md"
+kind = "owner"
+main = true
+[[artifact]]
+type = "charter"
+glob = "{output_folder}/**/charter-*/*.md"
+kind = "owner"
+main = true
+[[artifact]]
 type = "ux-design"
 glob = "{output_folder}/**/ux-*/DESIGN.md"
 kind = "owner"
@@ -211,7 +261,8 @@ glob = "{output_folder}/**/spec-*/*.md"
 kind = "owner"
 main = true
 scope = "document"
-# The bmad-ticket tree: a container is <type>-<slug>/<type>-<slug>.md with a tickets.toml; leaves are <type>-<slug>.md.
+# The ticket tree: a container is <type>-<slug>/<type>-<slug>.md with a tickets.toml in its tickets/ folder (or beside
+# it, October layout); leaves are <type>-<slug>.md.
 [[artifact]]
 type = "tickets-toml"
 glob = "**/tickets.toml"
@@ -257,6 +308,7 @@ kind = "ticket"
 
 # Frontmatter `type:` values that refine the path-based artifact type of an owner, a ticket or an unmatched file;
 # a trail, rationale or memlog path never changes kind. `ux` marks the UX router file.
+# A shard (frontmatter `part_of`) takes the type of the main file it names.
 [frontmatter_types]
 architecture-spine = "architecture-spine"
 epic = "epic"
@@ -267,11 +319,20 @@ spike = "ticket-leaf"
 ux = "ux-router"
 migration = "migration"
 
+# Engine documents (bmad-facilitate) carry `template: <id>`. Owner templates define IDs for the artifact type named;
+# rationale templates explain and define nothing (a narrative's or business case's IDs are not requirements).
+[templates]
+owner = { prd = "prd", "prd-light" = "prd", srs = "srs", brd = "brd", "agent-spec" = "agent-spec", brief = "brief", charter = "charter" }
+rationale = ["opportunity", "business-case", "narrative", "pitch", "pitch-deck", "launch", "experiment", "prototype-plan",
+             "prfaq", "decision-record", "postmortem", "security-review", "proposal"]
+
+# Owners are listed highest priority first. BMad's planning IDs are global: every altitude's documents share one
+# numbering, so an ID defined in an epic PRD and its initiative's is a duplicate (as check_ids.py reports it).
 [[family]]
 name = "FR"
 pattern = 'FR-(?P<key>\d+)'
 key = "int"
-owner = ["prd"]
+owner = ["prd", "srs", "agent-spec"]
 [[family]]
 name = "UJ"
 pattern = 'UJ-(?P<key>\d+)'
@@ -281,7 +342,37 @@ owner = ["prd", "ux-experience"]
 name = "SM"
 pattern = 'SM-(?P<key>\d+)'
 key = "int"
+owner = ["charter", "prd"]
+[[family]]
+name = "RULE"
+pattern = 'RULE-(?P<key>\d+)'
+key = "int"
+owner = ["charter", "brd", "prd", "srs"]
+[[family]]
+name = "OQ"
+pattern = 'OQ-(?P<key>\d+)'
+key = "int"
 owner = ["prd"]
+[[family]]
+name = "BR"
+pattern = 'BR-(?P<key>\d+)'
+key = "int"
+owner = ["brd", "srs"]
+[[family]]
+name = "SC"
+pattern = 'SC-(?P<key>\d+)'
+key = "int"
+owner = ["agent-spec"]
+# A ticket's requirement ids ("the ticket is the spec at its altitude"): defined by a container's Requirements lines,
+# cited only in covers, Requirements lines and spine binds; "R2" anywhere else is prose. A story's or spine's R id is
+# its container's; a container's covers and `(parent R3)` name its parent's.
+[[family]]
+name = "R"
+pattern = 'R(?P<key>\d+)'
+key = "int"
+owner = ["initiative", "epic"]
+scope = "document"
+contexts = ["covers", "requirements", "binds"]
 [[family]]
 name = "SM-C"
 pattern = 'SM-C(?P<key>\d+)'
@@ -304,21 +395,48 @@ name = "TOKEN"
 kind = "token"
 owner = ["ux-design"]
 
-# Definition shapes. shape: heading | item-lead | row-key | yaml-tokens.
+# Definition shapes. shape: check-ids | heading | item-lead | row-key | yaml-tokens.
+# check-ids: where bmad-facilitate's check_ids.py says an ID is defined: opening a heading, a table row's first cell,
+# or a bold table cell, list item or line; an unbolded list item or line only when punctuation follows; not an ID
+# opening a list of IDs, not the rows of a table that mostly re-cites IDs defined before it; `withdrawn`, `removed`,
+# `dropped` or `superseded` after the ID makes it history.
 # heading: a heading whose text starts with the ID; item-lead: a list item that opens with the bold ID;
 # row-key: a table row whose first cell is exactly the ID (bold allowed).
+# documents: engine (a document bmad-facilitate wrote, marked by its `template`, or a shard of one: check_ids.py is
+# its contract), legacy (a PRD written before the engine, whose lists may cite IDs in check-ids forms), any (default).
+[[define]]
+family = "FR"
+artifact = "prd"
+shape = "check-ids"
+documents = "engine"
 [[define]]
 family = "FR"
 artifact = "prd"
 shape = "heading"
+documents = "legacy"
 [[define]]
 family = "FR"
 artifact = "prd"
-shape = "item-lead"   # v7 PRDs also write `- **FR-N. Title.** …`
+shape = "item-lead"   # October PRDs also write `- **FR-N. Title.** …`
+documents = "legacy"
+[[define]]
+family = "FR"
+artifact = "srs"
+shape = "check-ids"
+[[define]]
+family = "FR"
+artifact = "agent-spec"
+shape = "check-ids"
+[[define]]
+family = "UJ"
+artifact = "prd"
+shape = "check-ids"
+documents = "engine"
 [[define]]
 family = "UJ"
 artifact = "prd"
 shape = "item-lead"
+documents = "legacy"
 [[define]]
 family = "UJ"
 artifact = "ux-experience"
@@ -326,7 +444,71 @@ shape = "heading"
 [[define]]
 family = "SM"
 artifact = "prd"
+shape = "check-ids"
+documents = "engine"
+[[define]]
+family = "SM"
+artifact = "prd"
 shape = "item-lead"
+documents = "legacy"
+[[define]]
+family = "SM"
+artifact = "charter"
+shape = "check-ids"
+[[define]]
+family = "RULE"
+artifact = "prd"
+shape = "check-ids"
+documents = "engine"
+[[define]]
+family = "RULE"
+artifact = "brd"
+shape = "check-ids"
+[[define]]
+family = "RULE"
+artifact = "srs"
+shape = "check-ids"
+[[define]]
+family = "RULE"
+artifact = "charter"
+shape = "check-ids"
+[[define]]
+family = "RULE"
+artifact = "prd"
+shape = "item-lead"
+documents = "legacy"
+[[define]]
+family = "OQ"
+artifact = "prd"
+shape = "check-ids"
+documents = "engine"
+[[define]]
+family = "OQ"
+artifact = "prd"
+shape = "item-lead"
+documents = "legacy"
+[[define]]
+family = "BR"
+artifact = "brd"
+shape = "check-ids"
+[[define]]
+family = "BR"
+artifact = "srs"
+shape = "check-ids"
+[[define]]
+family = "SC"
+artifact = "agent-spec"
+shape = "check-ids"
+[[define]]
+family = "R"
+artifact = "initiative"
+shape = "check-ids"
+section = "Requirements"
+[[define]]
+family = "R"
+artifact = "epic"
+shape = "check-ids"
+section = "Requirements"
 [[define]]
 family = "SM-C"
 artifact = "prd"
@@ -357,10 +539,17 @@ architecture = ["architecture-spine"]
 experience = ["ux-experience"]
 design = ["ux-design"]
 spec = ["spec"]
+brd = ["brd"]
+srs = ["srs"]
+charter = ["charter"]
+"agent-spec" = ["agent-spec"]
 
-# Ranges cite every member: FR-1–FR-8, UJ-2…UJ-5, FR-20–27.
+# Ranges cite every member: FR-1–FR-8, UJ-2…UJ-5, FR-20–27, and as check_ids.py reads them FR-1 to FR-8,
+# FR-1 through FR-8, FR-1 — FR-8, **FR-1** - **FR-8**. Only the short separators end in a bare number.
 [ranges]
-separators = ["–", "…", ".."]
+separators = ["–", "…", "..", "—", "-", "to", "through"]
+short_separators = ["–", "…", ".."]
+bold_ends = true
 short_form = true
 max_members = 200
 
@@ -370,7 +559,8 @@ binds_marker = "**Binds:**"
 inherited_section = "Inherited Invariants"
 frontmatter_binds = "binds"
 
-# Fields: spec `sources` are audit-only; `companions` must be read alongside the owner.
+# Fields: a ticket's `sources` are its requirement sources (paths from the project root); `companions` must be read
+# alongside the owner or ticket; `covers` names the parent requirements a ticket serves.
 [fields]
 companions = "companions"
 sources = "sources"

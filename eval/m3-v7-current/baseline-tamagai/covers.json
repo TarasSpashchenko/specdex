@@ -1,0 +1,10 @@
+{
+ "tickets": 0,
+ "chains": 0,
+ "problems": [],
+ "drift": [],
+ "planned": [],
+ "dropped": [],
+ "local": [],
+ "note": "no ticket tree in the indexed scope (not a defect)"
+}

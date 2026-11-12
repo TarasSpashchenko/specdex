@@ -1,0 +1,6 @@
+{
+ "scope": "record",
+ "findings": [],
+ "validators": [],
+ "not_checked": "semantic consistency (contradictions without an ID edge), glossary synonym discipline and whether requirements are really fulfilled: these need the owning BMAD workflow's review"
+}

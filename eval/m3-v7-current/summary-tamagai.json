@@ -1,0 +1,35 @@
+{
+ "added_files": [],
+ "changed_files": [],
+ "custom_globs_to_update": [],
+ "fold": null,
+ "item_moves": {},
+ "matched_folders": [],
+ "moved_files": 0,
+ "output_folder": "_bmad-output",
+ "outside_references": [],
+ "rewritten_tokens": {},
+ "source": "tamagai-v7-2026-10-09",
+ "target": "tamagai-v7-current-2026-11-11",
+ "tickets_status": [
+  {
+   "exit": 0,
+   "initiative": "initiative-tamagai",
+   "status": {
+    "counts": {
+     "total": 0
+    },
+    "folder": "initiative-tamagai",
+    "longest_remaining_chain": [],
+    "next_id": 1,
+    "order_conflict": [],
+    "store": "repo",
+    "tickets": [],
+    "undeclared_after": [],
+    "unpinned_after": []
+   },
+   "stderr": ""
+  }
+ ],
+ "unrewritable": []
+}

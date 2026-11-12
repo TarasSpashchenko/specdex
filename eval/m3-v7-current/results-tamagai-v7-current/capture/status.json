@@ -1,0 +1,41 @@
+{
+ "mode": "worktree",
+ "generation": "665a3c30ee4a",
+ "profile": "bmad-v7",
+ "profile_reason": "active_initiative is set (initiative-tamagai)",
+ "current_scope": "_bmad-output/initiative-tamagai",
+ "parent_initiatives": [],
+ "records_setting": 0,
+ "overlay": null,
+ "files": 164,
+ "roles": {
+  "memlog": 8,
+  "record": 9,
+  "trail": 140,
+  "rationale": 7
+ },
+ "binding": {
+  "state": "unverified",
+  "mismatched": [
+   "bmod-method/bmod.toml",
+   "bmad-architecture/assets/spine-template.md",
+   "bmad-architecture/scripts/lint_spine.py"
+  ],
+  "missing": [
+   "bmad-agent-pm/assets/template-prd.md",
+   "bmad-agent-po/assets/ticket-template.md",
+   "bmad-agent-po/assets/tickets-template.toml",
+   "bmad-facilitate/scripts/check_ids.py"
+  ]
+ },
+ "diagnostics": [
+  {
+   "code": "parse-gap",
+   "severity": "medium",
+   "n": 1
+  }
+ ],
+ "verify_ms": 32.6,
+ "update_ms": 1777.3,
+ "reindexed": 164
+}

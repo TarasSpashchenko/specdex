@@ -1,0 +1,176 @@
+{
+ "corpus": "tamagai-v7-current",
+ "summary": {
+  "deterministic": "6/6",
+  "agent-only": "0/0",
+  "identity": "0/0",
+  "freshness": "0/0",
+  "false_clean": []
+ },
+ "tree_validation": {
+  "command": "uv run _bmad/method/scripts/tickets.py --project-root <workspace> status _bmad-output/initiative-tamagai",
+  "exit": 0,
+  "stderr": "",
+  "status": {
+   "store": "repo",
+   "folder": "initiative-tamagai",
+   "tickets": [
+    {
+     "epic": "epic-parent-deletion",
+     "id": 1,
+     "file": "story-delete-everything.md",
+     "type": "story",
+     "tracker_id": "",
+     "title": "Delete everything",
+     "status": "in-progress",
+     "tracker_status": "",
+     "state": "in-progress",
+     "assignee": "",
+     "hitl": false,
+     "risk": "medium",
+     "covers": [
+      "R1"
+     ],
+     "estimate": "",
+     "refine": false,
+     "refined": true,
+     "blocked_at": "",
+     "blocked_reason": "",
+     "ref": "1.1",
+     "after": [],
+     "blocks": []
+    },
+    {
+     "epic": "epic-parent-deletion",
+     "id": 2,
+     "file": "story-show-deletion-states.md",
+     "type": "story",
+     "tracker_id": "",
+     "title": "Show deletion states",
+     "status": "",
+     "tracker_status": "",
+     "state": "backlog",
+     "assignee": "",
+     "hitl": false,
+     "risk": "medium",
+     "covers": [
+      "R2"
+     ],
+     "estimate": "",
+     "refine": false,
+     "refined": false,
+     "blocked_at": "",
+     "blocked_reason": "",
+     "ref": "1.2",
+     "after": [],
+     "blocks": []
+    },
+    {
+     "epic": "epic-parent-deletion",
+     "id": 3,
+     "file": "story-show-linking-states.md",
+     "type": "story",
+     "tracker_id": "",
+     "title": "Show linking states",
+     "status": "",
+     "tracker_status": "",
+     "state": "backlog",
+     "assignee": "",
+     "hitl": false,
+     "risk": "medium",
+     "covers": [
+      "R3"
+     ],
+     "estimate": "",
+     "refine": false,
+     "refined": false,
+     "blocked_at": "",
+     "blocked_reason": "",
+     "ref": "1.3",
+     "after": [],
+     "blocks": []
+    }
+   ],
+   "counts": {
+    "total": 3,
+    "in-progress": 1,
+    "backlog": 2
+   },
+   "longest_remaining_chain": [
+    "1.1"
+   ],
+   "unpinned_after": [],
+   "undeclared_after": [],
+   "order_conflict": [],
+   "epics": [
+    {
+     "slug": "epic-parent-deletion",
+     "id": 1,
+     "after": [],
+     "folder": "epic-parent-deletion",
+     "status": "in-progress",
+     "refined": true,
+     "gated_by": [],
+     "blocks": [],
+     "next_id": 4
+    }
+   ]
+  }
+ },
+ "cases": [
+  {
+   "id": "B07",
+   "group": "deterministic",
+   "title": "unresolved covers source (tickets/ layout)",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "R9 is not a requirement of _bmad-output/initiative-tamagai/tickets/epic-parent-deletion/epic-parent-deletion.md"
+  },
+  {
+   "id": "B08",
+   "group": "deterministic",
+   "title": "refined file versus stale entry (tickets/ layout)",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "drift: file ['R1', 'R2'] vs entry ['R1']"
+  },
+  {
+   "id": "B09",
+   "group": "deterministic",
+   "title": "planned ticket without a file (tickets/ layout)",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "planned ['1.3']; problems 0; FR-68 still a gap: False"
+  },
+  {
+   "id": "B14",
+   "group": "deterministic",
+   "title": "epic Requirements line loses its parent",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "'- R2:': covers problems [('no-source', '_bmad-output/initiative-tamagai/tickets/epic-parent-deletion/epic-parent-deletion.md:26: R2 names neither a parent id nor a source section')], local [], lint ['ticket-no-source']; contrast '- R2 (Scope):': problems 0, local ['1.2']"
+  },
+  {
+   "id": "B15",
+   "group": "deterministic",
+   "title": "PRD leaves the initiative's sources",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "control FR states {'FR-68': 'declared', 'FR-71': 'declared'}; flagged [('1', 'R1', 'upstream-unresolved'), ('1', 'R2', 'upstream-unresolved'), ('1.1', 'R1', 'upstream-unresolved'), ('1.2', 'R2', 'upstream-unresolved'), ('1.3', 'R3', 'upstream-unresolved')]; lint ticket-upstream-unresolved 5; FR states {'FR-68': 'unknown', 'FR-71': 'unknown'}"
+  },
+  {
+   "id": "B16",
+   "group": "deterministic",
+   "title": "FR edited inside a shard",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "shard_tool check --rebuild exit 0 (19 warnings); answers differing from the unsharded PRD: []; ID diff of the sharding commit: {}; FR-71 edited: diff HEAD changed ['FR-71'], get has the new text: True; then FR-42 edited too: changed ['FR-42', 'FR-71'], get has the new text: True"
+  }
+ ]
+}

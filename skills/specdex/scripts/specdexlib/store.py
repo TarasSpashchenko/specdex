@@ -14,7 +14,7 @@ from .config import ConfigError
 from .extract import FileFacts
 from .sources import SourceFile
 
-SCHEMA_VERSION = 4  # stored in PRAGMA user_version; a different value rebuilds the tables
+SCHEMA_VERSION = 8  # stored in PRAGMA user_version; a different value rebuilds the tables
 APPLICATION_ID = 0x53445831  # "SDX1" in PRAGMA application_id: marks a file as a specdex index
 
 SCHEMA = """
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS files(
   path TEXT PRIMARY KEY, sha256 TEXT NOT NULL, size INTEGER, identity TEXT, is_link INTEGER,
   artifact TEXT, kind TEXT, scope_kind TEXT, lines INTEGER, frontmatter TEXT, text TEXT,
   extracted INTEGER DEFAULT 0,
-  role TEXT, canonical TEXT, companion_of TEXT, superseded_by TEXT, authority_note TEXT);
+  role TEXT, canonical TEXT, companion_of TEXT, superseded_by TEXT, authority_note TEXT, part_of TEXT);
 CREATE TABLE IF NOT EXISTS spans(
   sid INTEGER PRIMARY KEY, path TEXT, ord INTEGER, kind TEXT, start INTEGER, end INTEGER, level INTEGER,
   title TEXT, hpath TEXT, temporal TEXT, flags TEXT, disposition TEXT);
@@ -40,7 +40,7 @@ CREATE INDEX IF NOT EXISTS occ_id ON occ(id);
 CREATE INDEX IF NOT EXISTS occ_path ON occ(path, line);
 CREATE TABLE IF NOT EXISTS cand(
   cid INTEGER PRIMARY KEY, path TEXT, role TEXT, id TEXT, family TEXT, shape TEXT, sid INTEGER, line INTEGER,
-  parent_id TEXT, ordinal INTEGER);
+  parent_id TEXT, ordinal INTEGER, grp INTEGER, withdrawn INTEGER, documents TEXT, sentence INTEGER);
 CREATE INDEX IF NOT EXISTS cand_path ON cand(path);
 CREATE TABLE IF NOT EXISTS defs(
   did INTEGER PRIMARY KEY, id TEXT, family TEXT, scope TEXT, path TEXT, line INTEGER, sid INTEGER, shape TEXT,
@@ -148,8 +148,10 @@ def write_file(conn: sqlite3.Connection, source: SourceFile, text: str, facts: F
         [(source.path, o.line, o.col, o.family, o.id, o.raw, int(o.via_range), first + o.span, o.kind, o.src_id, o.rule)
          for o in facts.occurrences])
     conn.executemany(
-        "INSERT INTO cand(path, role, id, family, shape, sid, line, parent_id, ordinal) VALUES(?,?,?,?,?,?,?,?,?)",
-        [(source.path, role, c.id, c.family, c.shape, first + c.span, c.line, c.parent_id, c.ordinal)
+        "INSERT INTO cand(path, role, id, family, shape, sid, line, parent_id, ordinal, grp, withdrawn, documents, sentence) "
+        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        [(source.path, role, c.id, c.family, c.shape, first + c.span, c.line, c.parent_id, c.ordinal, c.group, int(c.withdrawn),
+          c.documents, int(c.sentence))
          for role, group in (("definition", facts.definitions), ("elaboration", facts.elaborations)) for c in group])
     conn.executemany("INSERT INTO poscount(path, parent_id, n) VALUES(?,?,?)",
                      [(source.path, parent, n) for parent, n in facts.positional_counts.items()])

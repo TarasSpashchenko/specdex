@@ -84,6 +84,7 @@ def lint(q: Queries, scope: str, validators: bool = True) -> LintReport:
         report.findings.append(Finding(row["code"], row["severity"], row["path"], row["line"], row["detail"]))
     report.findings += _citation_findings(q, in_scope)
     report.findings += _inherited_conflicts(q)
+    report.findings += _ticket_findings(q)
     if validators:
         report.findings += _run_validators(q, report)
     order = {"high": 0, "medium": 1, "low": 2, "info": 3}
@@ -94,11 +95,11 @@ def lint(q: Queries, scope: str, validators: bool = True) -> LintReport:
 def _citation_findings(q: Queries, in_scope: set[str]) -> list[Finding]:
     findings = []
     rows = q.conn.execute(
-        "SELECT o.path, o.line, o.id, o.family, o.raw, o.via_range, o.status, s.temporal FROM occ o LEFT JOIN spans s ON s.sid=o.sid "
+        "SELECT o.path, o.line, o.id, o.family, o.raw, o.via_range, o.status, o.kind, s.temporal FROM occ o LEFT JOIN spans s ON s.sid=o.sid "
         "WHERE o.status IN (%s) ORDER BY o.path, o.line" % ",".join("?" * len(CITATION_PROBLEMS)), CITATION_PROBLEMS).fetchall()
     for row in rows:
-        if row["path"] not in in_scope or (row["status"] == "historical" and row["temporal"] == "historical"):
-            continue  # history may cite history
+        if row["path"] not in in_scope or (row["status"] == "historical" and (row["temporal"] == "historical" or row["kind"] == "defines")):
+            continue  # history may cite history; a withdrawn ID's own line cites nothing
         what = {"unresolved": "dangling reference", "ambiguous": "ambiguous reference",
                 "out-of-bounds": "positional reference past the end of its list",
                 "historical": "cites an ID defined only in historical text"}[row["status"]]
@@ -122,6 +123,20 @@ def _inherited_conflicts(q: Queries) -> list[Finding]:
         if local:
             findings.append(Finding("inherited-conflict", "high", row["path"], row["line"],
                                     f"{row['id']} is inherited from the parent spine and also defined locally at line {local['line']}"))
+    return findings
+
+
+def _ticket_findings(q: Queries) -> list[Finding]:
+    """The ticket tree's covers chains that reach no defined ID (as `covers` reports them), where each is written."""
+    from . import coverage
+    findings = []
+    for problem in coverage.covers(q)["problems"]:
+        if problem["state"] == "scope-incomplete":  # lint reports the missing records itself
+            continue
+        code = problem["state"] if problem["state"].startswith("ticket-") else f"ticket-{problem['state']}"
+        subject = f"ticket {problem['ticket']} covers {problem['covers']}: " if problem["ticket"] else ""
+        findings.append(Finding(code, "medium" if problem["state"] == "ambiguous-source" else "high",
+                                problem.get("path") or "", problem.get("line") or 0, subject + problem["detail"]))
     return findings
 
 

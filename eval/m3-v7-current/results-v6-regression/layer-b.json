@@ -1,0 +1,233 @@
+{
+ "summary": {
+  "deterministic": "12/12",
+  "agent-only": "1/1",
+  "identity": "4/4",
+  "freshness": "6/6",
+  "false_clean": []
+ },
+ "latency": {
+  "full_rebuild_s": 1.707,
+  "full_rebuild_update_ms": 1540.0,
+  "warm_p95_s": 0.173,
+  "warm_median_s": 0.149,
+  "warm_calls": 30,
+  "incremental_s": 0.341,
+  "incremental_update_ms": 198.3,
+  "incremental_reindexed": 1,
+  "slo": {
+   "warm_p95_s": 0.5,
+   "full_rebuild_s": 5.0
+  },
+  "within_slo": true
+ },
+ "cases": [
+  {
+   "id": "B01",
+   "group": "deterministic",
+   "title": "range-hidden citation",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "EXPERIENCE.md:1184 'FR-40–44' listed by refs FR-42: True; by impact: True"
+  },
+  {
+   "id": "B02",
+   "group": "deterministic",
+   "title": "dropped positional consequence",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "FR-88 4→3 shifted (later positional citations may now name different text); FR-88.3 re-pointed, cited at 4 line(s)"
+  },
+  {
+   "id": "B03",
+   "group": "deterministic",
+   "title": "changed positional consequence",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "FR-88 edited in place; items ['FR-88.4']"
+  },
+  {
+   "id": "B04",
+   "group": "deterministic",
+   "title": "two same-ID scopes",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "resolve CAP-1: ambiguous: defined in 2 scopes; the citing document decides (2 defs); in-folder citations ['resolved', 'resolved']; README citation ambiguous; lint flagged 1"
+  },
+  {
+   "id": "B05",
+   "group": "deterministic",
+   "title": "inherited AD and local redefinition",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "AD-3 row resolves to parent: resolved; local AD-1 citation resolved; redefinition flagged: True"
+  },
+  {
+   "id": "B06",
+   "group": "deterministic",
+   "title": "missing required companion",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "required companion CHANGE-REQUESTS.md not found"
+  },
+  {
+   "id": "B07",
+   "group": "deterministic",
+   "title": "unresolved covers source",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "E9 is not in the requirement source of _bmad-output/initiative-tamagai-mvp/epic-parent-deletion"
+  },
+  {
+   "id": "B08",
+   "group": "deterministic",
+   "title": "refined file versus stale entry",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "drift: file ['E1', 'E2'] vs entry ['E1']"
+  },
+  {
+   "id": "B09",
+   "group": "deterministic",
+   "title": "planned ticket without a file",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "planned ['1.2']; problems 0; FR-68 still a gap: False"
+  },
+  {
+   "id": "B10",
+   "group": "deterministic",
+   "title": "reused retired ID",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "OQ-26 history: 167dad7 2026-11-11; never-used OQ-27 history: None"
+  },
+  {
+   "id": "B11",
+   "group": "deterministic",
+   "title": "same-size restored-time edit",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "size and mtime unchanged; generation 2011b38946d2 → 093a539be12c, reindexed 1"
+  },
+  {
+   "id": "B12",
+   "group": "deterministic",
+   "title": "ambiguous current artifact",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "resolve FR-71: ambiguous: defined in one of several candidate current documents; set the active initiative or the records setting; resolve FR-999 (copy only): ambiguous: defined in one of several candidate current documents; set the active initiative or the records setting; ambiguous-current flagged: True"
+  },
+  {
+   "id": "B13",
+   "group": "agent-only",
+   "title": "agent-only: lint states its semantic-check limit (limitation message only, no detection)",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "contradiction flagged by the tool: False (expected no); lint states what it does not check: True"
+  },
+  {
+   "id": "I1",
+   "group": "identity",
+   "title": "identical independent documents",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "copy-candidate: True; copy indexed separately as trail; colors.pip-cream still defined only in DESIGN.md: True"
+  },
+  {
+   "id": "I2",
+   "group": "identity",
+   "title": "declared equal replicas",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "alias of EXPERIENCE.md: True; copy/drift/duplicate findings: 0"
+  },
+  {
+   "id": "I3",
+   "group": "identity",
+   "title": "declared drifting replicas",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "replica-drift flagged: True"
+  },
+  {
+   "id": "I4",
+   "group": "identity",
+   "title": "shared symlink target",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "symlink is an alias: True; copy/duplicate findings: 0"
+  },
+  {
+   "id": "F1",
+   "group": "freshness",
+   "title": "dirty worktree edit",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "uncommitted edit visible on the next call without a rebuild command"
+  },
+  {
+   "id": "F2",
+   "group": "freshness",
+   "title": "inserted lines and bullets",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "FR-88 start 1261 → 1264; positional items 4 → 5"
+  },
+  {
+   "id": "F3",
+   "group": "freshness",
+   "title": "delete and rename",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "deleted file gone: True; renamed file found at new path: True; overlay record missing flagged: True"
+  },
+  {
+   "id": "F4",
+   "group": "freshness",
+   "title": "invalid YAML frontmatter",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "parse-gap flagged: True; body still searchable: True"
+  },
+  {
+   "id": "F5",
+   "group": "freshness",
+   "title": "branch change",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "feature branch seen: True; back on the first branch: True; --rev feature snapshot sees it: True"
+  },
+  {
+   "id": "F6",
+   "group": "freshness",
+   "title": "two simultaneous readers",
+   "passed": true,
+   "control_clean": true,
+   "detected": true,
+   "detail": "exit codes [0, 0]; generation 2011b38946d2 → ['239971c6a986']"
+  }
+ ]
+}

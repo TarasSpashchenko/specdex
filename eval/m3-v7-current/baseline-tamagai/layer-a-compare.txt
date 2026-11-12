@@ -1,0 +1,4 @@
+== compare with eval/m2-v7/results-tamagai-v7/layer-a-all.json under path-map-tamagai.json
+48 tasks, 192 task-conditions compared; 0 differences
+
+token delta per task-condition: min 0, max 0, changed 0/192

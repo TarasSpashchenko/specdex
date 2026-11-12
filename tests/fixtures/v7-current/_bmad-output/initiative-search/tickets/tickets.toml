@@ -1,0 +1,10 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Search by name"
+description = "A shopper types part of a product's name in the header search and picks the product from the results."
+verify = "On the deployed site, typing \"mug\" lists every mug, and picking one opens its page."
+covers = ["R1"]
+after = []
+hitl = false
+risk = "low"

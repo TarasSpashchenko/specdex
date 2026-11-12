@@ -1,0 +1,159 @@
+{
+  "run_id": "20261111-151827-specdex-triggers",
+  "completed_at": "2026-11-11T14:20:55Z",
+  "skill_name": "specdex",
+  "description": "Looks up, cites and checks the project's BMAD specs read-only: PRD and other planning documents, UX DESIGN.md and EXPERIENCE.md, architecture spine, tickets. Use when an answer depends on what the specs say or where: an ID such as FR-12 or AD-3, \"prd \u00a74.2\", wording, every citation of an ID, what a change touches, dangling references, ticket coverage; use it before grep. Not for editing specs: bmad-agent-pm, bmad-ux, bmad-architecture and bmad-agent-po do that.",
+  "harness": "customization workflow.harness",
+  "results": [
+    {
+      "query": "what does FR-12 say in our PRD?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "where is AD-3 cited across the specs?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "quote prd \u00a74.2 for me with the line numbers",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "which stories cover FR-7, and are there requirements no ticket covers?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "if I change UJ-2, what else in the spine and the UX docs is affected?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "check the specs for dangling references and duplicate IDs",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "is offline mode a requirement anywhere in the PRD or the addendum?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "what changed in the requirements between yesterday's commit and now?",
+      "should_trigger": true,
+      "trigger_rate": 0.333,
+      "triggers": 1,
+      "runs": 3,
+      "errors": [],
+      "pass": false
+    },
+    {
+      "query": "find where the spec talks about rate limiting for the import",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "is CAP-4 still defined in the current spec, or was it retired?",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "rewrite FR-12 so it is testable",
+      "should_trigger": false,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": false
+    },
+    {
+      "query": "create the architecture spine for this initiative",
+      "should_trigger": false,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": false
+    },
+    {
+      "query": "break the epic into stories",
+      "should_trigger": false,
+      "trigger_rate": 1.0,
+      "triggers": 3,
+      "runs": 3,
+      "errors": [],
+      "pass": false
+    },
+    {
+      "query": "grep the backend code for the payment controller",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "summarize this meeting transcript",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "query": "set up BMad in this repository",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 3,
+      "errors": [],
+      "pass": true
+    }
+  ],
+  "summary": {
+    "total": 16,
+    "passed": 12,
+    "failed": 4,
+    "unmeasured": 0
+  }
+}

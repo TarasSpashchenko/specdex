@@ -137,6 +137,8 @@ def _records_source(s: dict) -> str:
     """Where the specs of record come from: the records setting for the types it names, else the active
     initiative's folder, else one document per type."""
     default = s["current_scope"] or "by type"
+    if s.get("parent_initiatives"):
+        default += f" with parent {', '.join(s['parent_initiatives'])}"
     return f"setting ({s['records_setting']} file(s)), other types {default}" if s["records_setting"] else default
 
 

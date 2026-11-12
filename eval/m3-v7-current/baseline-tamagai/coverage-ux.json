@@ -1,0 +1,120 @@
+{
+ "by": "ux",
+ "families": [
+  "UJ"
+ ],
+ "counts": {
+  "declared": 12
+ },
+ "rows": [
+  {
+   "id": "UJ-1",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:834"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-2",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:852"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-3",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:870"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-4",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:887"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-5",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:903"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-6",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:917"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-7",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:933"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-8",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:947"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-9",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:962"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-10",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:978"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-11",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:991"
+   ],
+   "partial": [],
+   "unknown": []
+  },
+  {
+   "id": "UJ-12",
+   "state": "declared",
+   "declared": [
+    "EXPERIENCE.md:1005"
+   ],
+   "partial": [],
+   "unknown": []
+  }
+ ],
+ "scope": "fully indexed"
+}

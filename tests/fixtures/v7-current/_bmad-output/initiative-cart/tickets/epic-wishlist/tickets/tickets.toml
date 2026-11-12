@@ -1,0 +1,10 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Save an item for later"
+description = "A signed-in shopper moves a cart line to saved items and finds it there on the next visit."
+verify = "An item saved before signing out is in saved items after signing back in."
+covers = ["R1"]
+after = []
+hitl = false
+risk = "low"

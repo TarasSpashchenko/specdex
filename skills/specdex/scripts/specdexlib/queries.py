@@ -7,9 +7,11 @@ Empty answers say whether the scope was fully indexed.
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 from dataclasses import dataclass, field
 
+from . import store
 from .index import Index
 
 ROLE_ORDER = {"record": 0, "ambiguous": 1, "rationale": 2, "ticket": 3, "noncurrent": 4, "unverified": 5, "trail": 6, "memlog": 7}
@@ -79,8 +81,10 @@ class Queries:
         self.index = index
         self.conn = index.conn
         self.files = {r["path"]: dict(r) for r in self.conn.execute(
-            "SELECT path, sha256, role, artifact, canonical, superseded_by, authority_note, lines FROM files")}
+            "SELECT path, sha256, role, artifact, canonical, superseded_by, authority_note, lines, part_of FROM files")}
         self._lines_cache: dict[str, list[str]] = {}
+        # The active initiative and its parent initiatives (None: no initiative is active).
+        self.current_folders: list[str] | None = json.loads(store.get_meta(self.conn, "current_folders") or "null")
 
     # -- helpers ----------------------------------------------------------------------
     def lines(self, path: str) -> list[str]:
@@ -153,6 +157,7 @@ class Queries:
         return {
             "mode": self.index.mode, "generation": self.index.generation, "profile": self.index.config.profile_id,
             "profile_reason": self.index.config.profile_reason, "current_scope": self.index.config.current_scope,
+            "parent_initiatives": (self.current_folders or [])[1:],
             "records_setting": len(self.index.config.records),
             "overlay": str(self.index.config.overlay_path) if self.index.config.overlay_path else None,
             "files": len(self.files), "roles": roles, "binding": self.binding(), "diagnostics": diags,
